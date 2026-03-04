@@ -196,7 +196,7 @@ export async function isPaired() {
 // CHAT MESSAGES
 // ==========================================
 
-export async function sendChatMessage(text, imageBase64) {
+export async function sendChatMessage(text, imageBase64, videoUri) {
     const code = await getCoupleCode();
     const deviceId = await getDeviceId();
     const role = await getUserRole();
@@ -223,11 +223,46 @@ export async function sendChatMessage(text, imageBase64) {
         } catch (e) { console.log('Chat image upload error:', e); }
     }
 
+    // If video URI provided, upload via FormData
+    if (videoUri) {
+        try {
+            const vidResult = await uploadVideoToVPS(videoUri);
+            if (vidResult) msgData.videoUrl = vidResult.url;
+        } catch (e) { console.log('Chat video upload error:', e); }
+    }
+
     await addDoc(collection(db, 'couples', code, 'messages'), msgData);
 
     // Send push notification to partner
-    const preview = imageBase64 ? '📷 Gửi ảnh mới' : (text.length > 50 ? text.substring(0, 50) + '...' : text);
+    const preview = videoUri ? '🎬 Gửi video mới' : imageBase64 ? '📷 Gửi ảnh mới' : (text.length > 50 ? text.substring(0, 50) + '...' : text);
     await pushToPartner(`💌 ${senderName} ❤️ Nhi`, `💬 ${preview}`);
+}
+
+// Upload video file to VPS via FormData
+async function uploadVideoToVPS(uri) {
+    try {
+        const filename = uri.split('/').pop() || 'video.mp4';
+        const ext = filename.split('.').pop()?.toLowerCase() || 'mp4';
+        const mimeType = ext === 'mov' ? 'video/quicktime' : 'video/mp4';
+
+        const formData = new FormData();
+        formData.append('video', { uri, name: filename, type: mimeType });
+
+        const response = await fetch(`${VPS_IMAGE_URL}/upload-video`, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Content-Type': 'multipart/form-data' },
+        });
+        const data = await response.json();
+        if (data.success) {
+            console.log('[VPS] Video uploaded:', data.url);
+            return { url: data.url };
+        }
+        throw new Error(data.error || 'VPS video upload failed');
+    } catch (e) {
+        console.log('[VPS] Video upload failed:', e.message);
+        return null;
+    }
 }
 
 export function listenToMessages(callback) {

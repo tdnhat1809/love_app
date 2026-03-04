@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, FlatList, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Animated, Dimensions, Image, Modal, StatusBar } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Animated, Dimensions, Image, Modal, StatusBar, ActivityIndicator } from 'react-native';
+import { Video, ResizeMode } from 'expo-av';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, GRADIENTS, SHADOWS, BORDER_RADIUS } from '../theme';
@@ -71,6 +72,30 @@ export default function ChatScreen({ navigation }) {
         }
     };
 
+    const pickVideo = async () => {
+        try {
+            const result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ['videos'],
+                quality: 0.6,
+                videoMaxDuration: 60,
+            });
+            if (!result.canceled && result.assets[0]) {
+                setSending(true);
+                const uri = result.assets[0].uri;
+                try {
+                    await sendChatMessage('[🎬 Video]', null, uri);
+                } catch (err) {
+                    alert('Lỗi gửi video: ' + (err.message || ''));
+                } finally {
+                    setSending(false);
+                }
+            }
+        } catch (e) {
+            alert('Chọn video thất bại: ' + (e.message || ''));
+            setSending(false);
+        }
+    };
+
     const handleReaction = async (emoji) => {
         if (!reactionMsg) return;
         try {
@@ -130,7 +155,22 @@ export default function ChatScreen({ navigation }) {
                             })()}
                         </View>}
                         <View style={[s.bubble, isMe ? s.bubbleMe : s.bubblePartner]}>
-                            {item.imageUrl ? (
+                            {item.videoUrl ? (
+                                <TouchableOpacity activeOpacity={0.9} onPress={() => setZoomImage(null)}>
+                                    <View style={s.videoWrap}>
+                                        <Video
+                                            source={{ uri: item.videoUrl }}
+                                            style={s.chatVideo}
+                                            resizeMode={ResizeMode.COVER}
+                                            useNativeControls
+                                            isLooping={false}
+                                        />
+                                        <View style={s.videoOverlay}>
+                                            <Ionicons name="videocam" size={14} color="rgba(255,255,255,0.8)" />
+                                        </View>
+                                    </View>
+                                </TouchableOpacity>
+                            ) : item.imageUrl ? (
                                 <TouchableOpacity activeOpacity={0.9} onPress={() => setZoomImage(item.imageUrl)}>
                                     <Image source={{ uri: item.imageUrl }} style={s.chatImage} resizeMode="cover" />
                                     <View style={s.zoomHint}>
@@ -175,12 +215,19 @@ export default function ChatScreen({ navigation }) {
                 <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} keyboardVerticalOffset={90}>
                     <View style={s.inputWrap}>
                         <TouchableOpacity style={s.photoBtn} onPress={pickImage} disabled={sending}>
-                            <Ionicons name="image-outline" size={24} color={COLORS.primaryPink} />
+                            <Ionicons name="image-outline" size={22} color={COLORS.primaryPink} />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={s.photoBtn} onPress={pickVideo} disabled={sending}>
+                            <Ionicons name="videocam-outline" size={22} color={COLORS.primaryPink} />
                         </TouchableOpacity>
                         <TextInput style={s.input} placeholder="Nhập tin nhắn yêu thương..." placeholderTextColor={COLORS.textMuted} value={text} onChangeText={setText} multiline maxLength={500} />
-                        <TouchableOpacity style={[s.sendBtn, !text.trim() && { opacity: 0.4 }]} onPress={handleSend} disabled={!text.trim() || sending}>
-                            <LinearGradient colors={GRADIENTS.pink} style={s.sendGrad}><Ionicons name="send" size={18} color="#fff" /></LinearGradient>
-                        </TouchableOpacity>
+                        {sending ? (
+                            <View style={s.sendBtn}><ActivityIndicator size="small" color={COLORS.primaryPink} /></View>
+                        ) : (
+                            <TouchableOpacity style={[s.sendBtn, !text.trim() && { opacity: 0.4 }]} onPress={handleSend} disabled={!text.trim()}>
+                                <LinearGradient colors={GRADIENTS.pink} style={s.sendGrad}><Ionicons name="send" size={18} color="#fff" /></LinearGradient>
+                            </TouchableOpacity>
+                        )}
                     </View>
                 </KeyboardAvoidingView>
 
@@ -245,6 +292,9 @@ const s = StyleSheet.create({
     sendGrad: { width: 44, height: 44, alignItems: 'center', justifyContent: 'center', borderRadius: 22 },
     photoBtn: { padding: 8, marginRight: 4 },
     chatImage: { width: 200, height: 200, borderRadius: 14, marginBottom: 4 },
+    chatVideo: { width: 200, height: 150, borderRadius: 14 },
+    videoWrap: { position: 'relative', marginBottom: 4 },
+    videoOverlay: { position: 'absolute', top: 6, right: 6, backgroundColor: 'rgba(0,0,0,0.4)', borderRadius: 10, padding: 4 },
     zoomHint: { position: 'absolute', bottom: 8, right: 8, backgroundColor: 'rgba(0,0,0,0.4)', borderRadius: 12, padding: 4 },
 
     // Reactions
