@@ -92,7 +92,7 @@ export default function ChatScreen({ navigation }) {
                         <View style={s.npIcon}><Text style={{ fontSize: 48 }}>🔗</Text></View>
                         <Text style={s.npTitle}>Chưa ghép đôi</Text>
                         <Text style={s.npSub}>Kết nối hai điện thoại để bắt đầu{'\n'}nhắn tin cho nhau 💕</Text>
-                        <TouchableOpacity style={s.npBtn} onPress={() => navigation.navigate('Pairing')} activeOpacity={0.7}>
+                        <TouchableOpacity style={s.npBtn} onPress={() => navigation.navigate('More', { screen: 'Pairing' })} activeOpacity={0.7}>
                             <LinearGradient colors={GRADIENTS.pink} style={s.npBtnGrad} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
                                 <Ionicons name="link" size={18} color="#fff" />
                                 <Text style={s.npBtnText}>Ghép đôi ngay</Text>

@@ -245,16 +245,8 @@ export default function LocationScreen() {
             await saveLocationHistory({ latitude, longitude, speed: spd, address: addr });
         } catch (e) { console.log('Sync err:', e); }
 
-        // Send distance notification if partner location known
-        try {
-            const p = partnerRef.current;
-            if (p && p.latitude && p.longitude) {
-                const dist = getDistance(latitude, longitude, p.latitude, p.longitude);
-                const myName = role === 'nhat' ? 'Nhật' : 'Nhi';
-                const pName = p.name || (role === 'nhat' ? 'Nhi' : 'Nhật');
-                sendDistanceNotification(dist, myName, pName).catch(() => { });
-            }
-        } catch (e) { console.log('Distance notif err:', e); }
+        // Distance notification - only update the existing foreground service notification
+        // (removed sendDistanceNotification to prevent duplicate notification)
     };
 
     const centerOnPartner = () => {

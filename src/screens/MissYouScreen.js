@@ -150,7 +150,7 @@ export default function MissYouScreen({ navigation }) {
                     </View>
 
                     {!paired && (
-                        <TouchableOpacity style={s.pairHint} onPress={() => navigation.navigate('Pairing')} activeOpacity={0.7}>
+                        <TouchableOpacity style={s.pairHint} onPress={() => navigation.navigate('More', { screen: 'Pairing' })} activeOpacity={0.7}>
                             <LinearGradient colors={GRADIENTS.pinkSoft} style={s.pairGrad} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
                                 <Ionicons name="link" size={16} color="#fff" />
                                 <Text style={s.pairText}>Ghép đôi để gửi nhớ nhung</Text>

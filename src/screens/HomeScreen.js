@@ -259,7 +259,7 @@ export default function HomeScreen({ navigation }) {
                         </View>
 
                         {/* Miss You Mini Card */}
-                        <TouchableOpacity onPress={() => navigation.navigate('MissYou')} activeOpacity={0.8}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Love', { screen: 'MissYou' })} activeOpacity={0.8}>
                             <View style={[s.missCard, SHADOWS.card]}>
                                 <LinearGradient colors={['rgba(233,73,113,0.08)', 'rgba(206,147,216,0.06)']} style={s.missCardInner}>
                                     <View style={s.missLeft}>
@@ -279,7 +279,7 @@ export default function HomeScreen({ navigation }) {
                         </TouchableOpacity>
 
                         {/* Anniversary Card */}
-                        <TouchableOpacity onPress={() => navigation.navigate('Anniversary')} activeOpacity={0.8}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Memories', { screen: 'Anniversary' })} activeOpacity={0.8}>
                             <View style={[s.annivCard, SHADOWS.soft]}>
                                 <View style={s.annivIconBox}><Text style={{ fontSize: 24 }}>🎉</Text></View>
                                 <View style={{ flex: 1 }}>
@@ -307,12 +307,12 @@ export default function HomeScreen({ navigation }) {
                         {/* Quick Actions */}
                         <View style={s.actionsGrid}>
                             {[
-                                { icon: 'chatbubbles', label: 'Nhắn tin', colors: ['#ce93d8', '#b39ddb'], nav: 'Chat' },
-                                { icon: 'heart', label: 'I Miss U', colors: ['#f48fb1', '#e94971'], nav: 'MissYou' },
-                                { icon: 'camera', label: 'Ảnh đẹp', colors: ['#90caf9', '#64b5f6'], nav: 'Gallery' },
-                                { icon: 'calendar', label: 'Kỷ niệm', colors: ['#a5d6a7', '#81c784'], nav: 'Timeline' },
+                                { icon: 'chatbubbles', label: 'Nhắn tin', colors: ['#ce93d8', '#b39ddb'], tab: 'Chat' },
+                                { icon: 'heart', label: 'I Miss U', colors: ['#f48fb1', '#e94971'], tab: 'Love', screen: 'MissYou' },
+                                { icon: 'camera', label: 'Ảnh đẹp', colors: ['#90caf9', '#64b5f6'], tab: 'Memories', screen: 'Gallery' },
+                                { icon: 'calendar', label: 'Kỷ niệm', colors: ['#a5d6a7', '#81c784'], tab: 'Memories', screen: 'Anniversary' },
                             ].map((item, i) => (
-                                <TouchableOpacity key={i} style={s.actionCard} onPress={() => navigation.navigate(item.nav)} activeOpacity={0.7}>
+                                <TouchableOpacity key={i} style={s.actionCard} onPress={() => navigation.navigate(item.tab, item.screen ? { screen: item.screen } : undefined)} activeOpacity={0.7}>
                                     <LinearGradient colors={item.colors} style={s.actionGrad} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}>
                                         <View style={s.actionIconWrap}>
                                             <Ionicons name={item.icon} size={22} color="#fff" />

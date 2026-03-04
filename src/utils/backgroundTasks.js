@@ -74,8 +74,8 @@ export async function startBackgroundLocation() {
             deferredUpdatesInterval: 10000,
             showsBackgroundLocationIndicator: true,
             foregroundService: {
-                notificationTitle: 'Nhật ❤️ Nhi',
-                notificationBody: 'Đang chia sẻ vị trí với người yêu',
+                notificationTitle: '💑 Nhật ❤️ Nhi',
+                notificationBody: '📍 Đang chia sẻ vị trí • Bên nhau mỗi ngày 💕',
                 notificationColor: '#e94971',
             },
         });
