@@ -17,6 +17,10 @@ import AnniversaryScreen from './src/screens/AnniversaryScreen';
 import PairingScreen from './src/screens/PairingScreen';
 import PeriodTrackerScreen from './src/screens/PeriodTrackerScreen';
 import QuizScreen from './src/screens/QuizScreen';
+import DailyScreen from './src/screens/DailyScreen';
+import TimeCapsuleScreen from './src/screens/TimeCapsuleScreen';
+import VirtualPetScreen from './src/screens/VirtualPetScreen';
+import JournalScreen from './src/screens/JournalScreen';
 import { listenToNotifications, registerPushToken, forceRegisterPushToken } from './src/firebase/firebaseService';
 import { startBackgroundMessageCheck, scheduleDailyLoveQuote, scheduleHolidayWishes } from './src/utils/backgroundTasks';
 import { pushTokenDebugInfo } from './src/utils/notifications';
@@ -34,6 +38,10 @@ const tabs = {
   Anniversary: { icon: 'gift', iconOut: 'gift-outline', label: 'Đặc biệt' },
   PeriodTracker: { icon: 'calendar', iconOut: 'calendar-outline', label: 'Chu kỳ' },
   Quiz: { icon: 'heart-half', iconOut: 'heart-half-outline', label: 'Quiz' },
+  Daily: { icon: 'chatbox-ellipses', iconOut: 'chatbox-ellipses-outline', label: 'Hôm nay' },
+  TimeCapsule: { icon: 'mail', iconOut: 'mail-outline', label: 'Capsule' },
+  VirtualPet: { icon: 'paw', iconOut: 'paw-outline', label: 'Pet' },
+  Journal: { icon: 'book', iconOut: 'book-outline', label: 'Nhật ký' },
   Pairing: { icon: 'link', iconOut: 'link-outline', label: 'Ghép đôi' },
 };
 
@@ -97,6 +105,10 @@ export default function App() {
         <Tab.Screen name="Anniversary" component={AnniversaryScreen} />
         <Tab.Screen name="PeriodTracker" component={PeriodTrackerScreen} />
         <Tab.Screen name="Quiz" component={QuizScreen} />
+        <Tab.Screen name="Daily" component={DailyScreen} />
+        <Tab.Screen name="TimeCapsule" component={TimeCapsuleScreen} />
+        <Tab.Screen name="VirtualPet" component={VirtualPetScreen} />
+        <Tab.Screen name="Journal" component={JournalScreen} />
         <Tab.Screen name="Pairing" component={PairingScreen} />
       </Tab.Navigator>
     </NavigationContainer>

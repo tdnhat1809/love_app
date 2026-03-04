@@ -217,11 +217,16 @@ export async function sendDistanceNotification(distanceKm, myName, partnerName, 
         ? `Bên nhau ${togetherDays} ngày`
         : 'Bên nhau mỗi ngày';
 
+    const nearbyMsg = distanceKm < 0.1 ? '🥰 Đang ở rất gần nhau!'
+        : distanceKm < 1 ? '😊 Gần nhau lắm rồi!'
+            : distanceKm < 5 ? '💕 Khoảng cách không xa'
+                : '🌏 Đang xa nhau...';
+
     await Notifications.scheduleNotificationAsync({
         identifier: DISTANCE_NOTIF_ID,
         content: {
-            title: `📍 Khoảng cách: ${distStr}`,
-            body: `${myName} 📍 --- ${distStr} --- 📍 ${partnerName}\n💕 ${togetherStr}`,
+            title: `💑 ${myName} ❤️ ${partnerName} • ${distStr}`,
+            body: `${nearbyMsg}\n📍 Khoảng cách: ${distStr}\n🗓️ ${togetherStr}`,
             sound: null,
             sticky: true,
             autoDismiss: false,

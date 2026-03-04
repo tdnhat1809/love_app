@@ -876,4 +876,150 @@ export function computeQuizResults(quizData, myRole) {
     };
 }
 
+// ==========================================
+// DAILY QUESTIONS
+// ==========================================
+
+export async function saveDailyAnswer(date, answer) {
+    const code = await getCoupleCode();
+    const role = await getUserRole();
+    if (!code || !role) return;
+    const docRef = doc(db, 'couples', code, 'dailyAnswers', `${date}_${role}`);
+    await setDoc(docRef, { answer, role, date, answeredAt: serverTimestamp() });
+}
+
+export function listenToDailyAnswers(date, callback) {
+    (async () => {
+        const code = await getCoupleCode();
+        if (!code) return;
+        const q1 = query(collection(db, 'couples', code, 'dailyAnswers'), where('date', '==', date));
+        onSnapshot(q1, (snap) => {
+            const data = {};
+            snap.forEach(d => { data[d.data().role] = d.data(); });
+            callback(data);
+        });
+    })();
+    return () => { };
+}
+
+// ==========================================
+// MOOD TRACKER
+// ==========================================
+
+export async function saveMood(date, mood) {
+    const code = await getCoupleCode();
+    const role = await getUserRole();
+    if (!code || !role) return;
+    const docRef = doc(db, 'couples', code, 'moods', `${date}_${role}`);
+    await setDoc(docRef, { mood, role, date, savedAt: serverTimestamp() });
+}
+
+export function listenToMoods(callback) {
+    (async () => {
+        const code = await getCoupleCode();
+        if (!code) return;
+        const q1 = query(collection(db, 'couples', code, 'moods'), orderBy('date', 'desc'), limit(30));
+        onSnapshot(q1, (snap) => {
+            const data = [];
+            snap.forEach(d => data.push({ id: d.id, ...d.data() }));
+            callback(data);
+        });
+    })();
+    return () => { };
+}
+
+// ==========================================
+// TIME CAPSULE
+// ==========================================
+
+export async function saveTimeCapsule(capsule) {
+    const code = await getCoupleCode();
+    const role = await getUserRole();
+    if (!code || !role) return;
+    await addDoc(collection(db, 'couples', code, 'timeCapsules'), {
+        ...capsule, createdBy: role, createdAt: serverTimestamp(), opened: false,
+    });
+}
+
+export function listenToTimeCapsules(callback) {
+    (async () => {
+        const code = await getCoupleCode();
+        if (!code) return;
+        const q1 = query(collection(db, 'couples', code, 'timeCapsules'), orderBy('createdAt', 'desc'));
+        onSnapshot(q1, (snap) => {
+            const data = [];
+            snap.forEach(d => data.push({ id: d.id, ...d.data() }));
+            callback(data);
+        });
+    })();
+    return () => { };
+}
+
+export async function openTimeCapsule(capsuleId) {
+    const code = await getCoupleCode();
+    if (!code) return;
+    const docRef = doc(db, 'couples', code, 'timeCapsules', capsuleId);
+    await updateDoc(docRef, { opened: true, openedAt: serverTimestamp() });
+}
+
+// ==========================================
+// VIRTUAL PET
+// ==========================================
+
+export async function savePetData(petData) {
+    const code = await getCoupleCode();
+    if (!code) return;
+    const docRef = doc(db, 'couples', code, 'pet', 'status');
+    await setDoc(docRef, { ...petData, updatedAt: serverTimestamp() }, { merge: true });
+}
+
+export function listenToPet(callback) {
+    (async () => {
+        const code = await getCoupleCode();
+        if (!code) return;
+        const docRef = doc(db, 'couples', code, 'pet', 'status');
+        onSnapshot(docRef, (snap) => {
+            callback(snap.exists() ? snap.data() : null);
+        });
+    })();
+    return () => { };
+}
+
+export async function feedPet(action) {
+    const code = await getCoupleCode();
+    const role = await getUserRole();
+    if (!code || !role) return;
+    await addDoc(collection(db, 'couples', code, 'pet', 'status', 'actions'), {
+        action, by: role, at: serverTimestamp(),
+    });
+}
+
+// ==========================================
+// SHARED JOURNAL
+// ==========================================
+
+export async function saveJournalEntry(entry) {
+    const code = await getCoupleCode();
+    const role = await getUserRole();
+    if (!code || !role) return;
+    await addDoc(collection(db, 'couples', code, 'journal'), {
+        ...entry, author: role, createdAt: serverTimestamp(),
+    });
+}
+
+export function listenToJournal(callback) {
+    (async () => {
+        const code = await getCoupleCode();
+        if (!code) return;
+        const q1 = query(collection(db, 'couples', code, 'journal'), orderBy('createdAt', 'desc'), limit(50));
+        onSnapshot(q1, (snap) => {
+            const data = [];
+            snap.forEach(d => data.push({ id: d.id, ...d.data() }));
+            callback(data);
+        });
+    })();
+    return () => { };
+}
+
+
 
