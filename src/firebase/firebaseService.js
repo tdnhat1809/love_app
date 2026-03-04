@@ -90,21 +90,28 @@ export async function registerPushToken() {
 }
 
 // Force re-register with retries — call after pairing
-export async function forceRegisterPushToken(maxRetries = 3) {
+export async function forceRegisterPushToken(maxRetries = 5) {
+    let lastToken = null;
     for (let i = 0; i < maxRetries; i++) {
         console.log(`[PUSH] Force register attempt ${i + 1}/${maxRetries}`);
         const token = await registerPushToken();
         if (token) {
+            lastToken = token;
             const code = await getCoupleCode();
             if (code) {
-                console.log('[PUSH] ✅ Force register successful!');
+                console.log('[PUSH] ✅ Force register successful! Token saved to Firestore');
                 return token;
             }
+            console.log('[PUSH] ⚠️ Token obtained but no couple code yet, retry...');
         }
-        // Wait 2 seconds before retry
         await new Promise(r => setTimeout(r, 2000));
     }
-    console.log('[PUSH] ❌ Force register failed after all retries');
+    // Return token even without couple code — it's saved locally and will sync later
+    if (lastToken) {
+        console.log('[PUSH] ✅ Token obtained (saved locally). Will sync to Firestore after pairing.');
+        return lastToken;
+    }
+    console.log('[PUSH] ❌ Force register failed — no token at all');
     return null;
 }
 
