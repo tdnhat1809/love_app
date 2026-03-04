@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, FlatList, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Animated, Dimensions, Image, Modal, StatusBar, ActivityIndicator, Linking } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Animated, Dimensions, Image, Modal, StatusBar, ActivityIndicator } from 'react-native';
+import { Video, ResizeMode } from 'expo-av';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, GRADIENTS, SHADOWS, BORDER_RADIUS } from '../theme';
@@ -75,12 +76,14 @@ export default function ChatScreen({ navigation }) {
         }
     };
 
+    const [videoModal, setVideoModal] = useState(null);
+
     const pickVideo = async () => {
         try {
             const result = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes: ['videos'],
-                quality: 0.5,
-                videoMaxDuration: 30,
+                quality: 0.6,
+                videoMaxDuration: 300,
             });
             if (!result.canceled && result.assets[0]) {
                 setSending(true);
@@ -162,7 +165,7 @@ export default function ChatScreen({ navigation }) {
                         </View>}
                         <View style={[s.bubble, isMe ? s.bubbleMe : s.bubblePartner]}>
                             {item.videoUrl ? (
-                                <TouchableOpacity activeOpacity={0.9} onPress={() => Linking.openURL(item.videoUrl).catch(() => alert('Không mở được video'))}>
+                                <TouchableOpacity activeOpacity={0.9} onPress={() => setVideoModal(item.videoUrl)}>
                                     <View style={s.videoWrap}>
                                         <LinearGradient colors={['#2c2c3e', '#1a1a2e']} style={s.chatVideo}>
                                             <View style={s.videoPlayBtn}>
@@ -270,6 +273,25 @@ export default function ChatScreen({ navigation }) {
                             <View style={s.zoomCloseBg}><Ionicons name="close" size={24} color="#fff" /></View>
                         </TouchableOpacity>
                         {zoomImage && <Image source={{ uri: zoomImage }} style={s.zoomImg} resizeMode="contain" />}
+                    </View>
+                </Modal>
+
+                {/* Video Player Modal */}
+                <Modal visible={!!videoModal} transparent animationType="fade" onRequestClose={() => setVideoModal(null)} statusBarTranslucent>
+                    <View style={s.zoomOverlay}>
+                        <TouchableOpacity style={s.zoomClose} onPress={() => setVideoModal(null)}>
+                            <View style={s.zoomCloseBg}><Ionicons name="close" size={24} color="#fff" /></View>
+                        </TouchableOpacity>
+                        {videoModal && (
+                            <Video
+                                source={{ uri: videoModal }}
+                                style={{ width: width, height: height * 0.7 }}
+                                useNativeControls
+                                resizeMode={ResizeMode.CONTAIN}
+                                shouldPlay
+                                isLooping={false}
+                            />
+                        )}
                     </View>
                 </Modal>
             </LinearGradient>

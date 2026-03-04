@@ -302,11 +302,16 @@ async function uploadVideoToVPS(uri) {
         const formData = new FormData();
         formData.append('video', { uri, name: filename, type: mimeType });
 
+        // 5 minute timeout for large videos
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 300000);
         const response = await fetch(`${VPS_IMAGE_URL}/upload-video`, {
             method: 'POST',
             body: formData,
             headers: { 'Content-Type': 'multipart/form-data' },
+            signal: controller.signal,
         });
+        clearTimeout(timer);
         const data = await response.json();
         if (data.success && data.url) {
             console.log('[VPS] Video uploaded via FormData:', data.url);

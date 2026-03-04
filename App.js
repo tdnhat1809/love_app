@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
-import { View, StyleSheet, Alert } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { COLORS } from './src/theme';
 
 // Screens
@@ -84,44 +84,15 @@ const tabs = {
   More: { icon: 'apps', iconOut: 'apps-outline', label: 'Thêm' },
 };
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function App() {
   useEffect(() => {
-    forceRegisterPushToken(5).then(async token => {
-      if (token) {
-        console.log('✅ Push token registered:', token);
-        // Debug: show token info
-        try {
-          const nativeToken = await AsyncStorage.getItem('@push_token_native');
-          const tokenType = token.startsWith('ExponentPushToken') ? 'EXPO' : 'NATIVE';
-          console.log(`[DEBUG] Token type: ${tokenType}`);
-          console.log(`[DEBUG] Native FCM: ${nativeToken ? 'YES (' + nativeToken.substring(0, 30) + '...)' : 'NO'}`);
-          Alert.alert(
-            '🔔 Push Token Debug',
-            `✅ Token đã đăng ký!\n\nLoại: ${tokenType}\nExpo: ${token.substring(0, 35)}...\nNative FCM: ${nativeToken ? '✅ CÓ' : '❌ KHÔNG CÓ'}\n\n${nativeToken ? '→ Background push sẽ dùng FCM trực tiếp' : '→ Chỉ có Expo token, background có thể không hoạt động'}`,
-            [{ text: 'OK' }]
-          );
-        } catch (e) { console.log('Debug alert error:', e); }
-      } else {
-        // Show debug info to diagnose why token failed
-        const { pushTokenDebugInfo } = require('./src/utils/notifications');
-        Alert.alert(
-          '🔔 Push Token Debug',
-          `❌ Không lấy được push token!\n\n📋 Debug:\n${pushTokenDebugInfo || 'Không có thông tin debug'}\n\nKiểm tra quyền thông báo trong Cài đặt.`,
-          [{ text: 'OK' }]
-        );
-      }
+    forceRegisterPushToken(5).then(token => {
+      if (token) console.log('✅ Push token registered:', token.substring(0, 30));
     });
-    startBackgroundMessageCheck().then(ok => {
-      if (ok) console.log('✅ Background message check started');
-    });
-    scheduleDailyLoveQuote().then(ok => {
-      if (ok) console.log('✅ Daily love quote scheduled');
-    });
-    scheduleHolidayWishes().then(ok => {
-      if (ok) console.log('✅ Holiday wishes scheduled');
-    });
+    startBackgroundMessageCheck();
+    scheduleDailyLoveQuote();
+    scheduleHolidayWishes();
     const unsub = listenToNotifications((n) => console.log('💕 Notification:', n));
     return () => { if (unsub) unsub(); };
   }, []);

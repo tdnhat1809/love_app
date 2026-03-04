@@ -32,13 +32,15 @@ export default function DailyScreen() {
     useEffect(() => {
         Animated.timing(fadeAnim, { toValue: 1, duration: 500, useNativeDriver: true }).start();
         (async () => { const r = await getUserRole(); setRole(r || 'nhat'); })();
+    }, []);
+
+    useEffect(() => {
         const unsub1 = listenToDailyAnswers(todayQ.date, (data) => {
             setAnswers(data);
-            if (data[role]) setSubmitted(true);
         });
         const unsub2 = listenToMoods((data) => setMoodHistory(data));
         return () => { unsub1(); unsub2(); };
-    }, []);
+    }, [role]);
 
     useEffect(() => { if (answers[role]) setSubmitted(true); }, [answers, role]);
 
