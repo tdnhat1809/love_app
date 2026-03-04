@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, FlatList, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Animated, Dimensions, Image, Modal, StatusBar, ActivityIndicator } from 'react-native';
-import { Video, ResizeMode } from 'expo-av';
+import { View, Text, StyleSheet, FlatList, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Animated, Dimensions, Image, Modal, StatusBar, ActivityIndicator, Linking } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, GRADIENTS, SHADOWS, BORDER_RADIUS } from '../theme';
@@ -21,8 +20,7 @@ export default function ChatScreen({ navigation }) {
     const [avatars, setAvatars] = useState({});
     const [reactionMsg, setReactionMsg] = useState(null);
     const [zoomImage, setZoomImage] = useState(null);
-    const [zoomVideo, setZoomVideo] = useState(null);
-    const [uploadProgress, setUploadProgress] = useState(null); // 'Đang tải ảnh...' or 'Đang tải video...'
+    const [uploadProgress, setUploadProgress] = useState(null);
     const fadeAnim = useRef(new Animated.Value(0)).current;
 
     useEffect(() => {
@@ -49,8 +47,7 @@ export default function ChatScreen({ navigation }) {
         try {
             const result = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes: ['images'],
-                quality: 0.8,
-                allowsEditing: true,
+                quality: 0.7,
             });
             if (!result.canceled && result.assets[0]) {
                 setSending(true);
@@ -165,18 +162,13 @@ export default function ChatScreen({ navigation }) {
                         </View>}
                         <View style={[s.bubble, isMe ? s.bubbleMe : s.bubblePartner]}>
                             {item.videoUrl ? (
-                                <TouchableOpacity activeOpacity={0.9} onPress={() => setZoomVideo(item.videoUrl)}>
+                                <TouchableOpacity activeOpacity={0.9} onPress={() => Linking.openURL(item.videoUrl).catch(() => alert('Không mở được video'))}>
                                     <View style={s.videoWrap}>
-                                        <Video
-                                            source={{ uri: item.videoUrl }}
-                                            style={s.chatVideo}
-                                            resizeMode={ResizeMode.COVER}
-                                            shouldPlay={false}
-                                            isMuted={true}
-                                        />
-                                        <View style={s.videoPlayBtn}>
-                                            <Ionicons name="play" size={28} color="#fff" />
-                                        </View>
+                                        <LinearGradient colors={['#2c2c3e', '#1a1a2e']} style={s.chatVideo}>
+                                            <View style={s.videoPlayBtn}>
+                                                <Ionicons name="play" size={28} color="#fff" />
+                                            </View>
+                                        </LinearGradient>
                                         <View style={s.videoBadge}>
                                             <Ionicons name="videocam" size={12} color="#fff" />
                                             <Text style={s.videoBadgeText}>Video</Text>
@@ -280,26 +272,6 @@ export default function ChatScreen({ navigation }) {
                         {zoomImage && <Image source={{ uri: zoomImage }} style={s.zoomImg} resizeMode="contain" />}
                     </View>
                 </Modal>
-
-                {/* Video Fullscreen Modal */}
-                <Modal visible={!!zoomVideo} transparent animationType="fade" onRequestClose={() => setZoomVideo(null)} statusBarTranslucent>
-                    <StatusBar hidden={!!zoomVideo} />
-                    <View style={s.zoomOverlay}>
-                        <TouchableOpacity style={s.zoomClose} onPress={() => setZoomVideo(null)}>
-                            <View style={s.zoomCloseBg}><Ionicons name="close" size={24} color="#fff" /></View>
-                        </TouchableOpacity>
-                        {zoomVideo && (
-                            <Video
-                                source={{ uri: zoomVideo }}
-                                style={s.fullVideo}
-                                resizeMode={ResizeMode.CONTAIN}
-                                useNativeControls
-                                shouldPlay={true}
-                                isLooping={false}
-                            />
-                        )}
-                    </View>
-                </Modal>
             </LinearGradient>
         </View>
     );
@@ -332,12 +304,11 @@ const s = StyleSheet.create({
     sendGrad: { width: 44, height: 44, alignItems: 'center', justifyContent: 'center', borderRadius: 22 },
     photoBtn: { padding: 8, marginRight: 4 },
     chatImage: { width: 200, height: 200, borderRadius: 14, marginBottom: 4 },
-    chatVideo: { width: 200, height: 150, borderRadius: 14 },
+    chatVideo: { width: 200, height: 150, borderRadius: 14, alignItems: 'center', justifyContent: 'center' },
     videoWrap: { position: 'relative', marginBottom: 4, borderRadius: 14, overflow: 'hidden' },
-    videoPlayBtn: { position: 'absolute', top: '50%', left: '50%', marginTop: -24, marginLeft: -24, width: 48, height: 48, borderRadius: 24, backgroundColor: 'rgba(0,0,0,0.5)', alignItems: 'center', justifyContent: 'center' },
+    videoPlayBtn: { width: 52, height: 52, borderRadius: 26, backgroundColor: 'rgba(233,73,113,0.8)', alignItems: 'center', justifyContent: 'center' },
     videoBadge: { position: 'absolute', top: 8, left: 8, flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)', borderRadius: 10, paddingHorizontal: 8, paddingVertical: 3, gap: 4 },
     videoBadgeText: { color: '#fff', fontSize: 10, fontWeight: '700' },
-    fullVideo: { width: width, height: height * 0.7 },
     uploadBar: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: 8, paddingHorizontal: 16, backgroundColor: 'rgba(233,73,113,0.08)', gap: 8 },
     uploadText: { fontSize: 13, color: COLORS.primaryPink, fontWeight: '600' },
     zoomHint: { position: 'absolute', bottom: 8, right: 8, backgroundColor: 'rgba(0,0,0,0.4)', borderRadius: 12, padding: 4 },
