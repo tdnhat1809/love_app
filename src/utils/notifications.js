@@ -61,43 +61,45 @@ export async function getExpoPushToken() {
 
         let token = null;
 
-        // Method 1: Expo token with hardcoded projectId
+        // Method 1: Try native FCM token FIRST (most reliable for Android background push)
         try {
-            dbg += 'M1: getExpoPushTokenAsync...\n';
-            const tokenData = await Notifications.getExpoPushTokenAsync({
-                projectId: '5ab56ae9-fd5c-43da-a88c-6465f4d86517',
-            });
-            token = tokenData.data;
-            dbg += `M1 OK: ${token}\n`;
+            dbg += 'M1: getDevicePushTokenAsync (native FCM)...\n';
+            const dt = await Notifications.getDevicePushTokenAsync();
+            token = dt.data;
+            dbg += `M1 OK: ${typeof token === 'string' ? token.substring(0, 40) + '...' : JSON.stringify(token)}\n`;
         } catch (e1) {
             dbg += `M1 ERR: ${e1.message || e1}\n`;
+        }
 
-            // Method 2: Constants projectId
+        // Method 2: Try Expo push token with hardcoded projectId
+        if (!token) {
             try {
-                const pid = Constants.expoConfig?.extra?.eas?.projectId
-                    || Constants.manifest?.extra?.eas?.projectId;
-                dbg += `M2: pid=${pid}\n`;
-                if (pid) {
-                    const td = await Notifications.getExpoPushTokenAsync({ projectId: pid });
-                    token = td.data;
-                    dbg += `M2 OK: ${token}\n`;
-                } else {
-                    dbg += 'M2 SKIP: no pid\n';
-                }
+                dbg += 'M2: getExpoPushTokenAsync (hardcoded projectId)...\n';
+                const tokenData = await Notifications.getExpoPushTokenAsync({
+                    projectId: '5ab56ae9-fd5c-43da-a88c-6465f4d86517',
+                });
+                token = tokenData.data;
+                dbg += `M2 OK: ${token}\n`;
             } catch (e2) {
                 dbg += `M2 ERR: ${e2.message || e2}\n`;
             }
+        }
 
-            // Method 3: Native FCM token
-            if (!token) {
-                try {
-                    dbg += 'M3: getDevicePushTokenAsync...\n';
-                    const dt = await Notifications.getDevicePushTokenAsync();
-                    token = dt.data;
-                    dbg += `M3 OK: ${typeof token === 'string' ? token.substring(0, 40) : JSON.stringify(token)}\n`;
-                } catch (e3) {
-                    dbg += `M3 ERR: ${e3.message || e3}\n`;
+        // Method 3: Try Expo push token with Constants projectId
+        if (!token) {
+            try {
+                const pid = Constants.expoConfig?.extra?.eas?.projectId
+                    || Constants.manifest?.extra?.eas?.projectId;
+                dbg += `M3: Constants pid=${pid}\n`;
+                if (pid) {
+                    const td = await Notifications.getExpoPushTokenAsync({ projectId: pid });
+                    token = td.data;
+                    dbg += `M3 OK: ${token}\n`;
+                } else {
+                    dbg += 'M3 SKIP: no pid\n';
                 }
+            } catch (e3) {
+                dbg += `M3 ERR: ${e3.message || e3}\n`;
             }
         }
 

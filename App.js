@@ -104,7 +104,13 @@ export default function App() {
           );
         } catch (e) { console.log('Debug alert error:', e); }
       } else {
-        Alert.alert('🔔 Push Token Debug', '❌ Không lấy được push token!\n\nKiểm tra quyền thông báo trong Cài đặt.');
+        // Show debug info to diagnose why token failed
+        const { pushTokenDebugInfo } = require('./src/utils/notifications');
+        Alert.alert(
+          '🔔 Push Token Debug',
+          `❌ Không lấy được push token!\n\n📋 Debug:\n${pushTokenDebugInfo || 'Không có thông tin debug'}\n\nKiểm tra quyền thông báo trong Cài đặt.`,
+          [{ text: 'OK' }]
+        );
       }
     });
     startBackgroundMessageCheck().then(ok => {
