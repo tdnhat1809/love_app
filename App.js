@@ -2,17 +2,18 @@ import React, { useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
 import { View, StyleSheet } from 'react-native';
-import { COLORS, GRADIENTS } from './src/theme';
+import { COLORS } from './src/theme';
 
+// Screens
 import HomeScreen from './src/screens/HomeScreen';
-import GalleryScreen from './src/screens/GalleryScreen';
 import ChatScreen from './src/screens/ChatScreen';
 import MissYouScreen from './src/screens/MissYouScreen';
 import LocationScreen from './src/screens/LocationScreen';
+import GalleryScreen from './src/screens/GalleryScreen';
 import MessagesScreen from './src/screens/MessagesScreen';
-import TimelineScreen from './src/screens/TimelineScreen';
 import AnniversaryScreen from './src/screens/AnniversaryScreen';
 import PairingScreen from './src/screens/PairingScreen';
 import PeriodTrackerScreen from './src/screens/PeriodTrackerScreen';
@@ -21,56 +22,82 @@ import DailyScreen from './src/screens/DailyScreen';
 import TimeCapsuleScreen from './src/screens/TimeCapsuleScreen';
 import VirtualPetScreen from './src/screens/VirtualPetScreen';
 import JournalScreen from './src/screens/JournalScreen';
-import { listenToNotifications, registerPushToken, forceRegisterPushToken } from './src/firebase/firebaseService';
+
+// Hub screens
+import LoveHubScreen from './src/screens/LoveHubScreen';
+import MemoriesHubScreen from './src/screens/MemoriesHubScreen';
+import MoreHubScreen from './src/screens/MoreHubScreen';
+
+// Components & Utils
+import CustomAlert from './src/components/CustomAlert';
+import { listenToNotifications, forceRegisterPushToken } from './src/firebase/firebaseService';
 import { startBackgroundMessageCheck, scheduleDailyLoveQuote, scheduleHolidayWishes } from './src/utils/backgroundTasks';
-import { pushTokenDebugInfo } from './src/utils/notifications';
-import { Alert } from 'react-native';
 
 const Tab = createBottomTabNavigator();
+const LoveStack = createNativeStackNavigator();
+const MemoriesStack = createNativeStackNavigator();
+const MoreStack = createNativeStackNavigator();
 
+// ===== Stack Navigators for grouped tabs =====
+function LoveStackScreen() {
+  return (
+    <LoveStack.Navigator screenOptions={{ headerShown: false }}>
+      <LoveStack.Screen name="LoveHub" component={LoveHubScreen} />
+      <LoveStack.Screen name="MissYou" component={MissYouScreen} />
+      <LoveStack.Screen name="Quiz" component={QuizScreen} />
+      <LoveStack.Screen name="Daily" component={DailyScreen} />
+      <LoveStack.Screen name="VirtualPet" component={VirtualPetScreen} />
+      <LoveStack.Screen name="Messages" component={MessagesScreen} />
+    </LoveStack.Navigator>
+  );
+}
+
+function MemoriesStackScreen() {
+  return (
+    <MemoriesStack.Navigator screenOptions={{ headerShown: false }}>
+      <MemoriesStack.Screen name="MemoriesHub" component={MemoriesHubScreen} />
+      <MemoriesStack.Screen name="Gallery" component={GalleryScreen} />
+      <MemoriesStack.Screen name="Journal" component={JournalScreen} />
+      <MemoriesStack.Screen name="TimeCapsule" component={TimeCapsuleScreen} />
+      <MemoriesStack.Screen name="Anniversary" component={AnniversaryScreen} />
+    </MemoriesStack.Navigator>
+  );
+}
+
+function MoreStackScreen() {
+  return (
+    <MoreStack.Navigator screenOptions={{ headerShown: false }}>
+      <MoreStack.Screen name="MoreHub" component={MoreHubScreen} />
+      <MoreStack.Screen name="Location" component={LocationScreen} />
+      <MoreStack.Screen name="PeriodTracker" component={PeriodTrackerScreen} />
+      <MoreStack.Screen name="Pairing" component={PairingScreen} />
+    </MoreStack.Navigator>
+  );
+}
+
+// ===== Tab config =====
 const tabs = {
   Home: { icon: 'heart', iconOut: 'heart-outline', label: 'Trang chủ' },
   Chat: { icon: 'chatbubbles', iconOut: 'chatbubbles-outline', label: 'Nhắn tin' },
-  MissYou: { icon: 'heart-circle', iconOut: 'heart-circle-outline', label: 'Nhớ nhau' },
-  Location: { icon: 'location', iconOut: 'location-outline', label: 'Vị trí' },
-  Gallery: { icon: 'images', iconOut: 'images-outline', label: 'Ảnh' },
-  Messages: { icon: 'notifications', iconOut: 'notifications-outline', label: 'Yêu thương' },
-  Anniversary: { icon: 'gift', iconOut: 'gift-outline', label: 'Đặc biệt' },
-  PeriodTracker: { icon: 'calendar', iconOut: 'calendar-outline', label: 'Chu kỳ' },
-  Quiz: { icon: 'heart-half', iconOut: 'heart-half-outline', label: 'Quiz' },
-  Daily: { icon: 'chatbox-ellipses', iconOut: 'chatbox-ellipses-outline', label: 'Hôm nay' },
-  TimeCapsule: { icon: 'mail', iconOut: 'mail-outline', label: 'Capsule' },
-  VirtualPet: { icon: 'paw', iconOut: 'paw-outline', label: 'Pet' },
-  Journal: { icon: 'book', iconOut: 'book-outline', label: 'Nhật ký' },
-  Pairing: { icon: 'link', iconOut: 'link-outline', label: 'Ghép đôi' },
+  Love: { icon: 'heart-circle', iconOut: 'heart-circle-outline', label: 'Yêu thương' },
+  Memories: { icon: 'images', iconOut: 'images-outline', label: 'Kỷ niệm' },
+  More: { icon: 'apps', iconOut: 'apps-outline', label: 'Thêm' },
 };
 
 export default function App() {
   useEffect(() => {
-    // Register push token with retries — critical for push notifications!
     forceRegisterPushToken(5).then(token => {
-      if (token) {
-        console.log('✅ Push token registered:', token);
-      } else {
-        console.log('⚠️ Push token not saved yet (will retry after pairing)');
-      }
+      if (token) console.log('✅ Push token registered:', token);
     });
-
-    // Start background message polling (checks every 60s even when app closed)
     startBackgroundMessageCheck().then(ok => {
       if (ok) console.log('✅ Background message check started');
     });
-
-    // Schedule daily morning love quote at 7:00 AM
     scheduleDailyLoveQuote().then(ok => {
       if (ok) console.log('✅ Daily love quote scheduled');
     });
-
-    // Schedule holiday auto-wishes for all upcoming holidays
     scheduleHolidayWishes().then(ok => {
       if (ok) console.log('✅ Holiday wishes scheduled');
     });
-
     const unsub = listenToNotifications((n) => console.log('💕 Notification:', n));
     return () => { if (unsub) unsub(); };
   }, []);
@@ -98,25 +125,17 @@ export default function App() {
       >
         <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Chat" component={ChatScreen} />
-        <Tab.Screen name="MissYou" component={MissYouScreen} />
-        <Tab.Screen name="Location" component={LocationScreen} />
-        <Tab.Screen name="Gallery" component={GalleryScreen} />
-        <Tab.Screen name="Messages" component={MessagesScreen} />
-        <Tab.Screen name="Anniversary" component={AnniversaryScreen} />
-        <Tab.Screen name="PeriodTracker" component={PeriodTrackerScreen} />
-        <Tab.Screen name="Quiz" component={QuizScreen} />
-        <Tab.Screen name="Daily" component={DailyScreen} />
-        <Tab.Screen name="TimeCapsule" component={TimeCapsuleScreen} />
-        <Tab.Screen name="VirtualPet" component={VirtualPetScreen} />
-        <Tab.Screen name="Journal" component={JournalScreen} />
-        <Tab.Screen name="Pairing" component={PairingScreen} />
+        <Tab.Screen name="Love" component={LoveStackScreen} />
+        <Tab.Screen name="Memories" component={MemoriesStackScreen} />
+        <Tab.Screen name="More" component={MoreStackScreen} />
       </Tab.Navigator>
+      <CustomAlert />
     </NavigationContainer>
   );
 }
 
 const st = StyleSheet.create({
   tabBar: { position: 'absolute', borderTopWidth: 0, height: 68, paddingBottom: 8, paddingTop: 6, elevation: 8, shadowColor: 'rgba(233,73,113,0.1)', shadowOffset: { width: 0, height: -4 }, shadowOpacity: 1, shadowRadius: 12 },
-  tabLabel: { fontSize: 9, fontWeight: '600' },
+  tabLabel: { fontSize: 10, fontWeight: '600' },
   activeIcon: { backgroundColor: COLORS.primaryPinkSoft, borderRadius: 14, padding: 5 },
 });

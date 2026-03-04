@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
     View, Text, StyleSheet, TouchableOpacity, Animated,
-    ScrollView, TextInput, Alert, Modal, FlatList
+    ScrollView, TextInput, Modal, FlatList
 } from 'react-native';
+import { showAlert } from '../components/CustomAlert';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, GRADIENTS } from '../theme';
@@ -24,13 +25,13 @@ export default function TimeCapsuleScreen() {
     }, []);
 
     const handleCreate = async () => {
-        if (!message.trim()) return Alert.alert('', 'Viết gì đó vào capsule! 💌');
-        if (!unlockDate.match(/^\d{4}-\d{2}-\d{2}$/)) return Alert.alert('', 'Nhập ngày mở: YYYY-MM-DD');
+        if (!message.trim()) return showAlert({ title: 'Oops!', message: 'Viết gì đó vào capsule!', emoji: '💌', type: 'warning' });
+        if (!unlockDate.match(/^\d{4}-\d{2}-\d{2}$/)) return showAlert({ title: 'Sai định dạng', message: 'Nhập ngày mở: YYYY-MM-DD', type: 'warning' });
         const unlock = new Date(unlockDate);
-        if (unlock <= new Date()) return Alert.alert('', 'Ngày mở phải trong tương lai!');
+        if (unlock <= new Date()) return showAlert({ title: 'Oops!', message: 'Ngày mở phải trong tương lai!', type: 'warning' });
         await saveTimeCapsule({ message: message.trim(), unlockDate });
         setMessage(''); setUnlockDate(''); setShowCreate(false);
-        Alert.alert('💌', 'Time Capsule đã được niêm phong!');
+        showAlert({ title: 'Đã niêm phong!', message: 'Time Capsule đã được niêm phong!', emoji: '💌', type: 'love' });
     };
 
     const handleOpen = async (cap) => {
@@ -38,7 +39,7 @@ export default function TimeCapsuleScreen() {
         const unlock = new Date(cap.unlockDate);
         if (now < unlock) {
             const days = Math.ceil((unlock - now) / (1000 * 60 * 60 * 24));
-            return Alert.alert('🔒', `Còn ${days} ngày nữa mới mở được!`);
+            return showAlert({ title: 'Chưa đến lúc!', message: `Còn ${days} ngày nữa mới mở được!`, emoji: '🔒', type: 'lock' });
         }
         await openTimeCapsule(cap.id);
     };

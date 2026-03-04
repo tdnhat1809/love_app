@@ -1022,4 +1022,29 @@ export function listenToJournal(callback) {
 }
 
 
+// ==========================================
+// CUSTOM QUIZ QUESTIONS
+// ==========================================
 
+export async function saveCustomQuizQuestion(question) {
+    const code = await getCoupleCode();
+    const role = await getUserRole();
+    if (!code || !role) return;
+    await addDoc(collection(db, 'couples', code, 'customQuiz'), {
+        ...question, createdBy: role, createdAt: serverTimestamp(),
+    });
+}
+
+export function listenToCustomQuizQuestions(callback) {
+    (async () => {
+        const code = await getCoupleCode();
+        if (!code) return;
+        const q1 = query(collection(db, 'couples', code, 'customQuiz'), orderBy('createdAt', 'desc'));
+        onSnapshot(q1, (snap) => {
+            const data = [];
+            snap.forEach(d => data.push({ id: d.id, ...d.data() }));
+            callback(data);
+        });
+    })();
+    return () => { };
+}

@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
     View, Text, StyleSheet, TouchableOpacity, Animated,
-    ScrollView, TextInput, Alert, Modal, KeyboardAvoidingView, Platform
+    ScrollView, TextInput, Modal, KeyboardAvoidingView, Platform
 } from 'react-native';
+import { showAlert } from '../components/CustomAlert';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, GRADIENTS } from '../theme';
@@ -27,10 +28,10 @@ export default function JournalScreen() {
     }, []);
 
     const handleSave = async () => {
-        if (!content.trim()) return Alert.alert('', 'Viết gì đó vào nhật ký! 📝');
+        if (!content.trim()) return showAlert({ title: 'Oops!', message: 'Viết gì đó vào nhật ký!', emoji: '📝', type: 'warning' });
         await saveJournalEntry({ title: title.trim() || 'Không tiêu đề', content: content.trim(), mood });
         setTitle(''); setContent(''); setMood(0); setShowWrite(false);
-        Alert.alert('📖', 'Đã lưu vào nhật ký!');
+        showAlert({ title: 'Đã lưu!', message: 'Đã lưu vào nhật ký!', emoji: '📖', type: 'success' });
     };
 
     const formatDate = (ts) => {

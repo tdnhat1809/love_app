@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
     View, Text, StyleSheet, TouchableOpacity, Animated,
-    Dimensions, ScrollView, TextInput, Alert, KeyboardAvoidingView, Platform
+    Dimensions, ScrollView, TextInput, KeyboardAvoidingView, Platform
 } from 'react-native';
+import { showAlert } from '../components/CustomAlert';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, GRADIENTS } from '../theme';
@@ -42,7 +43,7 @@ export default function DailyScreen() {
     useEffect(() => { if (answers[role]) setSubmitted(true); }, [answers, role]);
 
     const submitAnswer = async () => {
-        if (!myAnswer.trim()) return Alert.alert('', 'Viết gì đó đi nào! 💕');
+        if (!myAnswer.trim()) return showAlert({ title: 'Oops!', message: 'Viết gì đó đi nào!', emoji: '💕', type: 'warning' });
         await saveDailyAnswer(todayQ.date, myAnswer.trim());
         setSubmitted(true);
     };

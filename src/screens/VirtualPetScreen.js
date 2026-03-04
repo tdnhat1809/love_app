@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
     View, Text, StyleSheet, TouchableOpacity, Animated,
-    Dimensions, ScrollView, Alert
+    Dimensions, ScrollView
 } from 'react-native';
+import { showAlert } from '../components/CustomAlert';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, GRADIENTS } from '../theme';
@@ -79,7 +80,7 @@ export default function VirtualPetScreen() {
         const today = new Date().toISOString().split('T')[0];
         const completedMissions = pet.completedMissions || {};
         if (completedMissions[`${today}_${mission.id}`]) {
-            return Alert.alert('', 'Đã hoàn thành nhiệm vụ này hôm nay rồi! 🎉');
+            return showAlert({ title: 'Đã xong!', message: 'Đã hoàn thành nhiệm vụ này hôm nay rồi!', emoji: '🎉', type: 'info' });
         }
         completedMissions[`${today}_${mission.id}`] = true;
         const updated = {
@@ -90,7 +91,7 @@ export default function VirtualPetScreen() {
             completedMissions,
         };
         await savePetData(updated);
-        Alert.alert('🎉', `+${mission.points} Love Points!`);
+        showAlert({ title: 'Tuyệt vời!', message: `+${mission.points} Love Points!`, emoji: '🎉', type: 'love' });
     };
 
     if (!pet) {

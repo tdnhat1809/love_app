@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
     View, Text, StyleSheet, TouchableOpacity, Animated,
-    Dimensions, ScrollView, Alert, ActivityIndicator, Modal
+    Dimensions, ScrollView, ActivityIndicator, Modal, TextInput
 } from 'react-native';
+import { showAlert } from '../components/CustomAlert';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, GRADIENTS } from '../theme';
 import { QUIZ_QUESTIONS, QUIZ_CATEGORIES } from '../data/quizData';
 import {
     saveQuizAnswers, listenToQuizAnswers, computeQuizResults,
-    getUserRole, isPaired
+    getUserRole, isPaired, saveCustomQuizQuestion, listenToCustomQuizQuestions
 } from '../firebase/firebaseService';
 
 const { width } = Dimensions.get('window');
@@ -31,6 +32,12 @@ export default function QuizScreen() {
     const slideAnim = useRef(new Animated.Value(50)).current;
     const progressAnim = useRef(new Animated.Value(0)).current;
 
+    // Custom quiz state
+    const [showCreateQ, setShowCreateQ] = useState(false);
+    const [customQuestion, setCustomQuestion] = useState('');
+    const [customOptions, setCustomOptions] = useState(['', '', '', '']);
+    const [customQuestions, setCustomQuestions] = useState([]);
+
     useEffect(() => {
         Animated.parallel([
             Animated.timing(fadeAnim, { toValue: 1, duration: 500, useNativeDriver: true }),
@@ -48,8 +55,9 @@ export default function QuizScreen() {
         const unsub = listenToQuizAnswers((data) => {
             setQuizData(data);
         });
+        const unsub2 = listenToCustomQuizQuestions((data) => setCustomQuestions(data));
 
-        return () => { if (unsub) unsub(); };
+        return () => { if (unsub) unsub(); if (unsub2) unsub2(); };
     }, []);
 
     // Compute results when quiz data changes
@@ -105,7 +113,7 @@ export default function QuizScreen() {
             await saveQuizAnswers(selfAnswers, guessAnswers);
             setPhase('waiting');
         } catch (e) {
-            Alert.alert('Lỗi', 'Không lưu được. Thử lại!');
+            showAlert({ title: 'Lỗi', message: 'Không lưu được. Thử lại!', type: 'error' });
         }
     };
 
@@ -114,6 +122,22 @@ export default function QuizScreen() {
         setGuessAnswers({});
         setCurrentQ(0);
         setPhase('self');
+    };
+
+    const handleCreateQ = async () => {
+        if (!customQuestion.trim()) return showAlert({ title: 'Oops!', message: 'Nhập câu hỏi!', type: 'warning' });
+        const validOpts = customOptions.filter(o => o.trim());
+        if (validOpts.length < 2) return showAlert({ title: 'Oops!', message: 'Cần ít nhất 2 lựa chọn!', type: 'warning' });
+        await saveCustomQuizQuestion({
+            selfQuestion: customQuestion.trim(),
+            guessQuestion: customQuestion.trim().replace('bạn', 'người yêu bạn'),
+            options: validOpts.map(o => o.trim()),
+            category: 'custom',
+        });
+        setCustomQuestion('');
+        setCustomOptions(['', '', '', '']);
+        setShowCreateQ(false);
+        showAlert({ title: 'Tạo xong!', message: 'Đã tạo câu hỏi mới!', emoji: '🎉', type: 'success' });
     };
 
     const myData = quizData[role];
@@ -388,8 +412,74 @@ export default function QuizScreen() {
                         <Text style={s.totalInfo}>
                             📝 {QUIZ_QUESTIONS.length} câu hỏi • 5 danh mục • ~5 phút
                         </Text>
+
+                        {/* Custom Quiz Section */}
+                        <View style={s.customSection}>
+                            <Text style={s.customTitle}>✨ Câu hỏi tự tạo</Text>
+                            <Text style={s.customDesc}>Tự tạo câu hỏi để thử sự hiểu nhau!</Text>
+
+                            <TouchableOpacity style={s.customCreateBtn} onPress={() => setShowCreateQ(true)}>
+                                <LinearGradient colors={['#7c4dff', '#b388ff']} style={s.customCreateGrad}>
+                                    <Ionicons name="add-circle" size={18} color="#fff" />
+                                    <Text style={s.customCreateText}>Tạo câu hỏi mới</Text>
+                                </LinearGradient>
+                            </TouchableOpacity>
+
+                            {customQuestions.length > 0 && (
+                                <View style={s.customList}>
+                                    {customQuestions.map((cq, i) => (
+                                        <View key={cq.id} style={s.customItem}>
+                                            <Text style={s.customItemQ}>{cq.selfQuestion}</Text>
+                                            <Text style={s.customItemMeta}>Bởi {cq.createdBy === 'nhat' ? 'Nhật' : 'Nhi'} • {cq.options?.length || 0} lựa chọn</Text>
+                                        </View>
+                                    ))}
+                                </View>
+                            )}
+                        </View>
                     </Animated.View>
                 </ScrollView>
+
+                {/* Create Custom Question Modal */}
+                <Modal visible={showCreateQ} transparent animationType="slide">
+                    <View style={s.modalOverlay}>
+                        <View style={s.modalBox}>
+                            <Text style={s.modalTitle}>✨ Tạo câu hỏi mới</Text>
+                            <TextInput
+                                style={s.modalInput}
+                                placeholder="Nhập câu hỏi... (VD: Sở thích của bạn?)"
+                                placeholderTextColor="#bbb"
+                                value={customQuestion}
+                                onChangeText={setCustomQuestion}
+                                multiline
+                            />
+                            <Text style={s.modalOptLabel}>📝 Các lựa chọn (tối thiểu 2)</Text>
+                            {customOptions.map((opt, i) => (
+                                <TextInput
+                                    key={i}
+                                    style={s.modalOptInput}
+                                    placeholder={`Lựa chọn ${String.fromCharCode(65 + i)}`}
+                                    placeholderTextColor="#ccc"
+                                    value={opt}
+                                    onChangeText={(t) => {
+                                        const newOpts = [...customOptions];
+                                        newOpts[i] = t;
+                                        setCustomOptions(newOpts);
+                                    }}
+                                />
+                            ))}
+                            <View style={s.modalActions}>
+                                <TouchableOpacity style={s.modalCancel} onPress={() => setShowCreateQ(false)}>
+                                    <Text style={s.modalCancelText}>Hủy</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={s.modalSave} onPress={handleCreateQ}>
+                                    <LinearGradient colors={['#7c4dff', '#b388ff']} style={s.modalSaveGrad}>
+                                        <Text style={s.modalSaveText}>Tạo ✨</Text>
+                                    </LinearGradient>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
             </LinearGradient>
         </View>
     );
@@ -480,4 +570,28 @@ const s = StyleSheet.create({
     retryBtn: { borderRadius: 18, overflow: 'hidden' },
     retryGrad: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: 16 },
     retryText: { color: '#fff', fontWeight: '700', fontSize: 15, marginLeft: 8 },
+
+    // Custom quiz
+    customSection: { backgroundColor: 'rgba(255,255,255,0.8)', borderRadius: 20, padding: 20, marginTop: 20 },
+    customTitle: { fontSize: 16, fontWeight: '800', color: COLORS.textDark },
+    customDesc: { fontSize: 12, color: COLORS.textMuted, marginTop: 2, marginBottom: 14 },
+    customCreateBtn: { borderRadius: 14, overflow: 'hidden', marginBottom: 12 },
+    customCreateGrad: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: 12 },
+    customCreateText: { color: '#fff', fontWeight: '700', fontSize: 14, marginLeft: 6 },
+    customList: { gap: 8 },
+    customItem: { backgroundColor: '#f8f4ff', borderRadius: 12, padding: 12, borderLeftWidth: 3, borderLeftColor: '#7c4dff' },
+    customItemQ: { fontSize: 13, fontWeight: '700', color: COLORS.textDark },
+    customItemMeta: { fontSize: 10, color: COLORS.textMuted, marginTop: 3 },
+    modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.4)', justifyContent: 'flex-end' },
+    modalBox: { backgroundColor: '#fff', borderTopLeftRadius: 24, borderTopRightRadius: 24, padding: 24, paddingBottom: 40 },
+    modalTitle: { fontSize: 20, fontWeight: '900', color: COLORS.textDark, textAlign: 'center', marginBottom: 14 },
+    modalInput: { borderWidth: 1.5, borderColor: '#e0e0e0', borderRadius: 14, padding: 14, fontSize: 15, backgroundColor: '#fafafa', marginBottom: 12, minHeight: 60, textAlignVertical: 'top' },
+    modalOptLabel: { fontSize: 13, fontWeight: '700', color: COLORS.textMedium, marginBottom: 8 },
+    modalOptInput: { borderWidth: 1.5, borderColor: '#e0e0e0', borderRadius: 12, padding: 12, fontSize: 14, backgroundColor: '#fafafa', marginBottom: 8 },
+    modalActions: { flexDirection: 'row', gap: 12, marginTop: 8 },
+    modalCancel: { flex: 1, paddingVertical: 14, borderRadius: 14, borderWidth: 1.5, borderColor: '#e0e0e0', alignItems: 'center' },
+    modalCancelText: { fontSize: 15, color: COLORS.textMuted, fontWeight: '600' },
+    modalSave: { flex: 2, borderRadius: 14, overflow: 'hidden' },
+    modalSaveGrad: { paddingVertical: 14, alignItems: 'center' },
+    modalSaveText: { color: '#fff', fontWeight: '700', fontSize: 15 },
 });
