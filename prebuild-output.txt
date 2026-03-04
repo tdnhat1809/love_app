@@ -1,0 +1,34 @@
+﻿- Creating native directory (./android)
+ΓêÜ Created native directory | reusing /android
+- Updating package.json
+ΓêÜ Updated package.json | no changes
+- Running prebuild
+node.exe : ┬╗ 
+android: 
+userInterfaceStyle: 
+Install 
+expo-system-ui in 
+your project to 
+enable this feature.
+At line:1 char:1
++ & "C:\Program Files\
+nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo 
+...
++ ~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~
+    + CategoryInfo    
+          : NotSpeci  
+  fied: (┬╗ android   
+ : use...e this fe    
+ature.:String) []    
+, RemoteException
+    + FullyQualifiedE 
+   rrorId : NativeCo  
+  mmandError
+ 
+- Running prebuild
+ΓêÜ Finished prebuild

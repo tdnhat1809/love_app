@@ -1,0 +1,62 @@
+﻿The field "cli.appVersionSource" is not set, but it will be required in the future. Learn more: https://docs.expo.dev/build-reference/app-versions/
+Resolved "production" environment for the build. Learn more: https://docs.expo.dev/eas/environment-variables/#setting-the-environment-for-your-builds
+No environment variables with visibility "Plain text" and "Sensitive" found for the "production" environment on EAS.
+
+
+
+The field "cli.appVersionSource" is not set, but it will be required in the future. Learn more: https://docs.expo.dev/build-reference/app-versions/
+Γ£ö Using remote Android credentials (Expo server)
+node.exe : Γ£ö Using Keystore from configuration: Build Credentials KbFIwrJT8P (default)
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Γ£ö Using Keyst...rJT8P (default):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+Compressing project files and uploading to EAS Build. Learn more: https://expo.fyi/eas-build-archive
+- Compressing project files\ Compressing project files| Compressing project files/ Compressing project files- Compressing 
+project files\ Compressing project files| Compressing project files/ Compressing project files- Compressing project files\ 
+Compressing project filesΓ£ö Compressed project files 4s (47.7 MB)
+- Uploading to EAS Build (0 / 47.7 MB)\ Uploading to EAS Build (64.0 KB / 47.7 MB)| Uploading to EAS Build (64.0 KB / 47.7 
+MB)/ Uploading to EAS Build (192 KB / 47.7 MB)- Uploading to EAS Build (192 KB / 47.7 MB)\ Uploading to EAS Build (192 KB 
+/ 47.7 MB)| Uploading to EAS Build (512 KB / 47.7 MB)/ Uploading to EAS Build (576 KB / 47.7 MB)- Uploading to EAS Build 
+(640 KB / 47.7 MB)\ Uploading to EAS Build (831 KB / 47.7 MB)| Uploading to EAS Build (1.4 MB / 47.7 MB)/ Uploading to EAS 
+Build (2.3 MB / 47.7 MB)- Uploading to EAS Build (3.1 MB / 47.7 MB)\ Uploading to EAS Build (5.6 MB / 47.7 MB)| Uploading 
+to EAS Build (9.2 MB / 47.7 MB)/ Uploading to EAS Build (12.3 MB / 47.7 MB)- Uploading to EAS Build (15.6 MB / 47.7 MB)\ 
+Uploading to EAS Build (19.9 MB / 47.7 MB)| Uploading to EAS Build (24.1 MB / 47.7 MB)/ Uploading to EAS Build (28.3 MB / 
+47.7 MB)- Uploading to EAS Build (32.6 MB / 47.7 MB)\ Uploading to EAS Build (36.9 MB / 47.7 MB)| Uploading to EAS Build 
+(41.3 MB / 47.7 MB)/ Uploading to EAS Build (44.0 MB / 47.7 MB)- Uploading to EAS Build (47.7 MB / 47.7 MB)\ Uploading to 
+EAS Build (47.7 MB / 47.7 MB)| Uploading to EAS Build (47.7 MB / 47.7 MB)/ Uploading to EAS Build (47.7 MB / 47.7 MB)Γ£ö 
+Uploaded to EAS 3s
+- Computing project fingerprint\ Computing project fingerprint| Computing project fingerprint/ Computing project 
+fingerprint- Computing project fingerprint\ Computing project fingerprint| Computing project fingerprint/ Computing 
+project fingerprint- Computing project fingerprint\ Computing project fingerprint| Computing project fingerprint/ 
+Computing project fingerprint- Computing project fingerprint\ Computing project fingerprint| Computing project 
+fingerprint/ Computing project fingerprint- Computing project fingerprint\ Computing project fingerprint| Computing 
+project fingerprint/ Computing project fingerprint- Computing project fingerprint\ Computing project fingerprint| 
+Computing project fingerprint/ Computing project fingerprintΓ£ö Computed project fingerprint
+
+See logs: https://expo.dev/accounts/b2w1234/projects/nhat-love-nhi/builds/1c771b88-a9ad-4bb4-b162-b37160c051bc
+
+Waiting for build to complete. You can press Ctrl+C to exit.
+- Waiting for build to complete.\ Waiting for build to complete.| Waiting for build to complete./ Waiting for build to 
+complete.- Waiting for build to complete.\ Build queued...| Build queued.../ Build queued...- Build queued...\ Build 
+queued...| Build queued.../ Build queued...- Build queued...\ Build queued...| Build queued.../ Build queued...- Build 
+queued...\ Build queued...| Build queued.../ Build queued...- Build queued...\ Build queued...| Build queued.../ Build 
+queued...- Build queued...\ Build queued...| Build queued.../ Build queued...- Build queued...\ Build queued...| Build 
+queued.../ Build queued...- Build queued...\ Build queued...| Build queued.../ Build queued...- Build queued...\ Build 
+queued...| Build queued.../ Build queued...- Build queued...\ Build queued...| Build queued.../ Build queued...- Build 
+queued...\ Build queued...| Build queued.../ Build queued...- Build queued...\ Build queued...| Build queued.../ Build 
+queued...- Build queued...\ Build queued...| Build queued.../ Build queued...- Build queued...\ Build queued...| Build 
+queued.../ Build queued...- Build queued...\ Build queued...| Build queued.../ Build queued...- Build queued...\ Build 
+queued...| Build queued.../ Build queued...- Build queued...\ Build queued...| Build queued.../ Build queued...- Build 
+queued...\ Build queued...| Build queued.../ Build queued...- Build queued...\ Build queued...| Build queued.../ Build 
+queued...- Build queued...\ Build queued...| Build queued.../ Build queued...- Build queued...\ Build queued...  Build 
+queued...
+
+Start builds sooner in the priority queue.
+Sign up for a paid plan at https://expo.dev/accounts/b2w1234/settings/billing
+
+Waiting in Free tier queue
+^C

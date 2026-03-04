@@ -1,0 +1,38 @@
+﻿=== Step 1: Test Service Account Key ===
+Γ£à Got OAuth2 access token!
+
+=== Step 2: Send push via Expo Push API (to check receipt after key upload) ===
+Tokens: [
+  'ExponentPushToken[dQIH-JGl6YaXbHuIRj1E74]',
+  'ExponentPushToken[4RHGY6BjDE6udncbei9fG6]'
+]
+Push result: {
+  "data": [
+    {
+      "status": "ok",
+      "id": "019cb257-7f29-7319-9149-27c6c50b8ac2"
+    },
+    {
+      "status": "ok",
+      "id": "019cb257-7f29-7319-9149-29e4b53f9bc1"
+    }
+  ]
+}
+
+Waiting 15s for delivery...
+
+=== Step 3: Check receipts ===
+{
+  "data": {
+    "019cb257-7f29-7319-9149-27c6c50b8ac2": {
+      "status": "ok"
+    },
+    "019cb257-7f29-7319-9149-29e4b53f9bc1": {
+      "status": "ok"
+    }
+  }
+}
+
+Γ£à 019cb257-7f29-7319-9149-27c6c50b8ac2: DELIVERED!
+
+Γ£à 019cb257-7f29-7319-9149-29e4b53f9bc1: DELIVERED!

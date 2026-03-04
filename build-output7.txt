@@ -1,0 +1,2004 @@
+﻿> Task :expo-gradle-plugin:expo-autolinking-plugin-shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :gradle-plugin:shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :gradle-plugin:settings-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :gradle-plugin:settings-plugin:pluginDescriptors UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:pluginDescriptors UP-TO-DATE
+> Task :gradle-plugin:settings-plugin:processResources UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:processResources UP-TO-DATE
+> Task :gradle-plugin:shared:compileKotlin UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-plugin-shared:compileKotlin UP-TO-DATE
+> Task :gradle-plugin:shared:compileJava NO-SOURCE
+> Task :expo-gradle-plugin:expo-autolinking-plugin-shared:compileJava NO-SOURCE
+> Task :gradle-plugin:shared:processResources NO-SOURCE
+> Task :gradle-plugin:shared:classes UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-plugin-shared:processResources NO-SOURCE
+> Task :expo-gradle-plugin:expo-autolinking-plugin-shared:classes UP-TO-DATE
+> Task :gradle-plugin:shared:jar UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-plugin-shared:jar UP-TO-DATE
+> Task :gradle-plugin:settings-plugin:compileKotlin UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:compileKotlin UP-TO-DATE
+> Task :gradle-plugin:settings-plugin:compileJava NO-SOURCE
+> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:compileJava NO-SOURCE
+> Task :gradle-plugin:settings-plugin:classes UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:classes UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:jar UP-TO-DATE
+> Task :gradle-plugin:settings-plugin:jar UP-TO-DATE
+> Task :expo-gradle-plugin:expo-max-sdk-override-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-gradle-plugin:expo-autolinking-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :gradle-plugin:react-native-gradle-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-module-gradle-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-module-gradle-plugin:pluginDescriptors UP-TO-DATE
+> Task :expo-module-gradle-plugin:processResources UP-TO-DATE
+> Task :expo-gradle-plugin:expo-max-sdk-override-plugin:compileKotlin UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-plugin:compileKotlin UP-TO-DATE
+> Task :expo-gradle-plugin:expo-max-sdk-override-plugin:compileJava NO-SOURCE
+> Task :expo-gradle-plugin:expo-autolinking-plugin:compileJava NO-SOURCE
+> Task :expo-gradle-plugin:expo-max-sdk-override-plugin:pluginDescriptors UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-plugin:pluginDescriptors UP-TO-DATE
+> Task :gradle-plugin:react-native-gradle-plugin:compileKotlin UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-plugin:processResources UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-plugin:classes UP-TO-DATE
+> Task :expo-gradle-plugin:expo-max-sdk-override-plugin:processResources UP-TO-DATE
+> Task :expo-gradle-plugin:expo-max-sdk-override-plugin:classes UP-TO-DATE
+> Task :gradle-plugin:react-native-gradle-plugin:compileJava NO-SOURCE
+> Task :gradle-plugin:react-native-gradle-plugin:pluginDescriptors UP-TO-DATE
+> Task :expo-gradle-plugin:expo-max-sdk-override-plugin:jar UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-plugin:jar UP-TO-DATE
+> Task :gradle-plugin:react-native-gradle-plugin:processResources UP-TO-DATE
+> Task :gradle-plugin:react-native-gradle-plugin:classes UP-TO-DATE
+> Task :gradle-plugin:react-native-gradle-plugin:jar UP-TO-DATE
+> Task :expo-module-gradle-plugin:compileKotlin UP-TO-DATE
+> Task :expo-module-gradle-plugin:compileJava NO-SOURCE
+> Task :expo-module-gradle-plugin:classes UP-TO-DATE
+> Task :expo-module-gradle-plugin:jar UP-TO-DATE
+
+> Configure project :app
+ Γä╣∩╕Å  [33mApplying gradle plugin[0m '[32mexpo-max-sdk-override-plugin[0m'
+  [expo-max-sdk-override-plugin] This plugin will find all permissions declared with `android:maxSdkVersion`. If there exists a declaration with the `android:maxSdkVersion` annotation and another one without, the plugin will remove the annotation from the final merged manifest. In order to see a log with the changes run a clean build of the app.
+
+> Configure project :
+[32m[ExpoRootProject][0m Using the following versions:
+  - buildTools:  [32m36.0.0[0m
+  - minSdk:      [32m24[0m
+  - compileSdk:  [32m36[0m
+  - targetSdk:   [32m36[0m
+  - ndk:         [32m27.1.12297006[0m
+  - kotlin:      [32m2.1.20[0m
+  - ksp:         [32m2.1.20-2.0.1[0m
+
+> Configure project :expo-modules-core
+Linking react-native-worklets native libs into expo-modules-core build tasks
+task ':react-native-worklets:mergeDebugNativeLibs'
+task ':react-native-worklets:mergeReleaseNativeLibs'
+
+> Configure project :expo
+
+Using expo modules
+  - [32mexpo-log-box[0m (55.0.7)
+  - [32mexpo-constants[0m (55.0.7)
+  - [32mexpo-modules-core[0m (55.0.13)
+  - [33m[≡ƒôª][0m [32mexpo-dom-webview[0m (55.0.3)
+  - [33m[≡ƒôª][0m [32mexpo-application[0m (55.0.8)
+  - [33m[≡ƒôª][0m [32mexpo-asset[0m (55.0.8)
+  - [33m[≡ƒôª][0m [32mexpo-background-fetch[0m (55.0.9)
+  - [33m[≡ƒôª][0m [32mexpo-battery[0m (55.0.8)
+  - [33m[≡ƒôª][0m [32mexpo-device[0m (55.0.9)
+  - [33m[≡ƒôª][0m [32mexpo-file-system[0m (55.0.10)
+  - [33m[≡ƒôª][0m [32mexpo-font[0m (55.0.4)
+  - [33m[≡ƒôª][0m [32mexpo-image-loader[0m (55.0.0)
+  - [33m[≡ƒôª][0m [32mexpo-image-manipulator[0m (55.0.9)
+  - [33m[≡ƒôª][0m [32mexpo-image-picker[0m (55.0.10)
+  - [33m[≡ƒôª][0m [32mexpo-keep-awake[0m (55.0.4)
+  - [33m[≡ƒôª][0m [32mexpo-linear-gradient[0m (55.0.8)
+  - [33m[≡ƒôª][0m [32mexpo-location[0m (55.1.2)
+  - [33m[≡ƒôª][0m [32mexpo-notifications[0m (55.0.10)
+  - [33m[≡ƒôª][0m [32mexpo-task-manager[0m (55.0.9)
+  - [33m[≡ƒôª][0m [32munimodules-app-loader[0m (55.0.2)
+
+
+> Task :expo-modules-core:preBuild UP-TO-DATE
+> Task :react-native-android-widget:preBuild UP-TO-DATE
+> Task :expo-log-box:preBuild UP-TO-DATE
+> Task :react-native-maps:generateCodegenSchemaFromJavaScript SKIPPED
+> Task :expo-modules-core:preReleaseBuild UP-TO-DATE
+> Task :expo-log-box:preReleaseBuild UP-TO-DATE
+> Task :react-native-android-widget:preReleaseBuild UP-TO-DATE
+> Task :react-native-safe-area-context:generateCodegenSchemaFromJavaScript UP-TO-DATE
+> Task :react-native-community_netinfo:generateCodegenSchemaFromJavaScript UP-TO-DATE
+> Task :react-native-webview:generateCodegenSchemaFromJavaScript UP-TO-DATE
+> Task :react-native-async-storage_async-storage:generateCodegenSchemaFromJavaScript UP-TO-DATE
+> Task :react-native-maps:generateCodegenArtifactsFromSchema SKIPPED
+> Task :expo:generatePackagesList UP-TO-DATE
+> Task :react-native-screens:generateCodegenSchemaFromJavaScript UP-TO-DATE
+> Task :expo:preBuild UP-TO-DATE
+> Task :react-native-maps:preBuild UP-TO-DATE
+> Task :expo-modules-core:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :expo:preReleaseBuild UP-TO-DATE
+> Task :react-native-maps:preReleaseBuild UP-TO-DATE
+> Task :expo-log-box:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-android-widget:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-screens:generateCodegenArtifactsFromSchema UP-TO-DATE
+> Task :react-native-webview:generateCodegenArtifactsFromSchema UP-TO-DATE
+> Task :expo-modules-core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :react-native-community_netinfo:generateCodegenArtifactsFromSchema UP-TO-DATE
+> Task :react-native-async-storage_async-storage:generateCodegenArtifactsFromSchema UP-TO-DATE
+> Task :react-native-maps:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-community_netinfo:preBuild UP-TO-DATE
+> Task :react-native-screens:preBuild UP-TO-DATE
+> Task :react-native-safe-area-context:generateCodegenArtifactsFromSchema UP-TO-DATE
+> Task :expo:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-community_netinfo:preReleaseBuild UP-TO-DATE
+> Task :react-native-screens:preReleaseBuild UP-TO-DATE
+> Task :react-native-async-storage_async-storage:preBuild UP-TO-DATE
+> Task :react-native-webview:preBuild UP-TO-DATE
+> Task :react-native-android-widget:mergeReleaseNativeLibs NO-SOURCE
+> Task :expo-log-box:mergeReleaseNativeLibs NO-SOURCE
+> Task :react-native-async-storage_async-storage:preReleaseBuild UP-TO-DATE
+> Task :app:generateAutolinkingNewArchitectureFiles UP-TO-DATE
+> Task :react-native-maps:mergeReleaseNativeLibs NO-SOURCE
+> Task :react-native-webview:preReleaseBuild UP-TO-DATE
+> Task :react-native-android-widget:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-safe-area-context:preBuild UP-TO-DATE
+> Task :expo-log-box:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-maps:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-safe-area-context:preReleaseBuild UP-TO-DATE
+> Task :react-native-maps:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :react-native-async-storage_async-storage:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-webview:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :expo:mergeReleaseNativeLibs NO-SOURCE
+> Task :expo-modules-core:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-community_netinfo:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :expo-log-box:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :react-native-android-widget:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-maps:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-async-storage_async-storage:mergeReleaseNativeLibs NO-SOURCE
+> Task :expo:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-safe-area-context:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-webview:mergeReleaseNativeLibs NO-SOURCE
+> Task :react-native-community_netinfo:mergeReleaseNativeLibs NO-SOURCE
+> Task :expo-modules-core:generateReleaseResValues UP-TO-DATE
+> Task :expo-log-box:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-android-widget:generateReleaseResValues UP-TO-DATE
+> Task :expo:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :react-native-maps:generateReleaseResValues UP-TO-DATE
+> Task :react-native-safe-area-context:mergeReleaseNativeLibs NO-SOURCE
+> Task :expo-log-box:generateReleaseResValues UP-TO-DATE
+> Task :react-native-async-storage_async-storage:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-webview:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :expo-modules-core:generateReleaseResources UP-TO-DATE
+> Task :react-native-webview:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :react-native-community_netinfo:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-maps:generateReleaseResources UP-TO-DATE
+> Task :expo:generateReleaseBuildConfig UP-TO-DATE
+> Task :expo-log-box:generateReleaseResources UP-TO-DATE
+> Task :react-native-safe-area-context:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-android-widget:generateReleaseResources UP-TO-DATE
+> Task :react-native-safe-area-context:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :react-native-webview:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-community_netinfo:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-async-storage_async-storage:generateReleaseBuildConfig UP-TO-DATE
+> Task :expo:generateReleaseResValues UP-TO-DATE
+> Task :react-native-community_netinfo:generateReleaseResValues UP-TO-DATE
+> Task :react-native-webview:generateReleaseResValues UP-TO-DATE
+> Task :react-native-async-storage_async-storage:generateReleaseResValues UP-TO-DATE
+> Task :expo:generateReleaseResources UP-TO-DATE
+> Task :react-native-community_netinfo:generateReleaseResources UP-TO-DATE
+> Task :react-native-safe-area-context:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-maps:packageReleaseResources UP-TO-DATE
+> Task :expo-modules-core:packageReleaseResources UP-TO-DATE
+> Task :react-native-webview:generateReleaseResources UP-TO-DATE
+> Task :react-native-async-storage_async-storage:generateReleaseResources UP-TO-DATE
+> Task :react-native-safe-area-context:generateReleaseResValues UP-TO-DATE
+> Task :react-native-android-widget:packageReleaseResources UP-TO-DATE
+> Task :expo-log-box:packageReleaseResources UP-TO-DATE
+> Task :expo:packageReleaseResources UP-TO-DATE
+> Task :react-native-safe-area-context:generateReleaseResources UP-TO-DATE
+> Task :react-native-android-widget:parseReleaseLocalResources UP-TO-DATE
+> Task :expo-modules-core:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-community_netinfo:packageReleaseResources UP-TO-DATE
+> Task :expo-log-box:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-maps:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-webview:packageReleaseResources UP-TO-DATE
+> Task :app:generateAutolinkingPackageList UP-TO-DATE
+> Task :expo:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-async-storage_async-storage:packageReleaseResources UP-TO-DATE
+> Task :react-native-android-widget:generateReleaseRFile UP-TO-DATE
+> Task :expo-log-box:generateReleaseRFile UP-TO-DATE
+> Task :react-native-webview:parseReleaseLocalResources UP-TO-DATE
+> Task :app:generateCodegenSchemaFromJavaScript SKIPPED
+> Task :react-native-community_netinfo:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-android-widget:javaPreCompileRelease UP-TO-DATE
+> Task :app:generateCodegenArtifactsFromSchema SKIPPED
+> Task :expo-log-box:javaPreCompileRelease UP-TO-DATE
+> Task :expo-modules-core:generateReleaseRFile UP-TO-DATE
+> Task :expo:generateReleaseRFile UP-TO-DATE
+> Task :react-native-async-storage_async-storage:parseReleaseLocalResources UP-TO-DATE
+> Task :expo-log-box:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-maps:generateReleaseRFile UP-TO-DATE
+> Task :app:generateReactNativeEntryPoint UP-TO-DATE
+> Task :react-native-webview:generateReleaseRFile UP-TO-DATE
+> Task :react-native-community_netinfo:generateReleaseRFile UP-TO-DATE
+> Task :expo:javaPreCompileRelease UP-TO-DATE
+> Task :react-native-safe-area-context:packageReleaseResources UP-TO-DATE
+> Task :expo-log-box:extractDeepLinksRelease UP-TO-DATE
+> Task :expo:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-community_netinfo:javaPreCompileRelease UP-TO-DATE
+> Task :expo-modules-core:javaPreCompileRelease UP-TO-DATE
+> Task :expo:extractDeepLinksRelease UP-TO-DATE
+> Task :expo-modules-core:writeReleaseAarMetadata UP-TO-DATE
+> Task :expo-log-box:processReleaseManifest UP-TO-DATE
+> Task :react-native-async-storage_async-storage:generateReleaseRFile UP-TO-DATE
+> Task :react-native-safe-area-context:parseReleaseLocalResources UP-TO-DATE
+> Task :expo-log-box:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-async-storage_async-storage:javaPreCompileRelease UP-TO-DATE
+> Task :expo:processReleaseManifest UP-TO-DATE
+> Task :expo-modules-core:extractDeepLinksRelease UP-TO-DATE
+> Task :expo:compileReleaseLibraryResources UP-TO-DATE
+> Task :expo-log-box:prepareReleaseArtProfile UP-TO-DATE
+> Task :expo:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-safe-area-context:generateReleaseRFile UP-TO-DATE
+> Task :expo-modules-core:processReleaseManifest UP-TO-DATE
+> Task :expo-log-box:mergeReleaseShaders UP-TO-DATE
+> Task :expo:mergeReleaseShaders UP-TO-DATE
+> Task :expo:compileReleaseShaders NO-SOURCE
+> Task :expo:generateReleaseAssets UP-TO-DATE
+> Task :expo-log-box:compileReleaseShaders NO-SOURCE
+> Task :expo-log-box:generateReleaseAssets UP-TO-DATE
+> Task :expo-modules-core:compileReleaseLibraryResources UP-TO-DATE
+> Task :expo-log-box:mergeReleaseAssets UP-TO-DATE
+> Task :expo-modules-core:prepareReleaseArtProfile UP-TO-DATE
+> Task :expo-log-box:extractProguardFiles UP-TO-DATE
+> Task :react-native-maps:compileReleaseKotlin NO-SOURCE
+> Task :expo-modules-core:mergeReleaseShaders UP-TO-DATE
+> Task :expo:mergeReleaseAssets UP-TO-DATE
+> Task :expo-modules-core:compileReleaseShaders NO-SOURCE
+> Task :expo:extractProguardFiles UP-TO-DATE
+> Task :react-native-maps:javaPreCompileRelease UP-TO-DATE
+> Task :expo-modules-core:generateReleaseAssets UP-TO-DATE
+> Task :expo-log-box:prepareLintJarForPublish UP-TO-DATE
+> Task :expo-modules-core:mergeReleaseAssets UP-TO-DATE
+> Task :expo:prepareLintJarForPublish UP-TO-DATE
+> Task :expo-modules-core:extractProguardFiles UP-TO-DATE
+> Task :expo:stripReleaseDebugSymbols NO-SOURCE
+> Task :expo-modules-core:prepareLintJarForPublish UP-TO-DATE
+> Task :expo:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :expo-log-box:stripReleaseDebugSymbols NO-SOURCE
+> Task :expo-log-box:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :expo:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :expo-modules-core:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :expo:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :expo-log-box:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :expo-modules-core:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :expo-log-box:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-android-widget:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-async-storage_async-storage:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-community_netinfo:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-community_netinfo:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :react-native-android-widget:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :react-native-async-storage_async-storage:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :react-native-worklets:assertMinimalReactNativeVersionTask
+> Task :react-native-worklets:assertNewArchitectureEnabledTask SKIPPED
+> Task :react-native-worklets:generateCodegenSchemaFromJavaScript UP-TO-DATE
+> Task :react-native-worklets:generateCodegenArtifactsFromSchema UP-TO-DATE
+> Task :app:buildKotlinToolingMetadata UP-TO-DATE
+> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :react-native-android-widget:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-community_netinfo:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-async-storage_async-storage:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-worklets:prepareWorkletsHeadersForPrefabs UP-TO-DATE
+> Task :react-native-android-widget:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-community_netinfo:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-worklets:preBuild
+> Task :react-native-worklets:preReleaseBuild
+> Task :react-native-android-widget:processReleaseManifest UP-TO-DATE
+> Task :react-native-community_netinfo:processReleaseManifest UP-TO-DATE
+> Task :react-native-android-widget:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-async-storage_async-storage:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-community_netinfo:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-android-widget:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :react-native-community_netinfo:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :react-native-community_netinfo:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-android-widget:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-community_netinfo:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-reanimated:assertMinimalReactNativeVersionTask
+> Task :react-native-reanimated:assertNewArchitectureEnabledTask SKIPPED
+> Task :react-native-community_netinfo:mergeReleaseShaders UP-TO-DATE
+> Task :react-native-community_netinfo:compileReleaseShaders NO-SOURCE
+> Task :react-native-community_netinfo:generateReleaseAssets UP-TO-DATE
+> Task :react-native-community_netinfo:mergeReleaseAssets UP-TO-DATE
+> Task :react-native-community_netinfo:processReleaseJavaRes NO-SOURCE
+> Task :react-native-community_netinfo:createFullJarRelease UP-TO-DATE
+> Task :react-native-async-storage_async-storage:processReleaseManifest UP-TO-DATE
+> Task :react-native-async-storage_async-storage:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-community_netinfo:extractProguardFiles UP-TO-DATE
+> Task :react-native-async-storage_async-storage:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :react-native-async-storage_async-storage:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-async-storage_async-storage:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-async-storage_async-storage:mergeReleaseShaders UP-TO-DATE
+> Task :react-native-async-storage_async-storage:compileReleaseShaders NO-SOURCE
+> Task :react-native-async-storage_async-storage:generateReleaseAssets UP-TO-DATE
+> Task :react-native-async-storage_async-storage:mergeReleaseAssets UP-TO-DATE
+> Task :react-native-async-storage_async-storage:processReleaseJavaRes NO-SOURCE
+> Task :react-native-async-storage_async-storage:createFullJarRelease UP-TO-DATE
+> Task :react-native-async-storage_async-storage:extractProguardFiles UP-TO-DATE
+> Task :app:createBundleReleaseJsAndAssets UP-TO-DATE
+> Task :app:processReleaseGoogleServices UP-TO-DATE
+> Task :react-native-reanimated:assertWorkletsVersionTask
+> Task :react-native-android-widget:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-reanimated:generateCodegenSchemaFromJavaScript UP-TO-DATE
+> Task :react-native-reanimated:generateCodegenArtifactsFromSchema UP-TO-DATE
+> Task :react-native-safe-area-context:compileReleaseKotlin UP-TO-DATE
+> Task :react-native-safe-area-context:javaPreCompileRelease UP-TO-DATE
+> Task :react-native-maps:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-webview:compileReleaseKotlin UP-TO-DATE
+> Task :react-native-webview:javaPreCompileRelease UP-TO-DATE
+> Task :react-native-safe-area-context:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-maps:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :react-native-safe-area-context:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :react-native-maps:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-reanimated:prepareReanimatedHeadersForPrefabs UP-TO-DATE
+> Task :react-native-webview:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-reanimated:preBuild
+> Task :react-native-reanimated:preReleaseBuild
+> Task :react-native-maps:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-safe-area-context:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-safe-area-context:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-reanimated:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-maps:processReleaseManifest UP-TO-DATE
+> Task :react-native-reanimated:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-reanimated:generateReleaseResValues UP-TO-DATE
+> Task :react-native-maps:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-safe-area-context:processReleaseManifest UP-TO-DATE
+> Task :react-native-webview:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :react-native-maps:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :react-native-safe-area-context:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-reanimated:generateReleaseResources UP-TO-DATE
+> Task :react-native-webview:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-webview:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-safe-area-context:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :react-native-maps:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-maps:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-webview:processReleaseManifest UP-TO-DATE
+> Task :react-native-reanimated:packageReleaseResources UP-TO-DATE
+> Task :react-native-maps:mergeReleaseShaders UP-TO-DATE
+> Task :react-native-webview:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-safe-area-context:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-maps:compileReleaseShaders NO-SOURCE
+> Task :react-native-reanimated:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-maps:generateReleaseAssets UP-TO-DATE
+> Task :react-native-safe-area-context:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-maps:mergeReleaseAssets UP-TO-DATE
+> Task :react-native-webview:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :react-native-reanimated:generateReleaseRFile UP-TO-DATE
+> Task :react-native-safe-area-context:mergeReleaseShaders UP-TO-DATE
+> Task :react-native-reanimated:javaPreCompileRelease UP-TO-DATE
+> Task :react-native-safe-area-context:compileReleaseShaders NO-SOURCE
+> Task :react-native-safe-area-context:generateReleaseAssets UP-TO-DATE
+> Task :react-native-reanimated:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-safe-area-context:mergeReleaseAssets UP-TO-DATE
+> Task :react-native-reanimated:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-safe-area-context:processReleaseJavaRes UP-TO-DATE
+> Task :react-native-reanimated:processReleaseManifest UP-TO-DATE
+> Task :react-native-maps:processReleaseJavaRes NO-SOURCE
+> Task :react-native-safe-area-context:createFullJarRelease UP-TO-DATE
+> Task :react-native-reanimated:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-maps:createFullJarRelease UP-TO-DATE
+> Task :react-native-safe-area-context:extractProguardFiles UP-TO-DATE
+> Task :react-native-maps:extractProguardFiles UP-TO-DATE
+> Task :react-native-reanimated:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-reanimated:mergeReleaseShaders UP-TO-DATE
+> Task :react-native-reanimated:compileReleaseShaders NO-SOURCE
+> Task :react-native-reanimated:generateReleaseAssets UP-TO-DATE
+> Task :react-native-reanimated:mergeReleaseAssets UP-TO-DATE
+> Task :react-native-reanimated:processReleaseJavaRes NO-SOURCE
+> Task :react-native-reanimated:extractProguardFiles UP-TO-DATE
+> Task :react-native-reanimated:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-reanimated:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :react-native-reanimated:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-reanimated:writeReleaseLintModelMetadata UP-TO-DATE
+
+> Task :expo-constants:createExpoConfig
+.\gradlew.bat : The 
+NODE_ENV environment 
+variable is required but 
+was not specified. Ensure 
+the project is bundled 
+with Expo CLI or NODE_ENV 
+is set. Using only 
+.env.local and .env
+At line:1 char:65
++ ... droid\Android 
+Studio\jbr"; 
+.\gradlew.bat 
+assembleRelease 2>&1 | 
+Out-F ...
++                         
+       ~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~
+    + CategoryInfo        
+      : NotSpecified: (T  
+  he NODE_ENV en....loc   
+ al and .env:String) [    
+], RemoteException
+    + FullyQualifiedError 
+   Id : NativeCommandErr  
+  or
+ 
+
+> Task :expo-constants:preBuild
+> Task :app:preBuild
+> Task :expo-constants:preReleaseBuild
+> Task :app:preReleaseBuild
+> Task :expo-constants:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :app:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :expo-constants:mergeReleaseNativeLibs NO-SOURCE
+> Task :expo-constants:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :expo-constants:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-constants:generateReleaseBuildConfig UP-TO-DATE
+> Task :expo-constants:generateReleaseResValues UP-TO-DATE
+> Task :expo-constants:generateReleaseResources UP-TO-DATE
+> Task :expo-constants:packageReleaseResources UP-TO-DATE
+> Task :expo-constants:parseReleaseLocalResources UP-TO-DATE
+> Task :expo-constants:generateReleaseRFile UP-TO-DATE
+> Task :expo-constants:javaPreCompileRelease UP-TO-DATE
+> Task :expo-constants:writeReleaseAarMetadata UP-TO-DATE
+> Task :expo-constants:extractDeepLinksRelease UP-TO-DATE
+> Task :expo-constants:processReleaseManifest UP-TO-DATE
+> Task :expo-constants:compileReleaseLibraryResources UP-TO-DATE
+> Task :expo-constants:prepareReleaseArtProfile UP-TO-DATE
+> Task :expo-constants:mergeReleaseShaders UP-TO-DATE
+> Task :expo-constants:compileReleaseShaders NO-SOURCE
+> Task :expo-constants:generateReleaseAssets UP-TO-DATE
+> Task :expo-constants:mergeReleaseAssets UP-TO-DATE
+> Task :expo-constants:extractProguardFiles UP-TO-DATE
+> Task :expo-constants:prepareLintJarForPublish UP-TO-DATE
+> Task :expo-constants:stripReleaseDebugSymbols NO-SOURCE
+> Task :expo-constants:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :expo-constants:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :expo-constants:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :expo-constants:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :expo-constants:mergeReleaseResources UP-TO-DATE
+> Task :expo-constants:verifyReleaseResources UP-TO-DATE
+> Task :react-native-webview:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-android-widget:mergeReleaseShaders UP-TO-DATE
+> Task :expo-log-box:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :react-native-webview:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-android-widget:compileReleaseShaders NO-SOURCE
+> Task :app:checkReleaseDuplicateClasses UP-TO-DATE
+> Task :react-native-android-widget:generateReleaseAssets UP-TO-DATE
+> Task :react-native-webview:mergeReleaseShaders UP-TO-DATE
+> Task :react-native-webview:compileReleaseShaders NO-SOURCE
+> Task :react-native-webview:generateReleaseAssets UP-TO-DATE
+> Task :app:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-android-widget:mergeReleaseAssets UP-TO-DATE
+> Task :react-native-webview:mergeReleaseAssets UP-TO-DATE
+> Task :react-native-safe-area-context:generateReleaseLintModel UP-TO-DATE
+> Task :app:generateReleaseResValues UP-TO-DATE
+> Task :react-native-community_netinfo:generateReleaseLintModel UP-TO-DATE
+> Task :react-native-android-widget:processReleaseJavaRes NO-SOURCE
+> Task :react-native-safe-area-context:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-async-storage_async-storage:generateReleaseLintModel UP-TO-DATE
+> Task :react-native-community_netinfo:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-safe-area-context:stripReleaseDebugSymbols NO-SOURCE
+> Task :react-native-maps:generateReleaseLintModel UP-TO-DATE
+> Task :react-native-android-widget:createFullJarRelease UP-TO-DATE
+> Task :react-native-community_netinfo:stripReleaseDebugSymbols NO-SOURCE
+> Task :react-native-async-storage_async-storage:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-safe-area-context:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :react-native-maps:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-webview:processReleaseJavaRes UP-TO-DATE
+> Task :react-native-android-widget:extractProguardFiles UP-TO-DATE
+> Task :react-native-async-storage_async-storage:stripReleaseDebugSymbols NO-SOURCE
+> Task :react-native-maps:stripReleaseDebugSymbols NO-SOURCE
+> Task :react-native-safe-area-context:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :react-native-community_netinfo:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :react-native-async-storage_async-storage:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :react-native-webview:createFullJarRelease UP-TO-DATE
+> Task :app:generateReleaseResources UP-TO-DATE
+> Task :react-native-maps:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :react-native-community_netinfo:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :react-native-maps:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :react-native-async-storage_async-storage:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :react-native-webview:extractProguardFiles UP-TO-DATE
+> Task :react-native-safe-area-context:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-community_netinfo:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-maps:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-async-storage_async-storage:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-community_netinfo:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-safe-area-context:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-async-storage_async-storage:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-maps:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-async-storage_async-storage:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-community_netinfo:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-safe-area-context:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-maps:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-android-widget:generateReleaseLintModel UP-TO-DATE
+> Task :app:packageReleaseResources UP-TO-DATE
+> Task :react-native-safe-area-context:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-async-storage_async-storage:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-community_netinfo:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-android-widget:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-android-widget:stripReleaseDebugSymbols NO-SOURCE
+> Task :app:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-maps:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-android-widget:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :react-native-safe-area-context:syncReleaseLibJars UP-TO-DATE
+> Task :react-native-community_netinfo:syncReleaseLibJars UP-TO-DATE
+> Task :app:createReleaseCompatibleScreenManifests UP-TO-DATE
+> Task :react-native-async-storage_async-storage:syncReleaseLibJars UP-TO-DATE
+> Task :react-native-android-widget:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :app:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-webview:generateReleaseLintModel UP-TO-DATE
+> Task :app:javaPreCompileRelease UP-TO-DATE
+> Task :react-native-maps:syncReleaseLibJars UP-TO-DATE
+> Task :react-native-webview:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-community_netinfo:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :react-native-safe-area-context:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :react-native-async-storage_async-storage:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :react-native-webview:stripReleaseDebugSymbols NO-SOURCE
+> Task :app:desugarReleaseFileDependencies UP-TO-DATE
+> Task :react-native-webview:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :app:mergeReleaseStartupProfile UP-TO-DATE
+> Task :react-native-maps:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :react-native-webview:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :react-native-maps:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-android-widget:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-android-widget:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-webview:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-android-widget:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-maps:generateReleaseLintVitalModel UP-TO-DATE
+> Task :react-native-webview:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-android-widget:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-safe-area-context:lintVitalAnalyzeRelease UP-TO-DATE
+> Task :react-native-maps:bundleReleaseAar UP-TO-DATE
+> Task :react-native-community_netinfo:lintVitalAnalyzeRelease UP-TO-DATE
+> Task :react-native-webview:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-safe-area-context:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-async-storage_async-storage:lintVitalAnalyzeRelease UP-TO-DATE
+> Task :react-native-community_netinfo:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-async-storage_async-storage:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-android-widget:syncReleaseLibJars UP-TO-DATE
+> Task :react-native-webview:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-android-widget:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :react-native-webview:syncReleaseLibJars UP-TO-DATE
+> Task :react-native-maps:lintVitalAnalyzeRelease UP-TO-DATE
+> Task :react-native-safe-area-context:generateReleaseLintVitalModel UP-TO-DATE
+> Task :react-native-community_netinfo:generateReleaseLintVitalModel UP-TO-DATE
+> Task :react-native-webview:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :react-native-async-storage_async-storage:generateReleaseLintVitalModel UP-TO-DATE
+> Task :react-native-community_netinfo:bundleReleaseAar UP-TO-DATE
+> Task :react-native-safe-area-context:bundleReleaseAar UP-TO-DATE
+> Task :react-native-async-storage_async-storage:bundleReleaseAar UP-TO-DATE
+> Task :react-native-android-widget:lintVitalAnalyzeRelease UP-TO-DATE
+> Task :react-native-webview:lintVitalAnalyzeRelease UP-TO-DATE
+> Task :react-native-android-widget:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-webview:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-async-storage_async-storage:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :react-native-safe-area-context:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :react-native-community_netinfo:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :react-native-maps:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :react-native-webview:generateReleaseLintVitalModel UP-TO-DATE
+> Task :react-native-android-widget:generateReleaseLintVitalModel UP-TO-DATE
+> Task :react-native-webview:bundleReleaseAar UP-TO-DATE
+> Task :react-native-android-widget:bundleReleaseAar UP-TO-DATE
+> Task :react-native-webview:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :react-native-android-widget:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :react-native-worklets:configureCMakeRelWithDebInfo[arm64-v8a]
+> Task :react-native-screens:configureCMakeRelWithDebInfo[arm64-v8a]
+> Task :expo-log-box:mergeReleaseResources UP-TO-DATE
+> Task :react-native-screens:buildCMakeRelWithDebInfo[arm64-v8a]
+> Task :react-native-maps:mergeReleaseResources UP-TO-DATE
+> Task :react-native-community_netinfo:mergeReleaseResources UP-TO-DATE
+> Task :react-native-webview:mergeReleaseResources UP-TO-DATE
+> Task :react-native-async-storage_async-storage:mergeReleaseResources UP-TO-DATE
+> Task :react-native-safe-area-context:mergeReleaseResources UP-TO-DATE
+> Task :react-native-android-widget:mergeReleaseResources UP-TO-DATE
+> Task :react-native-screens:configureCMakeRelWithDebInfo[x86_64]
+> Task :react-native-worklets:buildCMakeRelWithDebInfo[arm64-v8a][worklets]
+> Task :react-native-worklets:configureCMakeRelWithDebInfo[x86_64]
+> Task :react-native-screens:buildCMakeRelWithDebInfo[x86_64]
+> Task :react-native-screens:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-screens:mergeReleaseNativeLibs UP-TO-DATE
+> Task :react-native-screens:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-screens:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :react-native-screens:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-screens:generateReleaseResValues UP-TO-DATE
+> Task :react-native-screens:generateReleaseResources UP-TO-DATE
+> Task :react-native-screens:packageReleaseResources UP-TO-DATE
+> Task :react-native-webview:verifyReleaseResources UP-TO-DATE
+> Task :react-native-async-storage_async-storage:verifyReleaseResources UP-TO-DATE
+> Task :react-native-android-widget:verifyReleaseResources UP-TO-DATE
+> Task :react-native-safe-area-context:verifyReleaseResources UP-TO-DATE
+> Task :react-native-maps:verifyReleaseResources UP-TO-DATE
+> Task :react-native-community_netinfo:verifyReleaseResources UP-TO-DATE
+> Task :react-native-screens:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-safe-area-context:assembleRelease UP-TO-DATE
+> Task :react-native-webview:assembleRelease UP-TO-DATE
+> Task :react-native-android-widget:assembleRelease UP-TO-DATE
+> Task :react-native-maps:assembleRelease UP-TO-DATE
+> Task :react-native-community_netinfo:assembleRelease UP-TO-DATE
+> Task :react-native-async-storage_async-storage:assembleRelease UP-TO-DATE
+> Task :react-native-screens:generateReleaseRFile UP-TO-DATE
+> Task :expo-log-box:verifyReleaseResources UP-TO-DATE
+> Task :app:mergeExtDexRelease UP-TO-DATE
+> Task :app:mergeReleaseShaders UP-TO-DATE
+> Task :app:compileReleaseShaders NO-SOURCE
+> Task :app:generateReleaseAssets UP-TO-DATE
+> Task :app:extractReleaseVersionControlInfo UP-TO-DATE
+> Task :app:extractProguardFiles UP-TO-DATE
+> Task :app:collectReleaseDependencies UP-TO-DATE
+> Task :app:sdkReleaseDependencyData UP-TO-DATE
+> Task :app:validateSigningRelease UP-TO-DATE
+> Task :app:writeReleaseAppMetadata UP-TO-DATE
+> Task :app:writeReleaseSigningConfigVersions UP-TO-DATE
+> Task :react-native-worklets:buildCMakeRelWithDebInfo[x86_64][worklets]
+> Task :react-native-worklets:externalNativeBuildRelease
+> Task :react-native-worklets:generateJsonModelRelease
+> Task :react-native-worklets:prefabReleaseConfigurePackage
+> Task :react-native-screens:compileReleaseKotlin UP-TO-DATE
+> Task :react-native-screens:javaPreCompileRelease UP-TO-DATE
+> Task :react-native-worklets:prefabReleasePackage UP-TO-DATE
+> Task :react-native-worklets:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :react-native-worklets:mergeReleaseNativeLibs UP-TO-DATE
+> Task :react-native-worklets:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-screens:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-worklets:generateReleaseBuildConfig UP-TO-DATE
+> Task :react-native-worklets:generateReleaseResValues UP-TO-DATE
+> Task :react-native-worklets:generateReleaseResources UP-TO-DATE
+> Task :react-native-worklets:packageReleaseResources UP-TO-DATE
+> Task :react-native-worklets:parseReleaseLocalResources UP-TO-DATE
+> Task :react-native-worklets:generateReleaseRFile UP-TO-DATE
+> Task :react-native-worklets:javaPreCompileRelease UP-TO-DATE
+> Task :react-native-screens:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :react-native-screens:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-screens:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-screens:processReleaseManifest UP-TO-DATE
+> Task :react-native-screens:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-screens:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :react-native-screens:prepareReleaseArtProfile UP-TO-DATE
+> Task :react-native-screens:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-screens:mergeReleaseShaders UP-TO-DATE
+> Task :react-native-screens:compileReleaseShaders NO-SOURCE
+> Task :react-native-screens:generateReleaseAssets UP-TO-DATE
+> Task :react-native-screens:mergeReleaseAssets UP-TO-DATE
+> Task :react-native-worklets:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-worklets:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :react-native-screens:processReleaseJavaRes UP-TO-DATE
+> Task :react-native-worklets:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :react-native-screens:createFullJarRelease UP-TO-DATE
+> Task :react-native-worklets:writeReleaseAarMetadata UP-TO-DATE
+> Task :react-native-screens:extractProguardFiles UP-TO-DATE
+> Task :react-native-worklets:extractDeepLinksRelease UP-TO-DATE
+> Task :react-native-worklets:processReleaseManifest UP-TO-DATE
+> Task :react-native-worklets:compileReleaseLibraryResources UP-TO-DATE
+> Task :react-native-reanimated:configureCMakeRelWithDebInfo[arm64-v8a]
+> Task :react-native-worklets:prepareReleaseArtProfile UP-TO-DATE
+> Task :expo-modules-core:configureCMakeRelWithDebInfo[arm64-v8a]
+> Task :react-native-worklets:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-worklets:mergeReleaseShaders UP-TO-DATE
+> Task :react-native-worklets:compileReleaseShaders NO-SOURCE
+> Task :react-native-screens:generateReleaseLintModel UP-TO-DATE
+> Task :react-native-worklets:generateReleaseAssets UP-TO-DATE
+> Task :expo:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :app:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :react-native-screens:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-worklets:mergeReleaseAssets UP-TO-DATE
+> Task :react-native-worklets:processReleaseJavaRes NO-SOURCE
+> Task :react-native-screens:stripReleaseDebugSymbols UP-TO-DATE
+> Task :react-native-worklets:createFullJarRelease UP-TO-DATE
+> Task :react-native-worklets:extractProguardFiles UP-TO-DATE
+> Task :react-native-screens:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :react-native-reanimated:configureCMakeRelWithDebInfo[x86_64]
+> Task :react-native-reanimated:generateJsonModelRelease
+> Task :react-native-screens:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :react-native-reanimated:prefabReleaseConfigurePackage UP-TO-DATE
+> Task :react-native-screens:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-screens:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-screens:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-screens:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-screens:syncReleaseLibJars UP-TO-DATE
+> Task :app:checkReleaseAarMetadata UP-TO-DATE
+> Task :react-native-screens:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :react-native-worklets:generateReleaseLintModel UP-TO-DATE
+> Task :react-native-worklets:prepareLintJarForPublish UP-TO-DATE
+> Task :react-native-worklets:stripReleaseDebugSymbols UP-TO-DATE
+> Task :react-native-worklets:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :react-native-worklets:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :react-native-screens:lintVitalAnalyzeRelease UP-TO-DATE
+> Task :react-native-screens:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-worklets:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-worklets:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-worklets:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-worklets:mergeReleaseJavaResource UP-TO-DATE
+> Task :react-native-screens:generateReleaseLintVitalModel UP-TO-DATE
+> Task :react-native-worklets:syncReleaseLibJars UP-TO-DATE
+> Task :react-native-screens:bundleReleaseAar UP-TO-DATE
+> Task :react-native-worklets:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :react-native-worklets:writeReleaseLintModelMetadata UP-TO-DATE
+> Task :react-native-screens:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :react-native-worklets:lintVitalAnalyzeRelease UP-TO-DATE
+> Task :react-native-worklets:generateReleaseLintVitalModel UP-TO-DATE
+> Task :react-native-worklets:bundleReleaseAar UP-TO-DATE
+> Task :react-native-worklets:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :expo-modules-core:buildCMakeRelWithDebInfo[arm64-v8a]
+> Task :expo-modules-core:configureCMakeRelWithDebInfo[x86_64]
+> Task :expo:mergeReleaseResources UP-TO-DATE
+> Task :react-native-reanimated:buildCMakeRelWithDebInfo[arm64-v8a][reanimated]
+> Task :react-native-worklets:mergeReleaseResources UP-TO-DATE
+> Task :expo-modules-core:buildCMakeRelWithDebInfo[x86_64]
+> Task :expo-modules-core:mergeReleaseNativeLibs UP-TO-DATE
+> Task :expo-modules-core:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-worklets:verifyReleaseResources UP-TO-DATE
+> Task :react-native-worklets:assembleRelease UP-TO-DATE
+> Task :expo:verifyReleaseResources UP-TO-DATE
+> Task :react-native-screens:mergeReleaseResources UP-TO-DATE
+> Task :react-native-reanimated:buildCMakeRelWithDebInfo[x86_64][reanimated]
+> Task :react-native-reanimated:externalNativeBuildRelease
+> Task :react-native-reanimated:prefabReleasePackage UP-TO-DATE
+> Task :react-native-reanimated:mergeReleaseNativeLibs UP-TO-DATE
+> Task :react-native-reanimated:copyReleaseJniLibsProjectOnly UP-TO-DATE
+> Task :react-native-reanimated:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :react-native-reanimated:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :react-native-reanimated:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :react-native-reanimated:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :react-native-reanimated:createFullJarRelease UP-TO-DATE
+> Task :react-native-reanimated:generateReleaseLintModel UP-TO-DATE
+> Task :react-native-reanimated:stripReleaseDebugSymbols UP-TO-DATE
+> Task :react-native-reanimated:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :react-native-reanimated:extractReleaseAnnotations UP-TO-DATE
+> Task :react-native-reanimated:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :react-native-reanimated:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :react-native-reanimated:syncReleaseLibJars UP-TO-DATE
+> Task :react-native-screens:verifyReleaseResources UP-TO-DATE
+> Task :react-native-screens:assembleRelease UP-TO-DATE
+> Task :expo-modules-core:compileReleaseKotlin UP-TO-DATE
+> Task :expo-modules-core:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :expo-modules-core:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :expo-constants:compileReleaseKotlin UP-TO-DATE
+> Task :expo-constants:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :expo-log-box:compileReleaseKotlin UP-TO-DATE
+> Task :expo-constants:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :expo-constants:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :expo-constants:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :expo-log-box:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :expo-constants:processReleaseJavaRes UP-TO-DATE
+> Task :expo-log-box:bundleLibCompileToJarRelease UP-TO-DATE
+> Task :expo-constants:createFullJarRelease UP-TO-DATE
+> Task :expo-log-box:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :expo-constants:extractReleaseAnnotations UP-TO-DATE
+> Task :expo-log-box:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :expo-log-box:processReleaseJavaRes UP-TO-DATE
+> Task :expo-constants:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :expo-constants:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :expo-log-box:createFullJarRelease UP-TO-DATE
+> Task :expo-constants:mergeReleaseJavaResource UP-TO-DATE
+> Task :expo-constants:syncReleaseLibJars UP-TO-DATE
+> Task :expo-constants:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :expo-log-box:extractReleaseAnnotations UP-TO-DATE
+> Task :expo-log-box:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :expo-constants:bundleReleaseAar UP-TO-DATE
+> Task :expo-constants:assembleRelease UP-TO-DATE
+> Task :expo-log-box:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :expo-log-box:mergeReleaseJavaResource UP-TO-DATE
+> Task :expo-log-box:syncReleaseLibJars UP-TO-DATE
+> Task :expo-log-box:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :expo-log-box:bundleReleaseAar UP-TO-DATE
+> Task :expo-log-box:assembleRelease UP-TO-DATE
+> Task :expo:compileReleaseKotlin UP-TO-DATE
+> Task :expo-modules-core:bundleLibRuntimeToDirRelease UP-TO-DATE
+> Task :expo-modules-core:bundleLibRuntimeToJarRelease UP-TO-DATE
+> Task :expo:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :expo-modules-core:processReleaseJavaRes UP-TO-DATE
+> Task :expo-modules-core:createFullJarRelease UP-TO-DATE
+> Task :expo-modules-core:generateReleaseLintModel UP-TO-DATE
+> Task :expo-modules-core:stripReleaseDebugSymbols UP-TO-DATE
+> Task :expo-modules-core:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :expo-constants:generateReleaseLintModel UP-TO-DATE
+> Task :expo-constants:generateReleaseLintVitalModel UP-TO-DATE
+> Task :expo-modules-core:extractReleaseAnnotations UP-TO-DATE
+> Task :expo-log-box:generateReleaseLintModel UP-TO-DATE
+> Task :expo-modules-core:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :expo-modules-core:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :expo-modules-core:mergeReleaseJavaResource UP-TO-DATE
+> Task :expo-log-box:generateReleaseLintVitalModel UP-TO-DATE
+> Task :expo-modules-core:syncReleaseLibJars UP-TO-DATE
+> Task :expo-modules-core:bundleReleaseLocalLintAar UP-TO-DATE
+> Task :expo:processReleaseJavaRes
+> Task :expo-modules-core:lintVitalAnalyzeRelease UP-TO-DATE
+> Task :expo-modules-core:generateReleaseLintVitalModel UP-TO-DATE
+> Task :expo-constants:lintVitalAnalyzeRelease UP-TO-DATE
+> Task :expo-modules-core:bundleReleaseAar UP-TO-DATE
+> Task :expo-log-box:lintVitalAnalyzeRelease UP-TO-DATE
+> Task :expo-modules-core:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :expo:bundleLibRuntimeToJarRelease
+> Task :expo:bundleLibCompileToJarRelease
+> Task :expo-modules-core:mergeReleaseResources UP-TO-DATE
+> Task :expo-modules-core:verifyReleaseResources UP-TO-DATE
+> Task :expo-modules-core:assembleRelease UP-TO-DATE
+> Task :expo:generateReleaseLintModel
+> Task :expo:createFullJarRelease
+> Task :expo:extractReleaseAnnotations
+> Task :expo:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :expo:mergeReleaseConsumerProguardFiles
+> Task :expo:bundleLibRuntimeToDirRelease
+> Task :expo:generateReleaseLintVitalModel
+> Task :expo:mergeReleaseJavaResource
+> Task :expo:syncReleaseLibJars
+> Task :expo:bundleReleaseLocalLintAar
+> Task :expo:bundleReleaseAar
+> Task :expo:assembleRelease
+> Task :react-native-reanimated:bundleReleaseLocalLintAar
+> Task :react-native-reanimated:lintVitalAnalyzeRelease UP-TO-DATE
+> Task :react-native-reanimated:generateReleaseLintVitalModel UP-TO-DATE
+
+> Task :app:configureCMakeRelWithDebInfo[arm64-v8a]
+C/C++: CMake Error at C:/python/android_app_love/android/app/build/generated/autolinking/src/main/jni/Android-autolinking.cmake:12 (add_subdirectory):
+C/C++:   add_subdirectory given source
+C/C++:   "C:/python/android_app_love/node_modules/react-native-android-widget/android/build/generated/source/codegen/jni/"
+C/C++:   which is not an existing directory.
+C/C++: Call Stack (most recent call first):
+C/C++:   C:/python/android_app_love/node_modules/react-native/ReactAndroid/cmake-utils/ReactNative-application.cmake:94 (include)
+C/C++:   CMakeLists.txt:31 (include)
+C/C++: CMake Error at C:/python/android_app_love/node_modules/react-native/ReactAndroid/cmake-utils/ReactNative-application.cmake:97 (target_link_libraries):
+C/C++:   Cannot specify link libraries for target "react_codegen_AndroidWidget"
+C/C++:   which is not built by this project.
+C/C++: Call Stack (most recent call first):
+C/C++:   CMakeLists.txt:31 (include)
+
+> Task :app:configureCMakeRelWithDebInfo[arm64-v8a] FAILED
+> Task :react-native-reanimated:bundleReleaseAar
+> Task :expo:lintVitalAnalyzeRelease
+
+[Incubating] Problems report is available at: file:///C:/python/android_app_love/android/build/reports/problems/problems-report.html
+
+FAILURE: Build failed 
+with an exception.
+
+* What went wrong:
+Execution failed for task 
+':app:configureCMakeRelWit
+hDebInfo[arm64-v8a]'.
+> [CXX1429] error when 
+building with cmake using 
+C:\python\android_app_love
+\node_modules\react-native
+\ReactAndroid\cmake-utils\
+default-app-setup\CMakeLis
+ts.txt: -- The C compiler 
+identification is Clang 
+18.0.2
+  -- The CXX compiler 
+identification is Clang 
+18.0.2
+  -- Detecting C compiler 
+ABI info
+  -- Detecting C compiler 
+ABI info - done
+  -- Check for working C 
+compiler: C:/Users/Admin/A
+ppData/Local/Android/Sdk/n
+dk/27.1.12297006/toolchain
+s/llvm/prebuilt/windows-x8
+6_64/bin/clang.exe - 
+skipped
+  -- Detecting C compile 
+features
+  -- Detecting C compile 
+features - done
+  -- Detecting CXX 
+compiler ABI info
+  -- Detecting CXX 
+compiler ABI info - done
+  -- Check for working 
+CXX compiler: C:/Users/Adm
+in/AppData/Local/Android/S
+dk/ndk/27.1.12297006/toolc
+hains/llvm/prebuilt/window
+s-x86_64/bin/clang++.exe 
+- skipped
+  -- Detecting CXX 
+compile features
+  -- Detecting CXX 
+compile features - done
+  -- Configuring 
+incomplete, errors 
+occurred!
+  See also "C:/python/andr
+oid_app_love/android/app/.
+cxx/RelWithDebInfo/5952494
+1/arm64-v8a/CMakeFiles/CMa
+keOutput.log".
+  See also "C:/python/andr
+oid_app_love/android/app/.
+cxx/RelWithDebInfo/5952494
+1/arm64-v8a/CMakeFiles/CMa
+keError.log".
+  
+  C++ build system 
+[configure] failed while 
+executing:
+      @echo off
+      "C:\\Users\\Admin\\A
+ppData\\Local\\Android\\Sd
+k\\cmake\\3.22.1\\bin\\cma
+ke.exe" ^
+        "-HC:\\python\\and
+roid_app_love\\node_module
+s\\react-native\\ReactAndr
+oid\\cmake-utils\\default-
+app-setup" ^
+        "-DCMAKE_SYSTEM_NA
+ME=Android" ^
+        "-DCMAKE_EXPORT_CO
+MPILE_COMMANDS=ON" ^
+        "-DCMAKE_SYSTEM_VE
+RSION=24" ^
+        "-DANDROID_PLATFOR
+M=android-24" ^
+        
+"-DANDROID_ABI=arm64-v8a" 
+^
+        "-DCMAKE_ANDROID_A
+RCH_ABI=arm64-v8a" ^
+        "-DANDROID_NDK=C:\
+\Users\\Admin\\AppData\\Lo
+cal\\Android\\Sdk\\ndk\\27
+.1.12297006" ^
+        "-DCMAKE_ANDROID_N
+DK=C:\\Users\\Admin\\AppDa
+ta\\Local\\Android\\Sdk\\n
+dk\\27.1.12297006" ^
+        "-DCMAKE_TOOLCHAIN
+_FILE=C:\\Users\\Admin\\Ap
+pData\\Local\\Android\\Sdk
+\\ndk\\27.1.12297006\\buil
+d\\cmake\\android.toolchai
+n.cmake" ^
+        "-DCMAKE_MAKE_PROG
+RAM=C:\\Users\\Admin\\AppD
+ata\\Local\\Android\\Sdk\\
+cmake\\3.22.1\\bin\\ninja.
+exe" ^
+        "-DCMAKE_LIBRARY_O
+UTPUT_DIRECTORY=C:\\python
+\\android_app_love\\androi
+d\\app\\build\\intermediat
+es\\cxx\\RelWithDebInfo\\5
+9524941\\obj\\arm64-v8a" ^
+        "-DCMAKE_RUNTIME_O
+UTPUT_DIRECTORY=C:\\python
+\\android_app_love\\androi
+d\\app\\build\\intermediat
+es\\cxx\\RelWithDebInfo\\5
+9524941\\obj\\arm64-v8a" ^
+        "-DCMAKE_BUILD_TYP
+E=RelWithDebInfo" ^
+        "-DCMAKE_FIND_ROOT
+_PATH=C:\\python\\android_
+app_love\\android\\app\\.c
+xx\\RelWithDebInfo\\595249
+41\\prefab\\arm64-v8a\\pre
+fab" ^
+        "-BC:\\python\\and
+roid_app_love\\android\\ap
+p\\.cxx\\RelWithDebInfo\\5
+9524941\\arm64-v8a" ^
+        -GNinja ^
+        "-DPROJECT_BUILD_D
+IR=C:\\python\\android_app
+_love\\android\\app\\build
+" ^
+        "-DPROJECT_ROOT_DI
+R=C:\\python\\android_app_
+love\\android" ^
+        "-DREACT_ANDROID_D
+IR=C:\\python\\android_app
+_love\\node_modules\\react
+-native\\ReactAndroid" ^
+        "-DANDROID_STL=c++
+_shared" ^
+        "-DANDROID_SUPPORT
+_FLEXIBLE_PAGE_SIZES=ON"
+    from C:\python\android
+_app_love\android\app
+  CMake Error at C:/python
+/android_app_love/android/
+app/build/generated/autoli
+nking/src/main/jni/Android
+-autolinking.cmake:12 
+(add_subdirectory):
+    add_subdirectory 
+given source
+    "C:/python/android_app
+_love/node_modules/react-n
+ative-android-widget/andro
+id/build/generated/source/
+codegen/jni/"
+    which is not an 
+existing directory.
+  Call Stack (most recent 
+call first):
+    C:/python/android_app_
+love/node_modules/react-na
+tive/ReactAndroid/cmake-ut
+ils/ReactNative-applicatio
+n.cmake:94 (include)
+    CMakeLists.txt:31 
+(include)
+  
+  
+  CMake Error at C:/python
+/android_app_love/node_mod
+ules/react-native/ReactAnd
+roid/cmake-utils/ReactNati
+ve-application.cmake:97 
+(target_link_libraries):
+    Cannot specify link 
+libraries for target "reac
+t_codegen_AndroidWidget"
+    which is not built by 
+this project.
+  Call Stack (most recent 
+call first):
+    CMakeLists.txt:31 
+(include) : com.android.id
+e.common.process.ProcessEx
+ception: -- The C 
+compiler identification 
+is Clang 18.0.2
+  -- The CXX compiler 
+identification is Clang 
+18.0.2
+  -- Detecting C compiler 
+ABI info
+  -- Detecting C compiler 
+ABI info - done
+  -- Check for working C 
+compiler: C:/Users/Admin/A
+ppData/Local/Android/Sdk/n
+dk/27.1.12297006/toolchain
+s/llvm/prebuilt/windows-x8
+6_64/bin/clang.exe - 
+skipped
+  -- Detecting C compile 
+features
+  -- Detecting C compile 
+features - done
+  -- Detecting CXX 
+compiler ABI info
+  -- Detecting CXX 
+compiler ABI info - done
+  -- Check for working 
+CXX compiler: C:/Users/Adm
+in/AppData/Local/Android/S
+dk/ndk/27.1.12297006/toolc
+hains/llvm/prebuilt/window
+s-x86_64/bin/clang++.exe 
+- skipped
+  -- Detecting CXX 
+compile features
+  -- Detecting CXX 
+compile features - done
+  -- Configuring 
+incomplete, errors 
+occurred!
+  See also "C:/python/andr
+oid_app_love/android/app/.
+cxx/RelWithDebInfo/5952494
+1/arm64-v8a/CMakeFiles/CMa
+keOutput.log".
+  See also "C:/python/andr
+oid_app_love/android/app/.
+cxx/RelWithDebInfo/5952494
+1/arm64-v8a/CMakeFiles/CMa
+keError.log".
+  
+  C++ build system 
+[configure] failed while 
+executing:
+      @echo off
+      "C:\\Users\\Admin\\A
+ppData\\Local\\Android\\Sd
+k\\cmake\\3.22.1\\bin\\cma
+ke.exe" ^
+        "-HC:\\python\\and
+roid_app_love\\node_module
+s\\react-native\\ReactAndr
+oid\\cmake-utils\\default-
+app-setup" ^
+        "-DCMAKE_SYSTEM_NA
+ME=Android" ^
+        "-DCMAKE_EXPORT_CO
+MPILE_COMMANDS=ON" ^
+        "-DCMAKE_SYSTEM_VE
+RSION=24" ^
+        "-DANDROID_PLATFOR
+M=android-24" ^
+        
+"-DANDROID_ABI=arm64-v8a" 
+^
+        "-DCMAKE_ANDROID_A
+RCH_ABI=arm64-v8a" ^
+        "-DANDROID_NDK=C:\
+\Users\\Admin\\AppData\\Lo
+cal\\Android\\Sdk\\ndk\\27
+.1.12297006" ^
+        "-DCMAKE_ANDROID_N
+DK=C:\\Users\\Admin\\AppDa
+ta\\Local\\Android\\Sdk\\n
+dk\\27.1.12297006" ^
+        "-DCMAKE_TOOLCHAIN
+_FILE=C:\\Users\\Admin\\Ap
+pData\\Local\\Android\\Sdk
+\\ndk\\27.1.12297006\\buil
+d\\cmake\\android.toolchai
+n.cmake" ^
+        "-DCMAKE_MAKE_PROG
+RAM=C:\\Users\\Admin\\AppD
+ata\\Local\\Android\\Sdk\\
+cmake\\3.22.1\\bin\\ninja.
+exe" ^
+        "-DCMAKE_LIBRARY_O
+UTPUT_DIRECTORY=C:\\python
+\\android_app_love\\androi
+d\\app\\build\\intermediat
+es\\cxx\\RelWithDebInfo\\5
+9524941\\obj\\arm64-v8a" ^
+        "-DCMAKE_RUNTIME_O
+UTPUT_DIRECTORY=C:\\python
+\\android_app_love\\androi
+d\\app\\build\\intermediat
+es\\cxx\\RelWithDebInfo\\5
+9524941\\obj\\arm64-v8a" ^
+        "-DCMAKE_BUILD_TYP
+E=RelWithDebInfo" ^
+        "-DCMAKE_FIND_ROOT
+_PATH=C:\\python\\android_
+app_love\\android\\app\\.c
+xx\\RelWithDebInfo\\595249
+41\\prefab\\arm64-v8a\\pre
+fab" ^
+        "-BC:\\python\\and
+roid_app_love\\android\\ap
+p\\.cxx\\RelWithDebInfo\\5
+9524941\\arm64-v8a" ^
+        -GNinja ^
+        "-DPROJECT_BUILD_D
+IR=C:\\python\\android_app
+_love\\android\\app\\build
+" ^
+        "-DPROJECT_ROOT_DI
+R=C:\\python\\android_app_
+love\\android" ^
+        "-DREACT_ANDROID_D
+IR=C:\\python\\android_app
+_love\\node_modules\\react
+-native\\ReactAndroid" ^
+        "-DANDROID_STL=c++
+_shared" ^
+        "-DANDROID_SUPPORT
+_FLEXIBLE_PAGE_SIZES=ON"
+    from C:\python\android
+_app_love\android\app
+  CMake Error at C:/python
+/android_app_love/android/
+app/build/generated/autoli
+nking/src/main/jni/Android
+-autolinking.cmake:12 
+(add_subdirectory):
+    add_subdirectory 
+given source
+    "C:/python/android_app
+_love/node_modules/react-n
+ative-android-widget/andro
+id/build/generated/source/
+codegen/jni/"
+    which is not an 
+existing directory.
+  Call Stack (most recent 
+call first):
+    C:/python/android_app_
+love/node_modules/react-na
+tive/ReactAndroid/cmake-ut
+ils/ReactNative-applicatio
+n.cmake:94 (include)
+    CMakeLists.txt:31 
+(include)
+  
+  
+  CMake Error at C:/python
+/android_app_love/node_mod
+ules/react-native/ReactAnd
+roid/cmake-utils/ReactNati
+ve-application.cmake:97 
+(target_link_libraries):
+    Cannot specify link 
+libraries for target "reac
+t_codegen_AndroidWidget"
+    which is not built by 
+this project.
+  Call Stack (most recent 
+call first):
+    CMakeLists.txt:31 
+(include)
+  	at com.android.build.gr
+adle.internal.cxx.process.
+ExecuteProcessKt.execute(E
+xecuteProcess.kt:288)
+  	at com.android.build.gr
+adle.internal.cxx.process.
+ExecuteProcessKt$executePr
+ocess$1.invoke(ExecuteProc
+ess.kt:108)
+  	at com.android.build.gr
+adle.internal.cxx.process.
+ExecuteProcessKt$executePr
+ocess$1.invoke(ExecuteProc
+ess.kt:106)
+  	at com.android.build.gr
+adle.internal.cxx.timing.T
+imingEnvironmentKt.time(Ti
+mingEnvironment.kt:32)
+  	at com.android.build.gr
+adle.internal.cxx.process.
+ExecuteProcessKt.executePr
+ocess(ExecuteProcess.kt:10
+6)
+  	at com.android.build.gr
+adle.internal.cxx.process.
+ExecuteProcessKt.executePr
+ocess$default(ExecuteProce
+ss.kt:85)
+  	at com.android.build.gr
+adle.tasks.CmakeQueryMetad
+ataGenerator.executeProces
+s(CmakeFileApiMetadataGene
+rator.kt:59)
+  	at com.android.build.gr
+adle.tasks.ExternalNativeJ
+sonGenerator$configureOneA
+bi$1$1$3.invoke(ExternalNa
+tiveJsonGenerator.kt:247)
+  	at com.android.build.gr
+adle.tasks.ExternalNativeJ
+sonGenerator$configureOneA
+bi$1$1$3.invoke(ExternalNa
+tiveJsonGenerator.kt:247)
+  	at com.android.build.gr
+adle.internal.cxx.timing.T
+imingEnvironmentKt.time(Ti
+mingEnvironment.kt:32)
+  	at com.android.build.gr
+adle.tasks.ExternalNativeJ
+sonGenerator.configureOneA
+bi(ExternalNativeJsonGener
+ator.kt:247)
+  	at com.android.build.gr
+adle.tasks.ExternalNativeJ
+sonGenerator.configure(Ext
+ernalNativeJsonGenerator.k
+t:113)
+  	at com.android.build.gr
+adle.tasks.ExternalNativeB
+uildJsonTask.doTaskAction(
+ExternalNativeBuildJsonTas
+k.kt:89)
+  	at com.android.build.gr
+adle.internal.tasks.Unsafe
+OutputsTask$taskAction$$in
+lined$recordTaskAction$1.i
+nvoke(BaseTask.kt:59)
+  	at com.android.build.gr
+adle.internal.tasks.Blocks
+.recordSpan(Blocks.java:51
+)
+  	at com.android.build.gr
+adle.internal.tasks.Unsafe
+OutputsTask.taskAction(Uns
+afeOutputsTask.kt:81)
+  	at java.base/jdk.intern
+al.reflect.DirectMethodHan
+dleAccessor.invoke(Unknown
+ Source)
+  	at java.base/java.lang.
+reflect.Method.invoke(Unkn
+own Source)
+  	at org.gradle.internal.
+reflect.JavaMethod.invoke(
+JavaMethod.java:125)
+  	at org.gradle.api.inter
+nal.project.taskfactory.St
+andardTaskAction.doExecute
+(StandardTaskAction.java:5
+8)
+  	at org.gradle.api.inter
+nal.project.taskfactory.St
+andardTaskAction.execute(S
+tandardTaskAction.java:51)
+  	at org.gradle.api.inter
+nal.project.taskfactory.St
+andardTaskAction.execute(S
+tandardTaskAction.java:29)
+  	at org.gradle.api.inter
+nal.tasks.execution.TaskEx
+ecution$3.run(TaskExecutio
+n.java:252)
+  	at org.gradle.internal.
+operations.DefaultBuildOpe
+rationRunner$1.execute(Def
+aultBuildOperationRunner.j
+ava:29)
+  	at org.gradle.internal.
+operations.DefaultBuildOpe
+rationRunner$1.execute(Def
+aultBuildOperationRunner.j
+ava:26)
+  	at org.gradle.internal.
+operations.DefaultBuildOpe
+rationRunner$2.execute(Def
+aultBuildOperationRunner.j
+ava:66)
+  	at org.gradle.internal.
+operations.DefaultBuildOpe
+rationRunner$2.execute(Def
+aultBuildOperationRunner.j
+ava:59)
+  	at org.gradle.internal.
+operations.DefaultBuildOpe
+rationRunner.execute(Defau
+ltBuildOperationRunner.jav
+a:166)
+  	at org.gradle.internal.
+operations.DefaultBuildOpe
+rationRunner.execute(Defau
+ltBuildOperationRunner.jav
+a:59)
+  	at org.gradle.internal.
+operations.DefaultBuildOpe
+rationRunner.run(DefaultBu
+ildOperationRunner.java:47
+)
+  	at org.gradle.api.inter
+nal.tasks.execution.TaskEx
+ecution.executeAction(Task
+Execution.java:237)
+  	at org.gradle.api.inter
+nal.tasks.execution.TaskEx
+ecution.executeActions(Tas
+kExecution.java:220)
+  	at org.gradle.api.inter
+nal.tasks.execution.TaskEx
+ecution.executeWithPreviou
+sOutputFiles(TaskExecution
+.java:203)
+  	at org.gradle.api.inter
+nal.tasks.execution.TaskEx
+ecution.execute(TaskExecut
+ion.java:170)
+  	at org.gradle.internal.
+execution.steps.ExecuteSte
+p.executeInternal(ExecuteS
+tep.java:105)
+  	at org.gradle.internal.
+execution.steps.ExecuteSte
+p.access$000(ExecuteStep.j
+ava:44)
+  	at org.gradle.internal.
+execution.steps.ExecuteSte
+p$1.call(ExecuteStep.java:
+59)
+  	at org.gradle.internal.
+execution.steps.ExecuteSte
+p$1.call(ExecuteStep.java:
+56)
+  	at org.gradle.internal.
+operations.DefaultBuildOpe
+rationRunner$CallableBuild
+OperationWorker.execute(De
+faultBuildOperationRunner.
+java:209)
+  	at org.gradle.internal.
+operations.DefaultBuildOpe
+rationRunner$CallableBuild
+OperationWorker.execute(De
+faultBuildOperationRunner.
+java:204)
+  	at org.gradle.internal.
+operations.DefaultBuildOpe
+rationRunner$2.execute(Def
+aultBuildOperationRunner.j
+ava:66)
+  	at org.gradle.internal.
+operations.DefaultBuildOpe
+rationRunner$2.execute(Def
+aultBuildOperationRunner.j
+ava:59)
+  	at org.gradle.internal.
+operations.DefaultBuildOpe
+rationRunner.execute(Defau
+ltBuildOperationRunner.jav
+a:166)
+  	at org.gradle.internal.
+operations.DefaultBuildOpe
+rationRunner.execute(Defau
+ltBuildOperationRunner.jav
+a:59)
+  	at org.gradle.internal.
+operations.DefaultBuildOpe
+rationRunner.call(DefaultB
+uildOperationRunner.java:5
+3)
+  	at org.gradle.internal.
+execution.steps.ExecuteSte
+p.execute(ExecuteStep.java
+:56)
+  	at org.gradle.internal.
+execution.steps.ExecuteSte
+p.execute(ExecuteStep.java
+:44)
+  	at org.gradle.internal.
+execution.steps.CancelExec
+utionStep.execute(CancelEx
+ecutionStep.java:42)
+  	at org.gradle.internal.
+execution.steps.TimeoutSte
+p.executeWithoutTimeout(Ti
+meoutStep.java:75)
+  	at org.gradle.internal.
+execution.steps.TimeoutSte
+p.execute(TimeoutStep.java
+:55)
+  	at org.gradle.internal.
+execution.steps.PreCreateO
+utputParentsStep.execute(P
+reCreateOutputParentsStep.
+java:50)
+  	at org.gradle.internal.
+execution.steps.PreCreateO
+utputParentsStep.execute(P
+reCreateOutputParentsStep.
+java:28)
+  	at org.gradle.internal.
+execution.steps.RemovePrev
+iousOutputsStep.execute(Re
+movePreviousOutputsStep.ja
+va:68)
+  	at org.gradle.internal.
+execution.steps.RemovePrev
+iousOutputsStep.execute(Re
+movePreviousOutputsStep.ja
+va:38)
+  	at org.gradle.internal.
+execution.steps.BroadcastC
+hangingOutputsStep.execute
+(BroadcastChangingOutputsS
+tep.java:61)
+  	at org.gradle.internal.
+execution.steps.BroadcastC
+hangingOutputsStep.execute
+(BroadcastChangingOutputsS
+tep.java:26)
+  	at org.gradle.internal.
+execution.steps.CaptureOut
+putsAfterExecutionStep.exe
+cute(CaptureOutputsAfterEx
+ecutionStep.java:69)
+  	at org.gradle.internal.
+execution.steps.CaptureOut
+putsAfterExecutionStep.exe
+cute(CaptureOutputsAfterEx
+ecutionStep.java:46)
+  	at org.gradle.internal.
+execution.steps.ResolveInp
+utChangesStep.execute(Reso
+lveInputChangesStep.java:3
+9)
+  	at org.gradle.internal.
+execution.steps.ResolveInp
+utChangesStep.execute(Reso
+lveInputChangesStep.java:2
+8)
+  	at org.gradle.internal.
+execution.steps.BuildCache
+Step.executeWithoutCache(B
+uildCacheStep.java:189)
+  	at org.gradle.internal.
+execution.steps.BuildCache
+Step.lambda$execute$1(Buil
+dCacheStep.java:75)
+  	at org.gradle.internal.
+Either$Right.fold(Either.j
+ava:176)
+  	at org.gradle.internal.
+execution.caching.CachingS
+tate.fold(CachingState.jav
+a:62)
+  	at org.gradle.internal.
+execution.steps.BuildCache
+Step.execute(BuildCacheSte
+p.java:73)
+  	at org.gradle.internal.
+execution.steps.BuildCache
+Step.execute(BuildCacheSte
+p.java:48)
+  	at org.gradle.internal.
+execution.steps.StoreExecu
+tionStateStep.execute(Stor
+eExecutionStateStep.java:4
+6)
+  	at org.gradle.internal.
+execution.steps.StoreExecu
+tionStateStep.execute(Stor
+eExecutionStateStep.java:3
+5)
+  	at org.gradle.internal.
+execution.steps.SkipUpToDa
+teStep.executeBecause(Skip
+UpToDateStep.java:75)
+  	at org.gradle.internal.
+execution.steps.SkipUpToDa
+teStep.lambda$execute$2(Sk
+ipUpToDateStep.java:53)
+  	at java.base/java.util.
+Optional.orElseGet(Unknown
+ Source)
+  	at org.gradle.internal.
+execution.steps.SkipUpToDa
+teStep.execute(SkipUpToDat
+eStep.java:53)
+  	at org.gradle.internal.
+execution.steps.SkipUpToDa
+teStep.execute(SkipUpToDat
+eStep.java:35)
+  	at org.gradle.internal.
+execution.steps.legacy.Mar
+kSnapshottingInputsFinishe
+dStep.execute(MarkSnapshot
+tingInputsFinishedStep.jav
+a:37)
+  	at org.gradle.internal.
+execution.steps.legacy.Mar
+kSnapshottingInputsFinishe
+dStep.execute(MarkSnapshot
+tingInputsFinishedStep.jav
+a:27)
+  	at org.gradle.internal.
+execution.steps.ResolveInc
+rementalCachingStateStep.e
+xecuteDelegate(ResolveIncr
+ementalCachingStateStep.ja
+va:49)
+  	at org.gradle.internal.
+execution.steps.ResolveInc
+rementalCachingStateStep.e
+xecuteDelegate(ResolveIncr
+ementalCachingStateStep.ja
+va:27)
+  	at org.gradle.internal.
+execution.steps.AbstractRe
+solveCachingStateStep.exec
+ute(AbstractResolveCaching
+StateStep.java:71)
+  	at org.gradle.internal.
+execution.steps.AbstractRe
+solveCachingStateStep.exec
+ute(AbstractResolveCaching
+StateStep.java:39)
+  	at org.gradle.internal.
+execution.steps.ResolveCha
+ngesStep.execute(ResolveCh
+angesStep.java:64)
+  	at org.gradle.internal.
+execution.steps.ResolveCha
+ngesStep.execute(ResolveCh
+angesStep.java:35)
+  	at org.gradle.internal.
+execution.steps.ValidateSt
+ep.execute(ValidateStep.ja
+va:62)
+  	at org.gradle.internal.
+execution.steps.ValidateSt
+ep.execute(ValidateStep.ja
+va:40)
+  	at org.gradle.internal.
+execution.steps.AbstractCa
+ptureStateBeforeExecutionS
+tep.execute(AbstractCaptur
+eStateBeforeExecutionStep.
+java:76)
+  	at org.gradle.internal.
+execution.steps.AbstractCa
+ptureStateBeforeExecutionS
+tep.execute(AbstractCaptur
+eStateBeforeExecutionStep.
+java:45)
+  	at org.gradle.internal.
+execution.steps.AbstractSk
+ipEmptyWorkStep.executeWit
+hNonEmptySources(AbstractS
+kipEmptyWorkStep.java:136)
+  	at org.gradle.internal.
+execution.steps.AbstractSk
+ipEmptyWorkStep.execute(Ab
+stractSkipEmptyWorkStep.ja
+va:61)
+  	at org.gradle.internal.
+execution.steps.AbstractSk
+ipEmptyWorkStep.execute(Ab
+stractSkipEmptyWorkStep.ja
+va:38)
+  	at org.gradle.internal.
+execution.steps.legacy.Mar
+kSnapshottingInputsStarted
+Step.execute(MarkSnapshott
+ingInputsStartedStep.java:
+38)
+  	at org.gradle.internal.
+execution.steps.LoadPrevio
+usExecutionStateStep.execu
+te(LoadPreviousExecutionSt
+ateStep.java:36)
+  	at org.gradle.internal.
+execution.steps.LoadPrevio
+usExecutionStateStep.execu
+te(LoadPreviousExecutionSt
+ateStep.java:23)
+  	at org.gradle.internal.
+execution.steps.HandleStal
+eOutputsStep.execute(Handl
+eStaleOutputsStep.java:75)
+  	at org.gradle.internal.
+execution.steps.HandleStal
+eOutputsStep.execute(Handl
+eStaleOutputsStep.java:41)
+  	at org.gradle.internal.
+execution.steps.AssignMuta
+bleWorkspaceStep.lambda$ex
+ecute$0(AssignMutableWorks
+paceStep.java:35)
+  	at org.gradle.api.inter
+nal.tasks.execution.TaskEx
+ecution$4.withWorkspace(Ta
+skExecution.java:297)
+  	at org.gradle.internal.
+execution.steps.AssignMuta
+bleWorkspaceStep.execute(A
+ssignMutableWorkspaceStep.
+java:31)
+  	at org.gradle.internal.
+execution.steps.AssignMuta
+bleWorkspaceStep.execute(A
+ssignMutableWorkspaceStep.
+java:22)
+  	at org.gradle.internal.
+execution.steps.ChoosePipe
+lineStep.execute(ChoosePip
+elineStep.java:40)
+  	at org.gradle.internal.
+execution.steps.ChoosePipe
+lineStep.execute(ChoosePip
+elineStep.java:23)
+  	at org.gradle.internal.
+execution.steps.ExecuteWor
+kBuildOperationFiringStep.
+lambda$execute$2(ExecuteWo
+rkBuildOperationFiringStep
+.java:67)
+  	at java.base/java.util.
+Optional.orElseGet(Unknown
+ Source)
+  	at org.gradle.internal.
+execution.steps.ExecuteWor
+kBuildOperationFiringStep.
+execute(ExecuteWorkBuildOp
+erationFiringStep.java:67)
+  	at org.gradle.internal.
+execution.steps.ExecuteWor
+kBuildOperationFiringStep.
+execute(ExecuteWorkBuildOp
+erationFiringStep.java:39)
+  	at org.gradle.internal.
+execution.steps.IdentityCa
+cheStep.execute(IdentityCa
+cheStep.java:46)
+  	at org.gradle.internal.
+execution.steps.IdentityCa
+cheStep.execute(IdentityCa
+cheStep.java:34)
+  	at org.gradle.internal.
+execution.steps.IdentifySt
+ep.execute(IdentifyStep.ja
+va:47)
+  	at org.gradle.internal.
+execution.steps.IdentifySt
+ep.execute(IdentifyStep.ja
+va:34)
+  	at org.gradle.internal.
+execution.impl.DefaultExec
+utionEngine$1.execute(Defa
+ultExecutionEngine.java:64
+)
+  	at org.gradle.api.inter
+nal.tasks.execution.Execut
+eActionsTaskExecuter.execu
+teIfValid(ExecuteActionsTa
+skExecuter.java:132)
+  	at org.gradle.api.inter
+nal.tasks.execution.Execut
+eActionsTaskExecuter.execu
+te(ExecuteActionsTaskExecu
+ter.java:121)
+  	at org.gradle.api.inter
+nal.tasks.execution.Proble
+msTaskPathTrackingTaskExec
+uter.execute(ProblemsTaskP
+athTrackingTaskExecuter.ja
+va:41)
+  	at org.gradle.api.inter
+nal.tasks.execution.Finali
+zePropertiesTaskExecuter.e
+xecute(FinalizePropertiesT
+askExecuter.java:46)
+  	at org.gradle.api.inter
+nal.tasks.execution.Resolv
+eTaskExecutionModeExecuter
+.execute(ResolveTaskExecut
+ionModeExecuter.java:51)
+  	at org.gradle.api.inter
+nal.tasks.execution.SkipTa
+skWithNoActionsExecuter.ex
+ecute(SkipTaskWithNoAction
+sExecuter.java:57)
+  	at org.gradle.api.inter
+nal.tasks.execution.SkipOn
+lyIfTaskExecuter.execute(S
+kipOnlyIfTaskExecuter.java
+:74)
+  	at org.gradle.api.inter
+nal.tasks.execution.CatchE
+xceptionTaskExecuter.execu
+te(CatchExceptionTaskExecu
+ter.java:36)
+  	at org.gradle.api.inter
+nal.tasks.execution.EventF
+iringTaskExecuter$1.execut
+eTask(EventFiringTaskExecu
+ter.java:77)
+  	at org.gradle.api.inter
+nal.tasks.execution.EventF
+iringTaskExecuter$1.call(E
+ventFiringTaskExecuter.jav
+a:55)
+  	at org.gradle.api.inter
+nal.tasks.execution.EventF
+iringTaskExecuter$1.call(E
+ventFiringTaskExecuter.jav
+a:52)
+  	at org.gradle.internal.
+operations.DefaultBuildOpe
+rationRunner$CallableBuild
+OperationWorker.execute(De
+faultBuildOperationRunner.
+java:209)
+  	at org.gradle.internal.
+operations.DefaultBuildOpe
+rationRunner$CallableBuild
+OperationWorker.execute(De
+faultBuildOperationRunner.
+java:204)
+  	at org.gradle.internal.
+operations.DefaultBuildOpe
+rationRunner$2.execute(Def
+aultBuildOperationRunner.j
+ava:66)
+  	at org.gradle.internal.
+operations.DefaultBuildOpe
+rationRunner$2.execute(Def
+aultBuildOperationRunner.j
+ava:59)
+  	at org.gradle.internal.
+operations.DefaultBuildOpe
+rationRunner.execute(Defau
+ltBuildOperationRunner.jav
+a:166)
+  	at org.gradle.internal.
+operations.DefaultBuildOpe
+rationRunner.execute(Defau
+ltBuildOperationRunner.jav
+a:59)
+  	at org.gradle.internal.
+operations.DefaultBuildOpe
+rationRunner.call(DefaultB
+uildOperationRunner.java:5
+3)
+  	at org.gradle.api.inter
+nal.tasks.execution.EventF
+iringTaskExecuter.execute(
+EventFiringTaskExecuter.ja
+va:52)
+  	at org.gradle.execution
+.plan.LocalTaskNodeExecuto
+r.execute(LocalTaskNodeExe
+cutor.java:45)
+  	at org.gradle.execution
+.taskgraph.DefaultTaskExec
+utionGraph$InvokeNodeExecu
+torsAction.execute(Default
+TaskExecutionGraph.java:34
+7)
+  	at org.gradle.execution
+.taskgraph.DefaultTaskExec
+utionGraph$InvokeNodeExecu
+torsAction.execute(Default
+TaskExecutionGraph.java:33
+4)
+  	at org.gradle.execution
+.taskgraph.DefaultTaskExec
+utionGraph$BuildOperationA
+wareExecutionAction.lambda
+$execute$0(DefaultTaskExec
+utionGraph.java:330)
+  	at org.gradle.internal.
+operations.CurrentBuildOpe
+rationRef.with(CurrentBuil
+dOperationRef.java:84)
+  	at org.gradle.execution
+.taskgraph.DefaultTaskExec
+utionGraph$BuildOperationA
+wareExecutionAction.execut
+e(DefaultTaskExecutionGrap
+h.java:330)
+  	at org.gradle.execution
+.taskgraph.DefaultTaskExec
+utionGraph$BuildOperationA
+wareExecutionAction.execut
+e(DefaultTaskExecutionGrap
+h.java:319)
+  	at org.gradle.execution
+.plan.DefaultPlanExecutor$
+ExecutorWorker.execute(Def
+aultPlanExecutor.java:459)
+  	at org.gradle.execution
+.plan.DefaultPlanExecutor$
+ExecutorWorker.run(Default
+PlanExecutor.java:376)
+  	at org.gradle.internal.
+concurrent.ExecutorPolicy$
+CatchAndRecordFailures.onE
+xecute(ExecutorPolicy.java
+:64)
+  	at org.gradle.internal.
+concurrent.AbstractManaged
+Executor$1.run(AbstractMan
+agedExecutor.java:47)
+  	at java.base/java.util.
+concurrent.ThreadPoolExecu
+tor.runWorker(Unknown 
+Source)
+  	at java.base/java.util.
+concurrent.ThreadPoolExecu
+tor$Worker.run(Unknown 
+Source)
+  	at java.base/java.lang.
+Thread.run(Unknown Source)
+  Caused by: com.android.i
+de.common.process.ProcessE
+xception: Error while 
+executing process C:\Users
+\Admin\AppData\Local\Andro
+id\Sdk\cmake\3.22.1\bin\cm
+ake.exe with arguments {-H
+C:\python\android_app_love
+\node_modules\react-native
+\ReactAndroid\cmake-utils\
+default-app-setup -DCMAKE_
+SYSTEM_NAME=Android -DCMAK
+E_EXPORT_COMPILE_COMMANDS=
+ON 
+-DCMAKE_SYSTEM_VERSION=24 
+-DANDROID_PLATFORM=android
+-24 
+-DANDROID_ABI=arm64-v8a -D
+CMAKE_ANDROID_ARCH_ABI=arm
+64-v8a -DANDROID_NDK=C:\Us
+ers\Admin\AppData\Local\An
+droid\Sdk\ndk\27.1.1229700
+6 -DCMAKE_ANDROID_NDK=C:\U
+sers\Admin\AppData\Local\A
+ndroid\Sdk\ndk\27.1.122970
+06 -DCMAKE_TOOLCHAIN_FILE=
+C:\Users\Admin\AppData\Loc
+al\Android\Sdk\ndk\27.1.12
+297006\build\cmake\android
+.toolchain.cmake -DCMAKE_M
+AKE_PROGRAM=C:\Users\Admin
+\AppData\Local\Android\Sdk
+\cmake\3.22.1\bin\ninja.ex
+e -DCMAKE_LIBRARY_OUTPUT_D
+IRECTORY=C:\python\android
+_app_love\android\app\buil
+d\intermediates\cxx\RelWit
+hDebInfo\59524941\obj\arm6
+4-v8a -DCMAKE_RUNTIME_OUTP
+UT_DIRECTORY=C:\python\and
+roid_app_love\android\app\
+build\intermediates\cxx\Re
+lWithDebInfo\59524941\obj\
+arm64-v8a -DCMAKE_BUILD_TY
+PE=RelWithDebInfo -DCMAKE_
+FIND_ROOT_PATH=C:\python\a
+ndroid_app_love\android\ap
+p\.cxx\RelWithDebInfo\5952
+4941\prefab\arm64-v8a\pref
+ab -BC:\python\android_app
+_love\android\app\.cxx\Rel
+WithDebInfo\59524941\arm64
+-v8a -GNinja -DPROJECT_BUI
+LD_DIR=C:\python\android_a
+pp_love\android\app\build 
+-DPROJECT_ROOT_DIR=C:\pyth
+on\android_app_love\androi
+d -DREACT_ANDROID_DIR=C:\p
+ython\android_app_love\nod
+e_modules\react-native\Rea
+ctAndroid 
+-DANDROID_STL=c++_shared -
+DANDROID_SUPPORT_FLEXIBLE_
+PAGE_SIZES=ON}
+  	at com.android.build.gr
+adle.internal.process.Grad
+leProcessResult.buildProce
+ssException(GradleProcessR
+esult.java:73)
+  	at com.android.build.gr
+adle.internal.process.Grad
+leProcessResult.assertNorm
+alExitValue(GradleProcessR
+esult.java:48)
+  	at com.android.build.gr
+adle.internal.cxx.process.
+ExecuteProcessKt.execute(E
+xecuteProcess.kt:277)
+  	... 140 more
+  Caused by: org.gradle.pr
+ocess.ProcessExecutionExce
+ption: Process 'command 'C
+:\Users\Admin\AppData\Loca
+l\Android\Sdk\cmake\3.22.1
+\bin\cmake.exe'' finished 
+with non-zero exit value 1
+  	at org.gradle.process.i
+nternal.DefaultExecHandle$
+ExecResultImpl.assertNorma
+lExitValue(DefaultExecHand
+le.java:443)
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.0.0/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+627 actionable tasks: 40 executed, 587 up-to-date
+  	at com.android.build.gr
+adle.internal.process.Grad
+leProcessResult.assertNorm
+alExitValue(GradleProcessR
+esult.java:46)
+  	... 141 more
+
+
+* Try:
+> Run with --stacktrace 
+option to get the stack 
+trace.
+> Run with --info or 
+--debug option to get 
+more log output.
+> Run with --scan to 
+generate a Build Scan 
+(Powered by Develocity).
+> Get more help at 
+https://help.gradle.org.
+
+BUILD FAILED in 21s

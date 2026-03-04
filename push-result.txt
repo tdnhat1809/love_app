@@ -1,0 +1,22 @@
+SEND: {
+  "data": {
+    "status": "ok",
+    "id": "019cb21b-bac6-7304-b684-79429c3afaae"
+  }
+}
+RECEIPT: {
+  "data": {
+    "019cb21b-bac6-7304-b684-79429c3afaae": {
+      "status": "error",
+      "message": "Failed to authenticate with the FCM server. Ensure the FCM server key you uploaded is correct.",
+      "messageEnum": 17,
+      "messageParamValues": [],
+      "details": {
+        "error": "DeveloperError",
+        "errorCodeEnum": 2,
+        "sentAt": 1772514688
+      },
+      "__debug": {}
+    }
+  }
+}

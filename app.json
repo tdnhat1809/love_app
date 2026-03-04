@@ -1,29 +1,88 @@
 {
   "expo": {
-    "name": "android_app_love",
-    "slug": "android_app_love",
+    "name": "Nhật ❤️ Nhi",
+    "slug": "nhat-love-nhi",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#1a0a2e"
     },
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
+        "backgroundColor": "#1a0a2e",
+        "foregroundImage": "./assets/icon.png"
+      },
+      "package": "com.nhat.lovenhi",
+      "googleServicesFile": "./google-services.json",
+      "permissions": [
+        "android.permission.NOTIFICATIONS",
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_BACKGROUND_LOCATION"
+      ],
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBWjjPA8KCzC9WN8Sx4HHAgN0IZOyawFYI"
+        }
       }
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-font",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#e94971",
+          "defaultChannel": "love-messages",
+          "enableBackgroundRemoteNotifications": true,
+          "useNextNotificationsApi": true
+        }
+      ],
+      "expo-image-picker",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Cho phép ứng dụng sử dụng vị trí để chia sẻ với người yêu.",
+          "locationWhenInUsePermission": "Cho phép ứng dụng sử dụng vị trí để chia sẻ với người yêu."
+        }
+      ],
+      [
+        "react-native-android-widget",
+        {
+          "widgets": [
+            {
+              "name": "LoveCounter",
+              "label": "Nhật ❤️ Nhi - Đếm ngày yêu",
+              "minWidth": "250dp",
+              "minHeight": "110dp",
+              "description": "Widget đếm ngày yêu nhau",
+              "previewImage": "./assets/icon.png",
+              "updatePeriodMillis": 86400000,
+              "resizeMode": "horizontal|vertical"
+            }
+          ]
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "5ab56ae9-fd5c-43da-a88c-6465f4d86517"
+      }
+    },
+    "owner": "b2w1234"
   }
 }

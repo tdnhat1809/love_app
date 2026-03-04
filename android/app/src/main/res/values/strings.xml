@@ -1,0 +1,5 @@
+<resources>
+  <string name="app_name">Nhật ❤️ Nhi</string>
+  <string name="expo_splash_screen_resize_mode" translatable="false">contain</string>
+  <string name="widget_lovecounter_description" translatable="false">Widget đếm ngày yêu nhau</string>
+</resources>

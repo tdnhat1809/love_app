@@ -36,6 +36,17 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
-# generated native folders
+# Build artifacts
+android/app/build/
+android/.gradle/
+android/build/
+*.apk
+*.aab
+build-log*.txt
+test-log*.txt
+
+# Sensitive files
+firebase-service-account.json
+
+# generated native folders - keeping android since we have custom config
 /ios
-/android

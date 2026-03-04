@@ -1,0 +1,533 @@
+﻿> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-gradle-plugin:expo-autolinking-plugin-shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :gradle-plugin:settings-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :gradle-plugin:shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:pluginDescriptors UP-TO-DATE
+> Task :gradle-plugin:settings-plugin:pluginDescriptors UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:processResources UP-TO-DATE
+> Task :gradle-plugin:settings-plugin:processResources UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-plugin-shared:compileKotlin UP-TO-DATE
+> Task :gradle-plugin:shared:compileKotlin UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-plugin-shared:compileJava NO-SOURCE
+> Task :gradle-plugin:shared:compileJava NO-SOURCE
+> Task :expo-gradle-plugin:expo-autolinking-plugin-shared:processResources NO-SOURCE
+> Task :expo-gradle-plugin:expo-autolinking-plugin-shared:classes UP-TO-DATE
+> Task :gradle-plugin:shared:processResources NO-SOURCE
+> Task :gradle-plugin:shared:classes UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-plugin-shared:jar UP-TO-DATE
+> Task :gradle-plugin:shared:jar UP-TO-DATE
+> Task :gradle-plugin:settings-plugin:compileKotlin UP-TO-DATE
+> Task :gradle-plugin:settings-plugin:compileJava NO-SOURCE
+> Task :gradle-plugin:settings-plugin:classes UP-TO-DATE
+> Task :gradle-plugin:settings-plugin:jar UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:compileKotlin UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:compileJava NO-SOURCE
+> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:classes UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-settings-plugin:jar UP-TO-DATE
+> Task :gradle-plugin:react-native-gradle-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-gradle-plugin:expo-max-sdk-override-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-gradle-plugin:expo-autolinking-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-module-gradle-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-module-gradle-plugin:pluginDescriptors UP-TO-DATE
+> Task :expo-module-gradle-plugin:processResources UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-plugin:compileKotlin UP-TO-DATE
+> Task :expo-gradle-plugin:expo-max-sdk-override-plugin:compileKotlin UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-plugin:compileJava NO-SOURCE
+> Task :expo-gradle-plugin:expo-max-sdk-override-plugin:compileJava NO-SOURCE
+> Task :expo-gradle-plugin:expo-max-sdk-override-plugin:pluginDescriptors UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-plugin:pluginDescriptors UP-TO-DATE
+> Task :expo-gradle-plugin:expo-max-sdk-override-plugin:processResources UP-TO-DATE
+> Task :expo-gradle-plugin:expo-max-sdk-override-plugin:classes UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-plugin:processResources UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-plugin:classes UP-TO-DATE
+> Task :gradle-plugin:react-native-gradle-plugin:compileKotlin UP-TO-DATE
+> Task :expo-gradle-plugin:expo-max-sdk-override-plugin:jar UP-TO-DATE
+> Task :expo-gradle-plugin:expo-autolinking-plugin:jar UP-TO-DATE
+> Task :gradle-plugin:react-native-gradle-plugin:compileJava NO-SOURCE
+> Task :gradle-plugin:react-native-gradle-plugin:pluginDescriptors UP-TO-DATE
+> Task :gradle-plugin:react-native-gradle-plugin:processResources UP-TO-DATE
+> Task :gradle-plugin:react-native-gradle-plugin:classes UP-TO-DATE
+> Task :gradle-plugin:react-native-gradle-plugin:jar UP-TO-DATE
+> Task :expo-module-gradle-plugin:compileKotlin UP-TO-DATE
+> Task :expo-module-gradle-plugin:compileJava NO-SOURCE
+> Task :expo-module-gradle-plugin:classes UP-TO-DATE
+> Task :expo-module-gradle-plugin:jar UP-TO-DATE
+
+> Configure project :app
+ Γä╣∩╕Å  [33mApplying gradle plugin[0m '[32mexpo-max-sdk-override-plugin[0m'
+  [expo-max-sdk-override-plugin] This plugin will find all permissions declared with `android:maxSdkVersion`. If there exists a declaration with the `android:maxSdkVersion` annotation and another one without, the plugin will remove the annotation from the final merged manifest. In order to see a log with the changes run a clean build of the app.
+
+> Configure project :
+[32m[ExpoRootProject][0m Using the following versions:
+  - buildTools:  [32m36.0.0[0m
+  - minSdk:      [32m24[0m
+  - compileSdk:  [32m36[0m
+  - targetSdk:   [32m36[0m
+  - ndk:         [32m27.1.12297006[0m
+  - kotlin:      [32m2.1.20[0m
+  - ksp:         [32m2.1.20-2.0.1[0m
+
+> Configure project :expo-modules-core
+Linking react-native-worklets native libs into expo-modules-core build tasks
+task ':react-native-worklets:mergeDebugNativeLibs'
+task ':react-native-worklets:mergeReleaseNativeLibs'
+
+> Configure project :expo
+
+Using expo modules
+  - [32mexpo-log-box[0m (55.0.7)
+  - [32mexpo-constants[0m (55.0.7)
+  - [32mexpo-modules-core[0m (55.0.13)
+  - [33m[≡ƒôª][0m [32mexpo-dom-webview[0m (55.0.3)
+  - [33m[≡ƒôª][0m [32mexpo-application[0m (55.0.8)
+  - [33m[≡ƒôª][0m [32mexpo-asset[0m (55.0.8)
+  - [33m[≡ƒôª][0m [32mexpo-background-fetch[0m (55.0.9)
+  - [33m[≡ƒôª][0m [32mexpo-battery[0m (55.0.8)
+  - [33m[≡ƒôª][0m [32mexpo-device[0m (55.0.9)
+  - [33m[≡ƒôª][0m [32mexpo-file-system[0m (55.0.10)
+  - [33m[≡ƒôª][0m [32mexpo-font[0m (55.0.4)
+  - [33m[≡ƒôª][0m [32mexpo-image-loader[0m (55.0.0)
+  - [33m[≡ƒôª][0m [32mexpo-image-manipulator[0m (55.0.9)
+  - [33m[≡ƒôª][0m [32mexpo-image-picker[0m (55.0.10)
+  - [33m[≡ƒôª][0m [32mexpo-keep-awake[0m (55.0.4)
+  - [33m[≡ƒôª][0m [32mexpo-linear-gradient[0m (55.0.8)
+  - [33m[≡ƒôª][0m [32mexpo-location[0m (55.1.2)
+  - [33m[≡ƒôª][0m [32mexpo-notifications[0m (55.0.10)
+  - [33m[≡ƒôª][0m [32mexpo-task-manager[0m (55.0.9)
+  - [33m[≡ƒôª][0m [32munimodules-app-loader[0m (55.0.2)
+
+
+> Task :expo-modules-core:externalNativeBuildCleanDebug
+> Task :app:externalNativeBuildCleanDebug
+> Task :react-native-screens:externalNativeBuildCleanDebug
+> Task :app:externalNativeBuildCleanDebugOptimized
+> Task :react-native-reanimated:cleanCmakeCache
+> Task :react-native-reanimated:externalNativeBuildCleanDebug
+> Task :react-native-reanimated:externalNativeBuildCleanRelease
+> Task :expo:clean
+> Task :expo:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :expo-constants:clean
+> Task :expo-constants:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :react-native-worklets:cleanCmakeCache
+> Task :react-native-worklets:externalNativeBuildCleanDebug
+> Task :react-native-worklets:externalNativeBuildCleanRelease
+> Task :react-native-worklets:clean
+> Task :react-native-reanimated:clean
+
+> Task :react-native-screens:externalNativeBuildCleanRelease
+Clean rnscreens-arm64-v8a
+Clean rnscreens-x86_64
+Clean rnscreens-armeabi-v7a
+Clean rnscreens-x86
+
+> Task :react-native-worklets:assertMinimalReactNativeVersionTask
+> Task :react-native-worklets:assertNewArchitectureEnabledTask SKIPPED
+> Task :react-native-reanimated:assertMinimalReactNativeVersionTask
+> Task :react-native-reanimated:assertNewArchitectureEnabledTask SKIPPED
+> Task :react-native-reanimated:assertWorkletsVersionTask
+> Task :react-native-screens:clean
+> Task :react-native-screens:checkKotlinGradlePluginConfigurationErrors SKIPPED
+
+> Task :expo-modules-core:externalNativeBuildCleanRelease
+Clean expo-modules-jsi-arm64-v8a, expo-modules-core-arm64-v8a
+Clean expo-modules-jsi-x86_64, expo-modules-core-x86_64
+Clean expo-modules-jsi-armeabi-v7a, expo-modules-core-armeabi-v7a
+Clean expo-modules-jsi-x86, expo-modules-core-x86
+
+> Task :expo-modules-core:clean
+> Task :expo-modules-core:preBuild UP-TO-DATE
+> Task :expo-modules-core:preReleaseBuild UP-TO-DATE
+> Task :expo-modules-core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+
+> Task :app:externalNativeBuildCleanRelease FAILED
+Clean react_codegen_rnreanimated-arm64-v8a, react_codegen_safeareacontext-arm64-v8a, react_codegen_RNCWebViewSpec-arm64-v8a, react_codegen_rnscreens-arm64-v8a, appmodules-arm64-v8a, react_codegen_AndroidWidget-arm64-v8a, react_codegen_RNCNetInfoSpec-arm64-v8a, react_codegen_RNMapsSpecs-arm64-v8a, react_codegen_rnworklets-arm64-v8a, react_codegen_rnasyncstorage-arm64-v8a
+C/C++: -- GLOB mismatch!
+C/C++: -- GLOB mismatch!
+C/C++: -- GLOB mismatch!
+C/C++: -- GLOB mismatch!
+C/C++: -- GLOB mismatch!
+C/C++: -- GLOB mismatch!
+C/C++: -- GLOB mismatch!
+C/C++: -- GLOB mismatch!
+C/C++: -- GLOB mismatch!
+C/C++: -- GLOB mismatch!
+C/C++: -- GLOB mismatch!
+C/C++: -- GLOB mismatch!
+C/C++: -- GLOB mismatch!
+C/C++: -- GLOB mismatch!
+C/C++: CMake Error at C:/python/android_app_love/android/app/build/generated/autolinking/src/main/jni/Android-autolinking.cmake:9 (add_subdirectory):
+C/C++:   add_subdirectory given source
+C/C++:   "C:/python/android_app_love/node_modules/@react-native-async-storage/async-storage/android/build/generated/source/codegen/jni/"
+C/C++:   which is not an existing directory.
+C/C++: Call Stack (most recent call first):
+C/C++:   C:/python/android_app_love/node_modules/react-native/ReactAndroid/cmake-utils/ReactNative-application.cmake:94 (include)
+C/C++:   CMakeLists.txt:31 (include)
+C/C++: CMake Error at C:/python/android_app_love/android/app/build/generated/autolinking/src/main/jni/Android-autolinking.cmake:10 (add_subdirectory):
+C/C++:   add_subdirectory given source
+C/C++:   "C:/python/android_app_love/node_modules/@react-native-community/netinfo/android/build/generated/source/codegen/jni/"
+C/C++:   which is not an existing directory.
+C/C++: Call Stack (most recent call first):
+C/C++:   C:/python/android_app_love/node_modules/react-native/ReactAndroid/cmake-utils/ReactNative-application.cmake:94 (include)
+C/C++:   CMakeLists.txt:31 (include)
+C/C++: CMake Error at C:/python/android_app_love/android/app/build/generated/autolinking/src/main/jni/Android-autolinking.cmake:12 (add_subdirectory):
+C/C++:   add_subdirectory given source
+C/C++:   "C:/python/android_app_love/node_modules/react-native-android-widget/android/build/generated/source/codegen/jni/"
+C/C++:   which is not an existing directory.
+C/C++: Call Stack (most recent call first):
+C/C++:   C:/python/android_app_love/node_modules/react-native/ReactAndroid/cmake-utils/ReactNative-application.cmake:94 (include)
+C/C++:   CMakeLists.txt:31 (include)
+C/C++: CMake Error at C:/python/android_app_love/android/app/build/generated/autolinking/src/main/jni/Android-autolinking.cmake:14 (add_subdirectory):
+C/C++:   add_subdirectory given source
+C/C++:   "C:/python/android_app_love/node_modules/react-native-reanimated/android/build/generated/source/codegen/jni/"
+C/C++:   which is not an existing directory.
+C/C++: Call Stack (most recent call first):
+C/C++:   C:/python/android_app_love/node_modules/react-native/ReactAndroid/cmake-utils/ReactNative-application.cmake:94 (include)
+C/C++:   CMakeLists.txt:31 (include)
+C/C++: CMake Error at C:/python/android_app_love/android/app/build/generated/autolinking/src/main/jni/Android-autolinking.cmake:17 (add_subdirectory):
+C/C++:   add_subdirectory given source
+C/C++:   "C:/python/android_app_love/node_modules/react-native-webview/android/build/generated/source/codegen/jni/"
+C/C++:   which is not an existing directory.
+C/C++: Call Stack (most recent call first):
+C/C++:   C:/python/android_app_love/node_modules/react-native/ReactAndroid/cmake-utils/ReactNative-application.cmake:94 (include)
+C/C++:   CMakeLists.txt:31 (include)
+C/C++: CMake Error at C:/python/android_app_love/android/app/build/generated/autolinking/src/main/jni/Android-autolinking.cmake:18 (add_subdirectory):
+C/C++:   add_subdirectory given source
+C/C++:   "C:/python/android_app_love/node_modules/react-native-worklets/android/build/generated/source/codegen/jni/"
+C/C++:   which is not an existing directory.
+C/C++: Call Stack (most recent call first):
+C/C++:   C:/python/android_app_love/node_modules/react-native/ReactAndroid/cmake-utils/ReactNative-application.cmake:94 (include)
+C/C++:   CMakeLists.txt:31 (include)
+C/C++: CMake Error at C:/python/android_app_love/node_modules/react-native/ReactAndroid/cmake-utils/ReactNative-application.cmake:97 (target_link_libraries):
+C/C++:   Cannot specify link libraries for target "react_codegen_rnasyncstorage"
+C/C++:   which is not built by this project.
+C/C++: Call Stack (most recent call first):
+C/C++:   CMakeLists.txt:31 (include)
+C/C++: ninja: error: rebuilding 'build.ninja': subcommand failed
+
+> Task :react-native-community_netinfo:clean
+> Task :react-native-android-widget:clean
+> Task :react-native-safe-area-context:clean
+> Task :react-native-async-storage_async-storage:clean
+> Task :react-native-webview:clean
+> Task :react-native-maps:clean
+> Task :expo-log-box:clean
+
+[Incubating] Problems report is available at: file:///C:/python/android_app_love/android/build/reports/problems/problems-report.html
+.\gradlew.bat : 
+At line:1 char:1
++ .\gradlew.bat clean 
+assembleRelease 2>&1 
+| Out-File -FilePath 
+"C:\pyt ...
++ ~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo    
+          : NotSpeci  
+  fied: (:String) [   
+ ], RemoteExceptio    
+n
+    + FullyQualifiedE 
+   rrorId : NativeCo  
+  mmandError
+ 
+FAILURE: Build failed 
+with an exception.
+
+* What went wrong:
+Execution failed for 
+task ':app:externalNat
+iveBuildCleanRelease'.
+> com.android.ide.comm
+on.process.ProcessExce
+ption: ninja: 
+Entering directory `C:
+\python\android_app_lo
+ve\android\app\.cxx\Re
+lWithDebInfo\59524941\
+arm64-v8a'
+  [0/2] Re-checking 
+globbed directories...
+  [1/2] Re-running 
+CMake...
+  -- Configuring 
+incomplete, errors 
+occurred!
+  See also "C:/python/
+android_app_love/andro
+id/app/.cxx/RelWithDeb
+Info/59524941/arm64-v8
+a/CMakeFiles/CMakeOutp
+ut.log".
+  See also "C:/python/
+android_app_love/andro
+id/app/.cxx/RelWithDeb
+Info/59524941/arm64-v8
+a/CMakeFiles/CMakeErro
+r.log".
+  FAILED: build.ninja 
+  C:\Users\Admin\AppDa
+ta\Local\Android\Sdk\c
+make\3.22.1\bin\cmake.
+exe --regenerate-durin
+g-build -SC:\python\an
+droid_app_love\node_mo
+dules\react-native\Rea
+ctAndroid\cmake-utils\
+default-app-setup -BC:
+\python\android_app_lo
+ve\android\app\.cxx\Re
+lWithDebInfo\59524941\
+arm64-v8a
+  
+  C++ build system 
+[clean] failed while 
+executing:
+      @echo off
+      "C:\\Users\\Admi
+n\\AppData\\Local\\And
+roid\\Sdk\\cmake\\3.22
+.1\\bin\\ninja.exe" ^
+        -C ^
+        "C:\\python\\a
+ndroid_app_love\\andro
+id\\app\\.cxx\\RelWith
+DebInfo\\59524941\\arm
+64-v8a" ^
+        clean
+    from C:\python\and
+roid_app_love\android\
+app
+  -- GLOB mismatch!
+  -- GLOB mismatch!
+  -- GLOB mismatch!
+  -- GLOB mismatch!
+  -- GLOB mismatch!
+  -- GLOB mismatch!
+  -- GLOB mismatch!
+  -- GLOB mismatch!
+  -- GLOB mismatch!
+  -- GLOB mismatch!
+  -- GLOB mismatch!
+  -- GLOB mismatch!
+  -- GLOB mismatch!
+  -- GLOB mismatch!
+  CMake Error at C:/py
+thon/android_app_love/
+android/app/build/gene
+rated/autolinking/src/
+main/jni/Android-autol
+inking.cmake:9 
+(add_subdirectory):
+    add_subdirectory 
+given source
+    "C:/python/android
+_app_love/node_modules
+/@react-native-async-s
+torage/async-storage/a
+ndroid/build/generated
+/source/codegen/jni/"
+    which is not an 
+existing directory.
+  Call Stack (most 
+recent call first):
+    C:/python/android_
+app_love/node_modules/
+react-native/ReactAndr
+oid/cmake-utils/ReactN
+ative-application.cmak
+e:94 (include)
+    CMakeLists.txt:31 
+(include)
+  
+  
+  CMake Error at C:/py
+thon/android_app_love/
+android/app/build/gene
+rated/autolinking/src/
+main/jni/Android-autol
+inking.cmake:10 
+(add_subdirectory):
+    add_subdirectory 
+given source
+    "C:/python/android
+_app_love/node_modules
+/@react-native-communi
+ty/netinfo/android/bui
+ld/generated/source/co
+degen/jni/"
+    which is not an 
+existing directory.
+  Call Stack (most 
+recent call first):
+    C:/python/android_
+app_love/node_modules/
+react-native/ReactAndr
+oid/cmake-utils/ReactN
+ative-application.cmak
+e:94 (include)
+    CMakeLists.txt:31 
+(include)
+  
+  
+  CMake Error at C:/py
+thon/android_app_love/
+android/app/build/gene
+rated/autolinking/src/
+main/jni/Android-autol
+inking.cmake:12 
+(add_subdirectory):
+    add_subdirectory 
+given source
+    "C:/python/android
+_app_love/node_modules
+/react-native-android-
+widget/android/build/g
+enerated/source/codege
+n/jni/"
+    which is not an 
+existing directory.
+  Call Stack (most 
+recent call first):
+    C:/python/android_
+app_love/node_modules/
+react-native/ReactAndr
+oid/cmake-utils/ReactN
+ative-application.cmak
+e:94 (include)
+    CMakeLists.txt:31 
+(include)
+  
+  
+  CMake Error at C:/py
+thon/android_app_love/
+android/app/build/gene
+rated/autolinking/src/
+main/jni/Android-autol
+inking.cmake:14 
+(add_subdirectory):
+    add_subdirectory 
+given source
+    "C:/python/android
+_app_love/node_modules
+/react-native-reanimat
+ed/android/build/gener
+ated/source/codegen/jn
+i/"
+    which is not an 
+existing directory.
+  Call Stack (most 
+recent call first):
+    C:/python/android_
+app_love/node_modules/
+react-native/ReactAndr
+oid/cmake-utils/ReactN
+ative-application.cmak
+e:94 (include)
+    CMakeLists.txt:31 
+(include)
+  
+  
+  CMake Error at C:/py
+thon/android_app_love/
+android/app/build/gene
+rated/autolinking/src/
+main/jni/Android-autol
+inking.cmake:17 
+(add_subdirectory):
+    add_subdirectory 
+given source
+    "C:/python/android
+_app_love/node_modules
+/react-native-webview/
+android/build/generate
+d/source/codegen/jni/"
+    which is not an 
+existing directory.
+  Call Stack (most 
+recent call first):
+    C:/python/android_
+app_love/node_modules/
+react-native/ReactAndr
+oid/cmake-utils/ReactN
+ative-application.cmak
+e:94 (include)
+    CMakeLists.txt:31 
+(include)
+  
+  
+  CMake Error at C:/py
+thon/android_app_love/
+android/app/build/gene
+rated/autolinking/src/
+main/jni/Android-autol
+inking.cmake:18 
+(add_subdirectory):
+    add_subdirectory 
+given source
+    "C:/python/android
+_app_love/node_modules
+/react-native-worklets
+/android/build/generat
+ed/source/codegen/jni/
+"
+    which is not an 
+existing directory.
+  Call Stack (most 
+recent call first):
+    C:/python/android_
+app_love/node_modules/
+react-native/ReactAndr
+oid/cmake-utils/ReactN
+ative-application.cmak
+e:94 (include)
+    CMakeLists.txt:31 
+(include)
+  
+  
+  CMake Error at C:/py
+thon/android_app_love/
+node_modules/react-nat
+ive/ReactAndroid/cmake
+-utils/ReactNative-app
+lication.cmake:97 (tar
+get_link_libraries):
+    Cannot specify 
+link libraries for 
+target "react_codegen_
+rnasyncstorage"
+    which is not 
+built by this project.
+  Call Stack (most 
+recent call first):
+    CMakeLists.txt:31 
+(include)
+  
+  
+  ninja: error: 
+rebuilding 
+'build.ninja': 
+subcommand failed
+
+* Try:
+> Run with 
+--stacktrace option 
+to get the stack 
+trace.
+> Run with --info or 
+--debug option to get 
+more log output.
+> Run with --scan to 
+generate a Build Scan 
+(Powered by 
+Develocity).
+> Get more help at htt
+ps://help.gradle.org.
+
+
+BUILD FAILED in 8s
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.0.0/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+57 actionable tasks: 29 executed, 28 up-to-date
