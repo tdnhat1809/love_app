@@ -42,7 +42,7 @@ export default function GalleryScreen() {
     const pickImage = async (source) => {
         const paired = await isPaired();
         if (!paired) { Alert.alert('⚠️', 'Ghép đôi trước để đồng bộ ảnh!'); return; }
-        const opts = { mediaTypes: ['images'], quality: 0.85, allowsEditing: true };
+        const opts = { mediaTypes: ['images'], quality: 0.85 };
         const res = source === 'camera' ? await ImagePicker.launchCameraAsync(opts) : await ImagePicker.launchImageLibraryAsync(opts);
         if (!res.canceled) { setTempUri(res.assets[0].uri); setShowCaption(true); }
     };

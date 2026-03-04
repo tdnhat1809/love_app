@@ -115,6 +115,29 @@ export async function getExpoPushToken() {
 export async function sendPushToToken(pushToken, title, body) {
     if (!pushToken) return;
 
+    // Method 1: Try VPS FCM push for reliable background delivery
+    try {
+        const vpsRes = await fetch('http://129.212.226.229/send-push', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                token: pushToken,
+                title: title || 'Nhật ❤️ Nhi',
+                body: body,
+                channelId: 'love-messages',
+            }),
+        });
+        const vpsResult = await vpsRes.json();
+        if (vpsResult.success) {
+            console.log('[PUSH] VPS FCM push sent successfully');
+            return;
+        }
+        console.log('[PUSH] VPS FCM failed:', vpsResult.error);
+    } catch (e) {
+        console.log('[PUSH] VPS FCM error:', e.message);
+    }
+
+    // Method 2: Fallback to Expo Push API
     try {
         const response = await fetch('https://exp.host/--/api/v2/push/send', {
             method: 'POST',
@@ -130,7 +153,6 @@ export async function sendPushToToken(pushToken, title, body) {
                 sound: 'default',
                 priority: 'high',
                 channelId: 'love-messages',
-                // Critical for background delivery on Android
                 _contentAvailable: true,
                 data: {
                     title: title || 'Nhật ❤️ Nhi',
@@ -140,9 +162,9 @@ export async function sendPushToToken(pushToken, title, body) {
             }),
         });
         const result = await response.json();
-        console.log('Push result:', JSON.stringify(result));
+        console.log('[PUSH] Expo push result:', JSON.stringify(result));
     } catch (e) {
-        console.log('Push send error:', e);
+        console.log('[PUSH] Expo push error:', e);
     }
 }
 

@@ -17,7 +17,7 @@ export default function TimelineScreen() {
 
     const handleSave = async () => { if (!form.title.trim()) { Alert.alert('⚠️', 'Nhập tiêu đề!'); return; } await saveEvent({ ...form, date: form.date || new Date().toISOString().split('T')[0] }); setForm({ title: '', description: '', emoji: '❤️', date: '', photo: null }); setShowAdd(false); await loadEvents(); };
     const handleDelete = (id) => { Alert.alert('Xóa?', '', [{ text: 'Hủy', style: 'cancel' }, { text: 'Xóa', style: 'destructive', onPress: async () => { await deleteEvent(id); await loadEvents(); } }]); };
-    const pickPhoto = async () => { const res = await ImagePicker.launchImageLibraryAsync({ quality: 0.7, allowsEditing: true }); if (!res.canceled) setForm(f => ({ ...f, photo: res.assets[0].uri })); };
+    const pickPhoto = async () => { const res = await ImagePicker.launchImageLibraryAsync({ quality: 0.7 }); if (!res.canceled) setForm(f => ({ ...f, photo: res.assets[0].uri })); };
     const emojis = ['❤️', '🎉', '🎵', '✈️', '🍽️', '🎁', '💍', '🏠', '📸', '🌹', '💕', '⭐'];
 
     return (

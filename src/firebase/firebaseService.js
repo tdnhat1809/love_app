@@ -538,15 +538,28 @@ export async function uploadPhoto(photoData) {
     if (!code) throw new Error('Chưa ghép đôi!');
 
     // Try VPS first (full HD quality), fallback to imgBB
-    let imgResult = await uploadToVPS('data:image/jpeg;base64,' + photoData.base64);
+    let imgResult = null;
+    try {
+        imgResult = await uploadToVPS('data:image/jpeg;base64,' + photoData.base64);
+    } catch (e) {
+        console.log('[GALLERY] VPS upload failed:', e.message);
+    }
     if (!imgResult) {
-        imgResult = await uploadToImgBB(photoData.base64);
+        try {
+            imgResult = await uploadToImgBB(photoData.base64);
+        } catch (e) {
+            console.log('[GALLERY] imgBB upload failed:', e.message);
+        }
+    }
+
+    if (!imgResult || !imgResult.url) {
+        throw new Error('Không thể upload ảnh. Kiểm tra kết nối mạng và thử lại!');
     }
 
     // Save URL to Firestore (not base64 — no size limit!)
     await addDoc(collection(db, 'couples', code, 'gallery'), {
         uri: imgResult.url,
-        thumb: imgResult.thumb,
+        thumb: imgResult.thumb || imgResult.url,
         caption: photoData.caption || '',
         sender: role || 'nhat',
         senderName: role === 'nhi' ? 'Nhi' : 'Nhật',
@@ -586,11 +599,15 @@ const VPS_IMAGE_URL = 'http://129.212.226.229';
 
 async function uploadToVPS(base64Image) {
     try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s timeout
         const response = await fetch(`${VPS_IMAGE_URL}/upload-base64`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ image: base64Image }),
+            signal: controller.signal,
         });
+        clearTimeout(timeoutId);
         const data = await response.json();
         if (data.success) {
             console.log('[VPS] Image uploaded:', data.url);
@@ -598,7 +615,7 @@ async function uploadToVPS(base64Image) {
         }
         throw new Error(data.error || 'VPS upload failed');
     } catch (e) {
-        console.log('[VPS] Upload failed, falling back to imgBB:', e.message);
+        console.log('[VPS] Upload failed:', e.message);
         return null;
     }
 }
@@ -610,9 +627,14 @@ export async function saveAvatar(base64Image) {
     if (!code) throw new Error('Chưa ghép đôi!');
 
     // Try VPS first (full HD quality), fallback to imgBB
-    let imgResult = await uploadToVPS(base64Image);
+    let imgResult = null;
+    try { imgResult = await uploadToVPS(base64Image); } catch (e) { console.log('[AVATAR] VPS fail:', e.message); }
     if (!imgResult) {
-        imgResult = await uploadToImgBB(base64Image);
+        try { imgResult = await uploadToImgBB(base64Image); } catch (e) { console.log('[AVATAR] imgBB fail:', e.message); }
+    }
+
+    if (!imgResult || !imgResult.url) {
+        throw new Error('Không thể upload ảnh đại diện. Kiểm tra kết nối mạng!');
     }
 
     // Save to Firestore

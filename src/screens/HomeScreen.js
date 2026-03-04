@@ -37,7 +37,7 @@ export default function HomeScreen({ navigation }) {
     const pickAvatar = async () => {
         try {
             const res = await ImagePicker.launchImageLibraryAsync({
-                mediaTypes: ['images'], quality: 0.8, allowsEditing: true, aspect: [1, 1],
+                mediaTypes: ['images'], quality: 0.7,
             });
             if (res.canceled) return;
 
