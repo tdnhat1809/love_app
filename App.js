@@ -16,6 +16,7 @@ import TimelineScreen from './src/screens/TimelineScreen';
 import AnniversaryScreen from './src/screens/AnniversaryScreen';
 import PairingScreen from './src/screens/PairingScreen';
 import PeriodTrackerScreen from './src/screens/PeriodTrackerScreen';
+import QuizScreen from './src/screens/QuizScreen';
 import { listenToNotifications, registerPushToken, forceRegisterPushToken } from './src/firebase/firebaseService';
 import { startBackgroundMessageCheck, scheduleDailyLoveQuote, scheduleHolidayWishes } from './src/utils/backgroundTasks';
 import { pushTokenDebugInfo } from './src/utils/notifications';
@@ -32,6 +33,7 @@ const tabs = {
   Messages: { icon: 'notifications', iconOut: 'notifications-outline', label: 'Yêu thương' },
   Anniversary: { icon: 'gift', iconOut: 'gift-outline', label: 'Đặc biệt' },
   PeriodTracker: { icon: 'calendar', iconOut: 'calendar-outline', label: 'Chu kỳ' },
+  Quiz: { icon: 'heart-half', iconOut: 'heart-half-outline', label: 'Quiz' },
   Pairing: { icon: 'link', iconOut: 'link-outline', label: 'Ghép đôi' },
 };
 
@@ -94,6 +96,7 @@ export default function App() {
         <Tab.Screen name="Messages" component={MessagesScreen} />
         <Tab.Screen name="Anniversary" component={AnniversaryScreen} />
         <Tab.Screen name="PeriodTracker" component={PeriodTrackerScreen} />
+        <Tab.Screen name="Quiz" component={QuizScreen} />
         <Tab.Screen name="Pairing" component={PairingScreen} />
       </Tab.Navigator>
     </NavigationContainer>

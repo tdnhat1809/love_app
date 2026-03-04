@@ -773,3 +773,107 @@ export async function checkGeofenceAndNotify(partnerLat, partnerLng, partnerName
     return currentPlace;
 }
 
+// ==========================================
+// LOVE LANGUAGE QUIZ
+// ==========================================
+
+// Save my quiz answers
+// selfAnswers: { questionId: answerIndex } — my real answers about myself
+// guessAnswers: { questionId: answerIndex } — my guesses about partner
+export async function saveQuizAnswers(selfAnswers, guessAnswers) {
+    const code = await getCoupleCode();
+    const role = await getUserRole();
+    if (!code || !role) return;
+
+    const docRef = doc(db, 'couples', code, 'quiz', role);
+    await setDoc(docRef, {
+        selfAnswers,
+        guessAnswers,
+        completedAt: serverTimestamp(),
+        role,
+    });
+}
+
+// Listen to both quiz answers in real-time
+export function listenToQuizAnswers(callback) {
+    let code = null;
+
+    (async () => {
+        code = await getCoupleCode();
+        if (!code) return;
+
+        const quizRef = collection(db, 'couples', code, 'quiz');
+        return onSnapshot(quizRef, (snap) => {
+            const data = {};
+            snap.forEach(d => { data[d.id] = d.data(); });
+            callback(data);
+        });
+    })();
+
+    // Return unsub placeholder (actual unsub is inside the async)
+    return () => { };
+}
+
+// Compute quiz results — how well each person knows the other
+export function computeQuizResults(quizData, myRole) {
+    const partnerRole = myRole === 'nhat' ? 'nhi' : 'nhat';
+    const myData = quizData[myRole];
+    const partnerData = quizData[partnerRole];
+
+    if (!myData || !partnerData) return null;
+
+    // How well I know partner: compare my guessAnswers vs partner's selfAnswers
+    let myCorrect = 0;
+    let totalQ = 0;
+    const myResults = {};
+
+    Object.keys(myData.guessAnswers || {}).forEach(qId => {
+        if (partnerData.selfAnswers && partnerData.selfAnswers[qId] !== undefined) {
+            totalQ++;
+            const correct = myData.guessAnswers[qId] === partnerData.selfAnswers[qId];
+            if (correct) myCorrect++;
+            myResults[qId] = {
+                myGuess: myData.guessAnswers[qId],
+                partnerReal: partnerData.selfAnswers[qId],
+                correct,
+            };
+        }
+    });
+
+    // How well partner knows me: compare partner's guessAnswers vs my selfAnswers
+    let partnerCorrect = 0;
+    let partnerTotalQ = 0;
+    const partnerResults = {};
+
+    Object.keys(partnerData.guessAnswers || {}).forEach(qId => {
+        if (myData.selfAnswers && myData.selfAnswers[qId] !== undefined) {
+            partnerTotalQ++;
+            const correct = partnerData.guessAnswers[qId] === myData.selfAnswers[qId];
+            if (correct) partnerCorrect++;
+            partnerResults[qId] = {
+                partnerGuess: partnerData.guessAnswers[qId],
+                myReal: myData.selfAnswers[qId],
+                correct,
+            };
+        }
+    });
+
+    const myScore = totalQ > 0 ? Math.round((myCorrect / totalQ) * 100) : 0;
+    const partnerScore = partnerTotalQ > 0 ? Math.round((partnerCorrect / partnerTotalQ) * 100) : 0;
+    const overallScore = totalQ + partnerTotalQ > 0
+        ? Math.round(((myCorrect + partnerCorrect) / (totalQ + partnerTotalQ)) * 100)
+        : 0;
+
+    return {
+        myScore,           // How well I know partner (%)
+        partnerScore,      // How well partner knows me (%)
+        overallScore,      // Combined compatibility (%)
+        myCorrect, totalQ,
+        partnerCorrect, partnerTotalQ,
+        myResults,
+        partnerResults,
+        bothCompleted: !!myData.completedAt && !!partnerData.completedAt,
+    };
+}
+
+
