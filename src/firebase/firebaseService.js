@@ -5,6 +5,7 @@ import {
     where, getDocs, updateDoc
 } from 'firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Notifications from 'expo-notifications';
 import { sendLoveNotification, requestNotificationPermission, getExpoPushToken, sendPushToToken } from '../utils/notifications';
 
 const DEVICE_ID_KEY = '@device_id';
@@ -44,7 +45,17 @@ export async function registerPushToken() {
             console.log('[PUSH] ❌ No push token available (not a physical device or permission denied)');
             return null;
         }
-        console.log('[PUSH] Got Expo push token:', token);
+        console.log('[PUSH] Got push token:', token);
+
+        // Also get native FCM token for direct FCM delivery (background)
+        let nativeToken = null;
+        try {
+            const dt = await Notifications.getDevicePushTokenAsync();
+            nativeToken = dt.data;
+            console.log('[PUSH] Got native FCM token:', typeof nativeToken === 'string' ? nativeToken.substring(0, 40) + '...' : 'N/A');
+        } catch (e) {
+            console.log('[PUSH] Could not get native token:', e.message);
+        }
 
         const code = await getCoupleCode();
         const deviceId = await getDeviceId();
@@ -52,22 +63,25 @@ export async function registerPushToken() {
 
         if (!code) {
             console.log('[PUSH] ⚠️ No couple code yet — token NOT saved to Firestore');
-            console.log('[PUSH] Token will be saved after pairing');
-            // Save token locally for later registration
             await AsyncStorage.setItem('@push_token', token);
+            if (nativeToken) await AsyncStorage.setItem('@push_token_native', nativeToken);
             return token;
         }
 
         const tokenRef = doc(db, 'couples', code, 'pushTokens', deviceId);
-        await setDoc(tokenRef, {
+        const tokenData = {
             token,
             deviceId,
             updatedAt: serverTimestamp(),
-        }, { merge: true });
+        };
+        if (nativeToken) tokenData.nativeToken = nativeToken;
+        await setDoc(tokenRef, tokenData, { merge: true });
 
-        // Also save locally
         await AsyncStorage.setItem('@push_token', token);
+        if (nativeToken) await AsyncStorage.setItem('@push_token_native', nativeToken);
         console.log('[PUSH] ✅ Push token SAVED to Firestore! Path: couples/' + code + '/pushTokens/' + deviceId);
+        console.log('[PUSH] Token type:', token.startsWith('ExponentPushToken') ? 'EXPO' : 'NATIVE');
+        if (nativeToken) console.log('[PUSH] Native FCM token also saved');
         return token;
     } catch (e) {
         console.log('[PUSH] ❌ Register push token error:', e.message || e);
@@ -103,13 +117,15 @@ async function getPartnerPushToken() {
         const tokensRef = collection(db, 'couples', code, 'pushTokens');
         const snap = await getDocs(tokensRef);
         let partnerToken = null;
+        let partnerNativeToken = null;
         snap.forEach((d) => {
             const data = d.data();
             if (data.deviceId !== deviceId && data.token) {
                 partnerToken = data.token;
+                partnerNativeToken = data.nativeToken || null;
             }
         });
-        return partnerToken;
+        return { token: partnerToken, nativeToken: partnerNativeToken };
     } catch (e) {
         console.log('Get partner token error:', e);
         return null;
@@ -119,15 +135,45 @@ async function getPartnerPushToken() {
 // Try push to partner, silently fail if not available
 async function pushToPartner(title, body) {
     try {
-        const token = await getPartnerPushToken();
-        if (token) {
-            const result = await sendPushToToken(token, title, body);
-            console.log('Push sent to partner, result:', result);
-        } else {
+        const partnerTokens = await getPartnerPushToken();
+        if (!partnerTokens || !partnerTokens.token) {
             console.log('[PUSH] No partner token found — cannot send push');
+            return;
         }
+
+        console.log('[PUSH] Partner tokens:', {
+            expo: partnerTokens.token?.substring(0, 30),
+            native: partnerTokens.nativeToken ? partnerTokens.nativeToken.substring(0, 30) + '...' : 'NONE',
+        });
+
+        // Priority 1: Native FCM token via VPS (most reliable for background)
+        if (partnerTokens.nativeToken) {
+            try {
+                const vpsRes = await fetch('http://129.212.226.229/send-push', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        token: partnerTokens.nativeToken,
+                        title, body,
+                        channelId: 'love-messages',
+                    }),
+                });
+                const vpsResult = await vpsRes.json();
+                if (vpsResult.success) {
+                    console.log('[PUSH] ✅ VPS FCM native push sent!', vpsResult.method);
+                    return;
+                }
+                console.log('[PUSH] ⚠️ VPS FCM native failed:', vpsResult.error);
+            } catch (e) {
+                console.log('[PUSH] ⚠️ VPS FCM native error:', e.message);
+            }
+        }
+
+        // Priority 2: Expo/any token via sendPushToToken
+        const result = await sendPushToToken(partnerTokens.token, title, body);
+        console.log('[PUSH] Sent via sendPushToToken, result:', result);
     } catch (e) {
-        console.log('Push to partner failed:', e);
+        console.log('[PUSH] Push to partner failed:', e);
     }
 }
 
