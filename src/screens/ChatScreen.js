@@ -19,8 +19,10 @@ export default function ChatScreen({ navigation }) {
     const [paired, setPaired] = useState(false);
     const [sending, setSending] = useState(false);
     const [avatars, setAvatars] = useState({});
-    const [reactionMsg, setReactionMsg] = useState(null); // message being reacted to
-    const [zoomImage, setZoomImage] = useState(null); // image to zoom
+    const [reactionMsg, setReactionMsg] = useState(null);
+    const [zoomImage, setZoomImage] = useState(null);
+    const [zoomVideo, setZoomVideo] = useState(null);
+    const [uploadProgress, setUploadProgress] = useState(null); // 'Đang tải ảnh...' or 'Đang tải video...'
     const fadeAnim = useRef(new Animated.Value(0)).current;
 
     useEffect(() => {
@@ -52,23 +54,27 @@ export default function ChatScreen({ navigation }) {
             });
             if (!result.canceled && result.assets[0]) {
                 setSending(true);
+                setUploadProgress('📷 Đang gửi ảnh...');
                 const uri = result.assets[0].uri;
                 try {
                     const base64 = await FileSystem.readAsStringAsync(uri, { encoding: 'base64' });
                     if (!base64 || base64.length < 100) {
-                        alert('[DEBUG] Base64 rỗng hoặc quá ngắn: length=' + (base64 ? base64.length : 0));
+                        setUploadProgress(null);
+                        alert('Base64 rỗng hoặc quá ngắn');
                         return;
                     }
                     await sendChatMessage('[📷 Ảnh]', base64);
                 } catch (err) {
-                    alert('[DEBUG] Lỗi gửi ảnh:\n' + (err.message || JSON.stringify(err)));
+                    alert('Lỗi gửi ảnh: ' + (err.message || ''));
                 } finally {
                     setSending(false);
+                    setUploadProgress(null);
                 }
             }
         } catch (e) {
-            alert('[DEBUG] Chọn ảnh thất bại:\n' + (e.message || JSON.stringify(e)));
+            alert('Chọn ảnh thất bại: ' + (e.message || ''));
             setSending(false);
+            setUploadProgress(null);
         }
     };
 
@@ -76,11 +82,12 @@ export default function ChatScreen({ navigation }) {
         try {
             const result = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes: ['videos'],
-                quality: 0.6,
-                videoMaxDuration: 60,
+                quality: 0.5,
+                videoMaxDuration: 30,
             });
             if (!result.canceled && result.assets[0]) {
                 setSending(true);
+                setUploadProgress('🎬 Đang tải video lên...');
                 const uri = result.assets[0].uri;
                 try {
                     await sendChatMessage('[🎬 Video]', null, uri);
@@ -88,11 +95,13 @@ export default function ChatScreen({ navigation }) {
                     alert('Lỗi gửi video: ' + (err.message || ''));
                 } finally {
                     setSending(false);
+                    setUploadProgress(null);
                 }
             }
         } catch (e) {
             alert('Chọn video thất bại: ' + (e.message || ''));
             setSending(false);
+            setUploadProgress(null);
         }
     };
 
@@ -156,17 +165,21 @@ export default function ChatScreen({ navigation }) {
                         </View>}
                         <View style={[s.bubble, isMe ? s.bubbleMe : s.bubblePartner]}>
                             {item.videoUrl ? (
-                                <TouchableOpacity activeOpacity={0.9} onPress={() => setZoomImage(null)}>
+                                <TouchableOpacity activeOpacity={0.9} onPress={() => setZoomVideo(item.videoUrl)}>
                                     <View style={s.videoWrap}>
                                         <Video
                                             source={{ uri: item.videoUrl }}
                                             style={s.chatVideo}
                                             resizeMode={ResizeMode.COVER}
-                                            useNativeControls
-                                            isLooping={false}
+                                            shouldPlay={false}
+                                            isMuted={true}
                                         />
-                                        <View style={s.videoOverlay}>
-                                            <Ionicons name="videocam" size={14} color="rgba(255,255,255,0.8)" />
+                                        <View style={s.videoPlayBtn}>
+                                            <Ionicons name="play" size={28} color="#fff" />
+                                        </View>
+                                        <View style={s.videoBadge}>
+                                            <Ionicons name="videocam" size={12} color="#fff" />
+                                            <Text style={s.videoBadgeText}>Video</Text>
                                         </View>
                                     </View>
                                 </TouchableOpacity>
@@ -213,6 +226,13 @@ export default function ChatScreen({ navigation }) {
                     ListEmptyComponent={<View style={s.empty}><Text style={{ fontSize: 40 }}>💌</Text><Text style={s.emptyText}>Gửi tin nhắn đầu tiên cho{'\n'}người yêu nào! 💕</Text></View>} />
 
                 <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} keyboardVerticalOffset={90}>
+                    {/* Upload Progress */}
+                    {uploadProgress && (
+                        <View style={s.uploadBar}>
+                            <ActivityIndicator size="small" color={COLORS.primaryPink} />
+                            <Text style={s.uploadText}>{uploadProgress}</Text>
+                        </View>
+                    )}
                     <View style={s.inputWrap}>
                         <TouchableOpacity style={s.photoBtn} onPress={pickImage} disabled={sending}>
                             <Ionicons name="image-outline" size={22} color={COLORS.primaryPink} />
@@ -260,6 +280,26 @@ export default function ChatScreen({ navigation }) {
                         {zoomImage && <Image source={{ uri: zoomImage }} style={s.zoomImg} resizeMode="contain" />}
                     </View>
                 </Modal>
+
+                {/* Video Fullscreen Modal */}
+                <Modal visible={!!zoomVideo} transparent animationType="fade" onRequestClose={() => setZoomVideo(null)} statusBarTranslucent>
+                    <StatusBar hidden={!!zoomVideo} />
+                    <View style={s.zoomOverlay}>
+                        <TouchableOpacity style={s.zoomClose} onPress={() => setZoomVideo(null)}>
+                            <View style={s.zoomCloseBg}><Ionicons name="close" size={24} color="#fff" /></View>
+                        </TouchableOpacity>
+                        {zoomVideo && (
+                            <Video
+                                source={{ uri: zoomVideo }}
+                                style={s.fullVideo}
+                                resizeMode={ResizeMode.CONTAIN}
+                                useNativeControls
+                                shouldPlay={true}
+                                isLooping={false}
+                            />
+                        )}
+                    </View>
+                </Modal>
             </LinearGradient>
         </View>
     );
@@ -293,8 +333,13 @@ const s = StyleSheet.create({
     photoBtn: { padding: 8, marginRight: 4 },
     chatImage: { width: 200, height: 200, borderRadius: 14, marginBottom: 4 },
     chatVideo: { width: 200, height: 150, borderRadius: 14 },
-    videoWrap: { position: 'relative', marginBottom: 4 },
-    videoOverlay: { position: 'absolute', top: 6, right: 6, backgroundColor: 'rgba(0,0,0,0.4)', borderRadius: 10, padding: 4 },
+    videoWrap: { position: 'relative', marginBottom: 4, borderRadius: 14, overflow: 'hidden' },
+    videoPlayBtn: { position: 'absolute', top: '50%', left: '50%', marginTop: -24, marginLeft: -24, width: 48, height: 48, borderRadius: 24, backgroundColor: 'rgba(0,0,0,0.5)', alignItems: 'center', justifyContent: 'center' },
+    videoBadge: { position: 'absolute', top: 8, left: 8, flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)', borderRadius: 10, paddingHorizontal: 8, paddingVertical: 3, gap: 4 },
+    videoBadgeText: { color: '#fff', fontSize: 10, fontWeight: '700' },
+    fullVideo: { width: width, height: height * 0.7 },
+    uploadBar: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: 8, paddingHorizontal: 16, backgroundColor: 'rgba(233,73,113,0.08)', gap: 8 },
+    uploadText: { fontSize: 13, color: COLORS.primaryPink, fontWeight: '600' },
     zoomHint: { position: 'absolute', bottom: 8, right: 8, backgroundColor: 'rgba(0,0,0,0.4)', borderRadius: 12, padding: 4 },
 
     // Reactions

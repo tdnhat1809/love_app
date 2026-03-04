@@ -238,8 +238,9 @@ export async function sendChatMessage(text, imageBase64, videoUri) {
     await pushToPartner(`💌 ${senderName} ❤️ Nhi`, `💬 ${preview}`);
 }
 
-// Upload video file to VPS via FormData
+// Upload video file to VPS — try FormData, then base64 fallback
 async function uploadVideoToVPS(uri) {
+    // Method 1: Try FormData upload
     try {
         const filename = uri.split('/').pop() || 'video.mp4';
         const ext = filename.split('.').pop()?.toLowerCase() || 'mp4';
@@ -254,15 +255,34 @@ async function uploadVideoToVPS(uri) {
             headers: { 'Content-Type': 'multipart/form-data' },
         });
         const data = await response.json();
-        if (data.success) {
-            console.log('[VPS] Video uploaded:', data.url);
+        if (data.success && data.url) {
+            console.log('[VPS] Video uploaded via FormData:', data.url);
             return { url: data.url };
         }
-        throw new Error(data.error || 'VPS video upload failed');
     } catch (e) {
-        console.log('[VPS] Video upload failed:', e.message);
-        return null;
+        console.log('[VPS] FormData video upload failed, trying base64:', e.message);
     }
+
+    // Method 2: Base64 fallback via existing image endpoint
+    try {
+        const FileSystem = require('expo-file-system/legacy');
+        const base64 = await FileSystem.readAsStringAsync(uri, { encoding: 'base64' });
+        const fullBase64 = 'data:video/mp4;base64,' + base64;
+        const response = await fetch(`${VPS_IMAGE_URL}/upload-base64`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ image: fullBase64 }),
+        });
+        const data = await response.json();
+        if (data.success && data.url) {
+            console.log('[VPS] Video uploaded via base64:', data.url);
+            return { url: data.url };
+        }
+    } catch (e) {
+        console.log('[VPS] Base64 video upload also failed:', e.message);
+    }
+
+    return null;
 }
 
 export function listenToMessages(callback) {
