@@ -2,7 +2,7 @@ import { db } from './config';
 import {
     collection, addDoc, query, orderBy, onSnapshot,
     doc, setDoc, getDoc, serverTimestamp, limit,
-    where, getDocs, updateDoc
+    where, getDocs, updateDoc, Timestamp
 } from 'firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Notifications from 'expo-notifications';
@@ -857,8 +857,13 @@ export function listenToPartnerLocationHistory(callback) {
         const deviceId = await getDeviceId();
         if (!code) return;
 
+        // Only show today's trail
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const todayTimestamp = Timestamp.fromDate(today);
+
         const histRef = collection(db, 'couples', code, 'locationHistory');
-        const q = query(histRef, orderBy('timestamp', 'desc'), limit(50));
+        const q = query(histRef, where('timestamp', '>=', todayTimestamp), orderBy('timestamp', 'asc'));
         unsubscribe = onSnapshot(q, (snapshot) => {
             const history = [];
             snapshot.forEach((d) => {

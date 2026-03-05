@@ -152,7 +152,7 @@ export default function LocationScreen() {
         });
 
         const unsubHist = listenToPartnerLocationHistory((history) => {
-            const route = history.filter(h => h.latitude && h.longitude).map(h => [h.latitude, h.longitude]).reverse();
+            const route = history.filter(h => h.latitude && h.longitude).map(h => [h.latitude, h.longitude]);
             setPartnerRoute(route);
             if (route.length > 1 && webRef.current) {
                 webRef.current.injectJavaScript(`updateRoute(${JSON.stringify(route)});true;`);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, Alert, ActivityIndicator, Animated, Platform } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Alert, ActivityIndicator, Animated, Platform, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, GRADIENTS, SHADOWS, BORDER_RADIUS } from '../theme';
@@ -106,97 +106,101 @@ export default function PairingScreen({ onPaired }) {
     return (
         <View style={s.container}>
             <LinearGradient colors={GRADIENTS.background} style={s.bg}>
-                <Animated.View style={[s.content, { opacity: fadeAnim }]}>
-                    <View style={s.heroArea}>
-                        <View style={s.coupleIcon}>
-                            <View style={s.avatarSmall}><Text style={{ fontSize: 28 }}>👦</Text></View>
-                            <View style={s.heartLink}><LinearGradient colors={GRADIENTS.pink} style={s.heartGrad}><Ionicons name="heart" size={14} color="#fff" /></LinearGradient></View>
-                            <View style={s.avatarSmall}><Text style={{ fontSize: 28 }}>👧</Text></View>
-                        </View>
-                        <Text style={s.title}>Ghép đôi</Text>
-                        <Text style={s.subtitle}>Kết nối hai điện thoại để nhắn tin 💕</Text>
-                    </View>
-
-                    {/* Status messages */}
-                    {error ? <View style={s.errorBox}><Text style={s.errorText}>{error}</Text></View> : null}
-                    {success ? <View style={s.successBox}><Text style={s.successText}>{success}</Text></View> : null}
-
-                    <Text style={s.label}>Bạn là ai?</Text>
-                    <View style={s.roleRow}>
-                        {['nhat', 'nhi'].map(r => (
-                            <TouchableOpacity key={r} style={[s.roleBtn, SHADOWS.soft, role === r && s.roleActive]} onPress={() => selectRole(r)} activeOpacity={0.7}>
-                                <Text style={{ fontSize: 26, marginBottom: 4 }}>{r === 'nhat' ? '👦' : '👧'}</Text>
-                                <Text style={[s.roleText, role === r && s.roleTextActive]}>{r === 'nhat' ? 'Nhật' : 'Nhi'}</Text>
-                            </TouchableOpacity>
-                        ))}
-                    </View>
-
-                    {paired ? (
-                        <View style={[s.pairedBox, SHADOWS.card]}>
-                            <Ionicons name="checkmark-circle" size={40} color={COLORS.online} />
-                            <Text style={s.pairedText}>Đã ghép đôi thành công!</Text>
-                            <Text style={s.pairedCode}>Mã: {coupleCode}</Text>
-                            <Text style={s.pairedHint}>Vào tab "Nhắn tin" để chat 💕</Text>
-                        </View>
-                    ) : (<>
-                        <View style={[s.section, SHADOWS.soft]}>
-                            <View style={s.sectionHead}>
-                                <View style={s.sectionIcon}><Text style={{ fontSize: 16 }}>📱</Text></View>
-                                <View><Text style={s.sectionTitle}>Điện thoại thứ nhất</Text><Text style={s.sectionSub}>Tạo mã và gửi cho người yêu</Text></View>
-                            </View>
-                            {coupleCode ? (
-                                <View style={s.codeBox}>
-                                    <Text style={s.codeDisplay}>{coupleCode}</Text>
-                                    <TouchableOpacity onPress={() => { setSuccess(`📋 Mã: ${coupleCode}`); }}><Ionicons name="copy-outline" size={18} color={COLORS.primaryPink} /></TouchableOpacity>
+                <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}>
+                    <ScrollView contentContainerStyle={s.scroll} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+                        <Animated.View style={[s.content, { opacity: fadeAnim }]}>
+                            <View style={s.heroArea}>
+                                <View style={s.coupleIcon}>
+                                    <View style={s.avatarSmall}><Text style={{ fontSize: 28 }}>👦</Text></View>
+                                    <View style={s.heartLink}><LinearGradient colors={GRADIENTS.pink} style={s.heartGrad}><Ionicons name="heart" size={14} color="#fff" /></LinearGradient></View>
+                                    <View style={s.avatarSmall}><Text style={{ fontSize: 28 }}>👧</Text></View>
                                 </View>
-                            ) : (
-                                <TouchableOpacity onPress={handleCreate} activeOpacity={0.7} disabled={loading} style={{ borderRadius: 14, overflow: 'hidden', opacity: loading ? 0.5 : 1 }}>
-                                    <LinearGradient colors={GRADIENTS.pink} style={s.createGrad} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-                                        {loading ? <ActivityIndicator color="#fff" size="small" /> : <Ionicons name="link" size={18} color="#fff" />}
-                                        <Text style={{ color: '#fff', fontWeight: '700', marginLeft: 8 }}>{loading ? 'Đang tạo...' : 'Tạo mã ghép đôi'}</Text>
-                                    </LinearGradient>
-                                </TouchableOpacity>
-                            )}
-                        </View>
-                        <View style={[s.section, SHADOWS.soft]}>
-                            <View style={s.sectionHead}>
-                                <View style={s.sectionIcon}><Text style={{ fontSize: 16 }}>📲</Text></View>
-                                <View><Text style={s.sectionTitle}>Điện thoại thứ hai</Text><Text style={s.sectionSub}>Nhập mã từ người yêu</Text></View>
+                                <Text style={s.title}>Ghép đôi</Text>
+                                <Text style={s.subtitle}>Kết nối hai điện thoại để nhắn tin 💕</Text>
                             </View>
-                            <View style={s.joinRow}>
-                                <TextInput style={s.joinInput} placeholder="Nhập mã..." placeholderTextColor={COLORS.textMuted} value={inputCode} onChangeText={setInputCode} autoCapitalize="characters" maxLength={6} />
-                                <TouchableOpacity onPress={handleJoin} disabled={loading} style={{ borderRadius: 14, overflow: 'hidden', opacity: loading ? 0.5 : 1 }}>
-                                    <LinearGradient colors={GRADIENTS.purple} style={s.joinGrad}>
-                                        <Text style={{ color: '#fff', fontWeight: '700' }}>{loading ? '...' : 'Ghép 💕'}</Text>
-                                    </LinearGradient>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
 
-                        {/* Restore section */}
-                        <TouchableOpacity onPress={() => setShowRestore(!showRestore)} style={s.restoreToggle}>
-                            <Ionicons name="refresh-outline" size={16} color={COLORS.textMuted} />
-                            <Text style={s.restoreToggleText}>{showRestore ? 'Ẩn' : 'Đã có mã ghép cũ? Khôi phục'}</Text>
-                        </TouchableOpacity>
+                            {/* Status messages */}
+                            {error ? <View style={s.errorBox}><Text style={s.errorText}>{error}</Text></View> : null}
+                            {success ? <View style={s.successBox}><Text style={s.successText}>{success}</Text></View> : null}
 
-                        {showRestore && (
-                            <View style={[s.section, SHADOWS.soft]}>
-                                <View style={s.sectionHead}>
-                                    <View style={[s.sectionIcon, { backgroundColor: '#e8f5e9' }]}><Text style={{ fontSize: 16 }}>🔄</Text></View>
-                                    <View><Text style={s.sectionTitle}>Khôi phục mã cũ</Text><Text style={s.sectionSub}>Nhập mã ghép đôi cũ để lấy lại dữ liệu</Text></View>
-                                </View>
-                                <View style={s.joinRow}>
-                                    <TextInput style={s.joinInput} placeholder="Nhập mã cũ..." placeholderTextColor={COLORS.textMuted} value={restoreCode} onChangeText={setRestoreCode} autoCapitalize="characters" maxLength={6} />
-                                    <TouchableOpacity onPress={handleRestore} disabled={loading} style={{ borderRadius: 14, overflow: 'hidden', opacity: loading ? 0.5 : 1 }}>
-                                        <LinearGradient colors={['#43a047', '#66bb6a']} style={s.joinGrad}>
-                                            <Text style={{ color: '#fff', fontWeight: '700' }}>{loading ? '...' : '🔄'}</Text>
-                                        </LinearGradient>
+                            <Text style={s.label}>Bạn là ai?</Text>
+                            <View style={s.roleRow}>
+                                {['nhat', 'nhi'].map(r => (
+                                    <TouchableOpacity key={r} style={[s.roleBtn, SHADOWS.soft, role === r && s.roleActive]} onPress={() => selectRole(r)} activeOpacity={0.7}>
+                                        <Text style={{ fontSize: 26, marginBottom: 4 }}>{r === 'nhat' ? '👦' : '👧'}</Text>
+                                        <Text style={[s.roleText, role === r && s.roleTextActive]}>{r === 'nhat' ? 'Nhật' : 'Nhi'}</Text>
                                     </TouchableOpacity>
-                                </View>
+                                ))}
                             </View>
-                        )}
-                    </>)}
-                </Animated.View>
+
+                            {paired ? (
+                                <View style={[s.pairedBox, SHADOWS.card]}>
+                                    <Ionicons name="checkmark-circle" size={40} color={COLORS.online} />
+                                    <Text style={s.pairedText}>Đã ghép đôi thành công!</Text>
+                                    <Text style={s.pairedCode}>Mã: {coupleCode}</Text>
+                                    <Text style={s.pairedHint}>Vào tab "Nhắn tin" để chat 💕</Text>
+                                </View>
+                            ) : (<>
+                                <View style={[s.section, SHADOWS.soft]}>
+                                    <View style={s.sectionHead}>
+                                        <View style={s.sectionIcon}><Text style={{ fontSize: 16 }}>📱</Text></View>
+                                        <View><Text style={s.sectionTitle}>Điện thoại thứ nhất</Text><Text style={s.sectionSub}>Tạo mã và gửi cho người yêu</Text></View>
+                                    </View>
+                                    {coupleCode ? (
+                                        <View style={s.codeBox}>
+                                            <Text style={s.codeDisplay}>{coupleCode}</Text>
+                                            <TouchableOpacity onPress={() => { setSuccess(`📋 Mã: ${coupleCode}`); }}><Ionicons name="copy-outline" size={18} color={COLORS.primaryPink} /></TouchableOpacity>
+                                        </View>
+                                    ) : (
+                                        <TouchableOpacity onPress={handleCreate} activeOpacity={0.7} disabled={loading} style={{ borderRadius: 14, overflow: 'hidden', opacity: loading ? 0.5 : 1 }}>
+                                            <LinearGradient colors={GRADIENTS.pink} style={s.createGrad} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+                                                {loading ? <ActivityIndicator color="#fff" size="small" /> : <Ionicons name="link" size={18} color="#fff" />}
+                                                <Text style={{ color: '#fff', fontWeight: '700', marginLeft: 8 }}>{loading ? 'Đang tạo...' : 'Tạo mã ghép đôi'}</Text>
+                                            </LinearGradient>
+                                        </TouchableOpacity>
+                                    )}
+                                </View>
+                                <View style={[s.section, SHADOWS.soft]}>
+                                    <View style={s.sectionHead}>
+                                        <View style={s.sectionIcon}><Text style={{ fontSize: 16 }}>📲</Text></View>
+                                        <View><Text style={s.sectionTitle}>Điện thoại thứ hai</Text><Text style={s.sectionSub}>Nhập mã từ người yêu</Text></View>
+                                    </View>
+                                    <View style={s.joinRow}>
+                                        <TextInput style={s.joinInput} placeholder="Nhập mã..." placeholderTextColor={COLORS.textMuted} value={inputCode} onChangeText={setInputCode} autoCapitalize="characters" maxLength={6} />
+                                        <TouchableOpacity onPress={handleJoin} disabled={loading} style={{ borderRadius: 14, overflow: 'hidden', opacity: loading ? 0.5 : 1 }}>
+                                            <LinearGradient colors={GRADIENTS.purple} style={s.joinGrad}>
+                                                <Text style={{ color: '#fff', fontWeight: '700' }}>{loading ? '...' : 'Ghép 💕'}</Text>
+                                            </LinearGradient>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+
+                                {/* Restore section */}
+                                <TouchableOpacity onPress={() => setShowRestore(!showRestore)} style={s.restoreToggle}>
+                                    <Ionicons name="refresh-outline" size={16} color={COLORS.textMuted} />
+                                    <Text style={s.restoreToggleText}>{showRestore ? 'Ẩn' : 'Đã có mã ghép cũ? Khôi phục'}</Text>
+                                </TouchableOpacity>
+
+                                {showRestore && (
+                                    <View style={[s.section, SHADOWS.soft]}>
+                                        <View style={s.sectionHead}>
+                                            <View style={[s.sectionIcon, { backgroundColor: '#e8f5e9' }]}><Text style={{ fontSize: 16 }}>🔄</Text></View>
+                                            <View><Text style={s.sectionTitle}>Khôi phục mã cũ</Text><Text style={s.sectionSub}>Nhập mã ghép đôi cũ để lấy lại dữ liệu</Text></View>
+                                        </View>
+                                        <View style={s.joinRow}>
+                                            <TextInput style={s.joinInput} placeholder="Nhập mã cũ..." placeholderTextColor={COLORS.textMuted} value={restoreCode} onChangeText={setRestoreCode} autoCapitalize="characters" maxLength={6} />
+                                            <TouchableOpacity onPress={handleRestore} disabled={loading} style={{ borderRadius: 14, overflow: 'hidden', opacity: loading ? 0.5 : 1 }}>
+                                                <LinearGradient colors={['#43a047', '#66bb6a']} style={s.joinGrad}>
+                                                    <Text style={{ color: '#fff', fontWeight: '700' }}>{loading ? '...' : '🔄'}</Text>
+                                                </LinearGradient>
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
+                                )}
+                            </>)}
+                        </Animated.View>
+                    </ScrollView>
+                </KeyboardAvoidingView>
             </LinearGradient>
         </View>
     );
@@ -204,8 +208,8 @@ export default function PairingScreen({ onPaired }) {
 
 const s = StyleSheet.create({
     container: { flex: 1 }, bg: { flex: 1 },
-    center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-    content: { flex: 1, paddingHorizontal: 24, justifyContent: 'center' },
+    scroll: { flexGrow: 1, justifyContent: 'center' },
+    content: { paddingHorizontal: 24, paddingVertical: 30 },
     heroArea: { alignItems: 'center', marginBottom: 20 },
     coupleIcon: { flexDirection: 'row', alignItems: 'center', marginBottom: 16 },
     avatarSmall: { width: 56, height: 56, borderRadius: 28, backgroundColor: COLORS.cardWhite, alignItems: 'center', justifyContent: 'center', ...SHADOWS.soft },

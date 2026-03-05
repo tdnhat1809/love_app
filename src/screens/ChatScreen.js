@@ -77,6 +77,9 @@ export default function ChatScreen({ navigation }) {
     };
 
     const [videoModal, setVideoModal] = useState(null);
+    const [videoPlaying, setVideoPlaying] = useState(false);
+    const [videoLoading, setVideoLoading] = useState(true);
+    const videoRef = useRef(null);
 
     const pickVideo = async () => {
         try {
@@ -165,13 +168,21 @@ export default function ChatScreen({ navigation }) {
                         </View>}
                         <View style={[s.bubble, isMe ? s.bubbleMe : s.bubblePartner]}>
                             {item.videoUrl ? (
-                                <TouchableOpacity activeOpacity={0.9} onPress={() => setVideoModal(item.videoUrl)}>
+                                <TouchableOpacity activeOpacity={0.9} onPress={() => { setVideoModal(item.videoUrl); setVideoPlaying(true); setVideoLoading(true); }}>
                                     <View style={s.videoWrap}>
-                                        <LinearGradient colors={['#2c2c3e', '#1a1a2e']} style={s.chatVideo}>
+                                        <Video
+                                            source={{ uri: item.videoUrl }}
+                                            style={s.chatVideo}
+                                            resizeMode={ResizeMode.COVER}
+                                            shouldPlay={false}
+                                            isMuted
+                                            positionMillis={500}
+                                        />
+                                        <View style={s.videoOverlay}>
                                             <View style={s.videoPlayBtn}>
-                                                <Ionicons name="play" size={28} color="#fff" />
+                                                <Ionicons name="play" size={24} color="#fff" />
                                             </View>
-                                        </LinearGradient>
+                                        </View>
                                         <View style={s.videoBadge}>
                                             <Ionicons name="videocam" size={12} color="#fff" />
                                             <Text style={s.videoBadgeText}>Video</Text>
@@ -277,20 +288,48 @@ export default function ChatScreen({ navigation }) {
                 </Modal>
 
                 {/* Video Player Modal */}
-                <Modal visible={!!videoModal} transparent animationType="fade" onRequestClose={() => setVideoModal(null)} statusBarTranslucent>
-                    <View style={s.zoomOverlay}>
-                        <TouchableOpacity style={s.zoomClose} onPress={() => setVideoModal(null)}>
-                            <View style={s.zoomCloseBg}><Ionicons name="close" size={24} color="#fff" /></View>
+                <Modal visible={!!videoModal} transparent animationType="fade" onRequestClose={() => { setVideoModal(null); setVideoPlaying(false); }} statusBarTranslucent>
+                    <StatusBar hidden={!!videoModal} />
+                    <View style={s.videoModalBg}>
+                        <TouchableOpacity style={s.videoCloseBtn} onPress={() => { setVideoModal(null); setVideoPlaying(false); }}>
+                            <LinearGradient colors={['rgba(233,30,99,0.9)', 'rgba(233,30,99,0.7)']} style={s.videoCloseBtnGrad}>
+                                <Ionicons name="close" size={22} color="#fff" />
+                            </LinearGradient>
                         </TouchableOpacity>
                         {videoModal && (
-                            <Video
-                                source={{ uri: videoModal }}
-                                style={{ width: width, height: height * 0.7 }}
-                                useNativeControls
-                                resizeMode={ResizeMode.CONTAIN}
-                                shouldPlay
-                                isLooping={false}
-                            />
+                            <TouchableOpacity activeOpacity={1} style={s.videoPlayerWrap} onPress={async () => {
+                                if (videoRef.current) {
+                                    const status = await videoRef.current.getStatusAsync();
+                                    if (status.isPlaying) { await videoRef.current.pauseAsync(); setVideoPlaying(false); }
+                                    else { await videoRef.current.playAsync(); setVideoPlaying(true); }
+                                }
+                            }}>
+                                <Video
+                                    ref={videoRef}
+                                    source={{ uri: videoModal }}
+                                    style={s.videoPlayer}
+                                    resizeMode={ResizeMode.CONTAIN}
+                                    shouldPlay
+                                    isLooping={false}
+                                    onPlaybackStatusUpdate={(status) => {
+                                        if (status.isLoaded) setVideoLoading(false);
+                                        if (status.isLoaded) setVideoPlaying(status.isPlaying);
+                                    }}
+                                />
+                                {videoLoading && (
+                                    <View style={s.videoLoadingOverlay}>
+                                        <ActivityIndicator size="large" color={COLORS.primaryPink} />
+                                        <Text style={{ color: '#fff', marginTop: 12, fontSize: 13 }}>Đang tải video...</Text>
+                                    </View>
+                                )}
+                                {!videoPlaying && !videoLoading && (
+                                    <View style={s.videoLoadingOverlay}>
+                                        <View style={s.videoBigPlayBtn}>
+                                            <Ionicons name="play" size={40} color="#fff" />
+                                        </View>
+                                    </View>
+                                )}
+                            </TouchableOpacity>
                         )}
                     </View>
                 </Modal>
@@ -320,17 +359,26 @@ const s = StyleSheet.create({
     msgText: { fontSize: 15, color: COLORS.textDark, lineHeight: 22 },
     msgTextMe: { color: '#fff' },
     timeText: { fontSize: 10, color: COLORS.textMuted, marginTop: 4 },
-    inputWrap: { flexDirection: 'row', alignItems: 'flex-end', paddingHorizontal: 12, paddingTop: 10, paddingBottom: 84, backgroundColor: COLORS.cardWhite, borderTopWidth: 1, borderTopColor: COLORS.borderLight },
+    inputWrap: { flexDirection: 'row', alignItems: 'flex-end', paddingHorizontal: 12, paddingTop: 10, paddingBottom: 24, backgroundColor: COLORS.cardWhite, borderTopWidth: 1, borderTopColor: COLORS.borderLight },
     input: { flex: 1, backgroundColor: COLORS.primaryPinkSoft, borderRadius: 24, paddingHorizontal: 18, paddingVertical: 12, color: COLORS.textDark, fontSize: 15, maxHeight: 100, borderWidth: 1, borderColor: COLORS.borderPink, marginRight: 8 },
     sendBtn: { borderRadius: 22, overflow: 'hidden' },
     sendGrad: { width: 44, height: 44, alignItems: 'center', justifyContent: 'center', borderRadius: 22 },
     photoBtn: { padding: 8, marginRight: 4 },
     chatImage: { width: 200, height: 200, borderRadius: 14, marginBottom: 4 },
-    chatVideo: { width: 200, height: 150, borderRadius: 14, alignItems: 'center', justifyContent: 'center' },
-    videoWrap: { position: 'relative', marginBottom: 4, borderRadius: 14, overflow: 'hidden' },
-    videoPlayBtn: { width: 52, height: 52, borderRadius: 26, backgroundColor: 'rgba(233,73,113,0.8)', alignItems: 'center', justifyContent: 'center' },
-    videoBadge: { position: 'absolute', top: 8, left: 8, flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)', borderRadius: 10, paddingHorizontal: 8, paddingVertical: 3, gap: 4 },
+    chatVideo: { width: 200, height: 150, borderRadius: 14, backgroundColor: '#1a1a2e' },
+    videoWrap: { position: 'relative', marginBottom: 4, borderRadius: 14, overflow: 'hidden', width: 200, height: 150 },
+    videoOverlay: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.25)', alignItems: 'center', justifyContent: 'center' },
+    videoPlayBtn: { width: 48, height: 48, borderRadius: 24, backgroundColor: 'rgba(233,73,113,0.85)', alignItems: 'center', justifyContent: 'center' },
+    videoBadge: { position: 'absolute', top: 8, left: 8, flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.55)', borderRadius: 10, paddingHorizontal: 8, paddingVertical: 3, gap: 4 },
     videoBadgeText: { color: '#fff', fontSize: 10, fontWeight: '700' },
+    // Video Player Modal
+    videoModalBg: { flex: 1, backgroundColor: '#000', justifyContent: 'center', alignItems: 'center' },
+    videoCloseBtn: { position: 'absolute', top: 48, right: 20, zIndex: 10 },
+    videoCloseBtnGrad: { width: 40, height: 40, borderRadius: 20, alignItems: 'center', justifyContent: 'center' },
+    videoPlayerWrap: { flex: 1, width: '100%', justifyContent: 'center', alignItems: 'center' },
+    videoPlayer: { width: width, height: height * 0.85 },
+    videoLoadingOverlay: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(0,0,0,0.3)', alignItems: 'center', justifyContent: 'center' },
+    videoBigPlayBtn: { width: 72, height: 72, borderRadius: 36, backgroundColor: 'rgba(233,73,113,0.75)', alignItems: 'center', justifyContent: 'center' },
     uploadBar: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: 8, paddingHorizontal: 16, backgroundColor: 'rgba(233,73,113,0.08)', gap: 8 },
     uploadText: { fontSize: 13, color: COLORS.primaryPink, fontWeight: '600' },
     zoomHint: { position: 'absolute', bottom: 8, right: 8, backgroundColor: 'rgba(0,0,0,0.4)', borderRadius: 12, padding: 4 },
