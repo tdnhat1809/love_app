@@ -83,7 +83,7 @@ export default function DailyScreen() {
     return (
         <View style={s.container}>
             <LinearGradient colors={['#fce4ec', '#f3e5f5', '#ede7f6']} style={s.bg}>
-                <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+                <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}>
                     <ScrollView contentContainerStyle={s.scroll} keyboardShouldPersistTaps="handled">
                         <Animated.View style={{ opacity: fadeAnim }}>
                             {/* Header */}

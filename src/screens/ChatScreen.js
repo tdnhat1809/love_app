@@ -217,10 +217,10 @@ export default function ChatScreen({ navigation }) {
                     <View style={{ flex: 1 }}><Text style={s.headerTitle}>Nhật & Nhi</Text><View style={s.onlineRow}><View style={s.dot} /><Text style={s.onlineText}>Online</Text></View></View>
                 </View>
 
-                <FlatList data={messages} renderItem={renderMessage} keyExtractor={i => i.id} inverted contentContainerStyle={s.msgList} showsVerticalScrollIndicator={false}
-                    ListEmptyComponent={<View style={s.empty}><Text style={{ fontSize: 40 }}>💌</Text><Text style={s.emptyText}>Gửi tin nhắn đầu tiên cho{'\n'}người yêu nào! 💕</Text></View>} />
+                <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}>
+                    <FlatList data={messages} renderItem={renderMessage} keyExtractor={i => i.id} inverted contentContainerStyle={s.msgList} showsVerticalScrollIndicator={false}
+                        ListEmptyComponent={<View style={s.empty}><Text style={{ fontSize: 40 }}>💌</Text><Text style={s.emptyText}>Gửi tin nhắn đầu tiên cho{'\n'}người yêu nào! 💕</Text></View>} />
 
-                <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} keyboardVerticalOffset={90}>
                     {/* Upload Progress */}
                     {uploadProgress && (
                         <View style={s.uploadBar}>

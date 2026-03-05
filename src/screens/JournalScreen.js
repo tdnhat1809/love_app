@@ -103,7 +103,7 @@ export default function JournalScreen() {
 
                 {/* Write Modal */}
                 <Modal visible={showWrite} transparent animationType="slide">
-                    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+                    <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}>
                         <View style={s.modalOverlay}>
                             <View style={s.modalBox}>
                                 <Text style={s.modalTitle}>📝 Viết nhật ký</Text>
