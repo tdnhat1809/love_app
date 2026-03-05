@@ -703,7 +703,7 @@ export function listenToGallery(callback) {
 // AVATAR (Profile Photo)
 // ==========================================
 
-const VPS_IMAGE_URL = 'http://129.212.226.229';
+const VPS_IMAGE_URL = 'http://129.212.226.229:3001';
 
 async function uploadToVPS(base64Image) {
     try {
