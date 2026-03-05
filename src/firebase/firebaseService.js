@@ -337,10 +337,24 @@ async function uploadVideoToVPS(uri) {
     const ext = filename.split('.').pop()?.toLowerCase() || 'mp4';
     const mimeType = ext === 'mov' ? 'video/quicktime' : 'video/mp4';
     const FileSystem = require('expo-file-system/legacy');
+    const errors = [];
+
+    // Check file info
+    let fileSize = 0;
+    try {
+        const info = await FileSystem.getInfoAsync(uri);
+        fileSize = info.size || 0;
+        console.log('[UPLOAD] File:', filename, 'Size:', (fileSize / 1024 / 1024).toFixed(1), 'MB', 'Exists:', info.exists);
+        if (!info.exists) {
+            return null;
+        }
+    } catch (e) {
+        errors.push('FileInfo: ' + e.message);
+    }
 
     // Method 1: FileSystem.uploadAsync — native multipart (best for large files)
     try {
-        console.log('[UPLOAD] Using FileSystem.uploadAsync...');
+        console.log('[UPLOAD] Method 1: FileSystem.uploadAsync to', VPS_IMAGE_URL);
         const uploadResult = await FileSystem.uploadAsync(
             `${VPS_IMAGE_URL}/upload-video`,
             uri,
@@ -352,40 +366,49 @@ async function uploadVideoToVPS(uri) {
                 headers: {},
             }
         );
-        console.log('[UPLOAD] Response status:', uploadResult.status);
+        console.log('[UPLOAD] Status:', uploadResult.status, 'Body:', uploadResult.body?.substring(0, 100));
         if (uploadResult.status === 200) {
             const data = JSON.parse(uploadResult.body);
             if (data.success && data.url) {
-                console.log('[UPLOAD] ✅ Video uploaded:', data.url);
+                console.log('[UPLOAD] ✅ OK:', data.url);
                 return { url: data.url };
             }
+            errors.push('M1: status 200 but success=false: ' + uploadResult.body?.substring(0, 80));
+        } else {
+            errors.push('M1: HTTP ' + uploadResult.status + ' - ' + (uploadResult.body?.substring(0, 80) || 'no body'));
         }
-        console.log('[UPLOAD] Response body:', uploadResult.body?.substring(0, 200));
     } catch (e) {
-        console.log('[UPLOAD] FileSystem.uploadAsync failed:', e.message);
+        errors.push('M1: ' + e.message);
+        console.log('[UPLOAD] Method 1 error:', e.message);
     }
 
-    // Method 2: Fallback — fetch FormData (works for smaller files)
+    // Method 2: Fallback — fetch FormData
     try {
-        console.log('[UPLOAD] Trying fetch FormData...');
+        console.log('[UPLOAD] Method 2: fetch FormData');
         const formData = new FormData();
         formData.append('video', { uri, name: filename, type: mimeType });
         const response = await fetch(`${VPS_IMAGE_URL}/upload-video`, {
             method: 'POST',
             body: formData,
         });
-        const data = await response.json();
-        if (data.success && data.url) {
-            console.log('[UPLOAD] ✅ Video uploaded via FormData:', data.url);
-            return { url: data.url };
+        const text = await response.text();
+        console.log('[UPLOAD] M2 status:', response.status, 'body:', text?.substring(0, 100));
+        if (response.ok) {
+            const data = JSON.parse(text);
+            if (data.success && data.url) {
+                console.log('[UPLOAD] ✅ OK FormData:', data.url);
+                return { url: data.url };
+            }
         }
+        errors.push('M2: HTTP ' + response.status + ' - ' + (text?.substring(0, 80) || ''));
     } catch (e) {
-        console.log('[UPLOAD] FormData also failed:', e.message);
+        errors.push('M2: ' + e.message);
+        console.log('[UPLOAD] Method 2 error:', e.message);
     }
 
     // Method 3: Fallback — DO Spaces presigned URL
     try {
-        console.log('[SPACES] Getting presigned URL...');
+        console.log('[UPLOAD] Method 3: DO Spaces');
         const presignRes = await fetch(`${VPS_IMAGE_URL}/media/presign`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -394,7 +417,6 @@ async function uploadVideoToVPS(uri) {
         const presign = await presignRes.json();
 
         if (presign.success && presign.uploadUrl) {
-            console.log('[SPACES] Uploading via FileSystem.uploadAsync...');
             const spacesResult = await FileSystem.uploadAsync(
                 presign.uploadUrl,
                 uri,
@@ -404,16 +426,25 @@ async function uploadVideoToVPS(uri) {
                     headers: { 'Content-Type': mimeType },
                 }
             );
+            console.log('[UPLOAD] M3 status:', spacesResult.status);
             if (spacesResult.status === 200 || spacesResult.status === 201) {
-                console.log('[SPACES] ✅ Video uploaded to CDN:', presign.publicUrl);
+                console.log('[SPACES] ✅ OK:', presign.publicUrl);
                 return { url: presign.publicUrl };
             }
+            errors.push('M3: Spaces HTTP ' + spacesResult.status);
+        } else {
+            errors.push('M3: presign failed - ' + JSON.stringify(presign).substring(0, 80));
         }
     } catch (e) {
-        console.log('[SPACES] Upload also failed:', e.message);
+        errors.push('M3: ' + e.message);
+        console.log('[UPLOAD] Method 3 error:', e.message);
     }
 
-    return null;
+    // All methods failed — return detailed error
+    const sizeMB = (fileSize / 1024 / 1024).toFixed(1);
+    const detail = `Size: ${sizeMB}MB\n${errors.join('\n')}`;
+    console.log('[UPLOAD] ALL FAILED:\n' + detail);
+    throw new Error(detail);
 }
 
 export function listenToMessages(callback) {
