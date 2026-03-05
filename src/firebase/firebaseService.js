@@ -293,7 +293,52 @@ export async function sendChatMessage(text, imageBase64, videoUri) {
 
 // Upload video file to VPS — try FormData, then base64 fallback
 async function uploadVideoToVPS(uri) {
-    // Method 1: Try FormData upload
+    // Method 1: Upload to DigitalOcean Spaces via presigned URL (CDN = smooth playback)
+    try {
+        const filename = uri.split('/').pop() || 'video.mp4';
+        const ext = filename.split('.').pop()?.toLowerCase() || 'mp4';
+        const mimeType = ext === 'mov' ? 'video/quicktime' : 'video/mp4';
+
+        console.log('[SPACES] Getting presigned URL...');
+        const presignRes = await fetch(`${VPS_IMAGE_URL}/media/presign`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ filename, contentType: mimeType, folder: 'videos' }),
+        });
+        const presign = await presignRes.json();
+
+        if (presign.success && presign.uploadUrl) {
+            console.log('[SPACES] Uploading to Spaces:', presign.objectKey);
+
+            // Read file and PUT to Spaces
+            const FileSystem = require('expo-file-system/legacy');
+            const fileData = await FileSystem.readAsStringAsync(uri, { encoding: 'base64' });
+            const binaryStr = atob(fileData);
+            const bytes = new Uint8Array(binaryStr.length);
+            for (let i = 0; i < binaryStr.length; i++) bytes[i] = binaryStr.charCodeAt(i);
+
+            const controller = new AbortController();
+            const timer = setTimeout(() => controller.abort(), 300000); // 5 min
+            const uploadRes = await fetch(presign.uploadUrl, {
+                method: 'PUT',
+                headers: { 'Content-Type': mimeType },
+                body: bytes,
+                signal: controller.signal,
+            });
+            clearTimeout(timer);
+
+            if (uploadRes.ok || uploadRes.status === 200) {
+                console.log('[SPACES] ✅ Video uploaded to CDN:', presign.publicUrl);
+                return { url: presign.publicUrl };
+            } else {
+                console.log('[SPACES] Upload status:', uploadRes.status);
+            }
+        }
+    } catch (e) {
+        console.log('[SPACES] Upload failed, falling back to VPS:', e.message);
+    }
+
+    // Method 2: Fallback — upload directly to VPS via FormData
     try {
         const filename = uri.split('/').pop() || 'video.mp4';
         const ext = filename.split('.').pop()?.toLowerCase() || 'mp4';
@@ -302,7 +347,6 @@ async function uploadVideoToVPS(uri) {
         const formData = new FormData();
         formData.append('video', { uri, name: filename, type: mimeType });
 
-        // 5 minute timeout for large videos
         const controller = new AbortController();
         const timer = setTimeout(() => controller.abort(), 300000);
         const response = await fetch(`${VPS_IMAGE_URL}/upload-video`, {
@@ -318,26 +362,7 @@ async function uploadVideoToVPS(uri) {
             return { url: data.url };
         }
     } catch (e) {
-        console.log('[VPS] FormData video upload failed, trying base64:', e.message);
-    }
-
-    // Method 2: Base64 fallback via existing image endpoint
-    try {
-        const FileSystem = require('expo-file-system/legacy');
-        const base64 = await FileSystem.readAsStringAsync(uri, { encoding: 'base64' });
-        const fullBase64 = 'data:video/mp4;base64,' + base64;
-        const response = await fetch(`${VPS_IMAGE_URL}/upload-base64`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ image: fullBase64 }),
-        });
-        const data = await response.json();
-        if (data.success && data.url) {
-            console.log('[VPS] Video uploaded via base64:', data.url);
-            return { url: data.url };
-        }
-    } catch (e) {
-        console.log('[VPS] Base64 video upload also failed:', e.message);
+        console.log('[VPS] FormData video upload also failed:', e.message);
     }
 
     return null;
