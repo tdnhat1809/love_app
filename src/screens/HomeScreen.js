@@ -83,8 +83,23 @@ export default function HomeScreen({ navigation }) {
                 const { getDeviceInfo } = require('../utils/deviceInfo');
                 const info = await getDeviceInfo();
                 const batStr = info.batteryLevel >= 0 ? `${info.batteryLevel}%` : '--';
-                const netStr = info.networkType === 'wifi' ? '📶' : '📱';
-                await updateMyStatus({ mood: '😊', status: 'Online', battery: batStr, wifi: netStr });
+                const netStr = info.networkType === 'wifi' ? 'WiFi' : '4G';
+
+                // Get location for status
+                let locStr = '--';
+                try {
+                    const Location = require('expo-location');
+                    const { status: locPerm } = await Location.requestForegroundPermissionsAsync();
+                    if (locPerm === 'granted') {
+                        const loc = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
+                        const addr = await Location.reverseGeocodeAsync(loc.coords);
+                        if (addr && addr[0]) {
+                            locStr = addr[0].street || addr[0].district || addr[0].city || '--';
+                        }
+                    }
+                } catch (e) { console.log('Location for status error:', e.message); }
+
+                await updateMyStatus({ mood: '😊', status: 'Online', battery: batStr, wifi: netStr, location: locStr });
             }
         })();
 

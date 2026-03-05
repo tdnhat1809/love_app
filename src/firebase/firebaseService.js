@@ -324,14 +324,37 @@ export async function sendChatMessage(text, imageBase64, videoUri) {
     await pushToPartner(`💌 ${senderName} ❤️ Nhi`, `💬 ${preview}`);
 }
 
-// Upload video file to VPS — try FormData, then base64 fallback
+// Upload video file — try FormData to VPS first (no memory issues), then Spaces
 async function uploadVideoToVPS(uri) {
-    // Method 1: Upload to DigitalOcean Spaces via presigned URL (CDN = smooth playback)
-    try {
-        const filename = uri.split('/').pop() || 'video.mp4';
-        const ext = filename.split('.').pop()?.toLowerCase() || 'mp4';
-        const mimeType = ext === 'mov' ? 'video/quicktime' : 'video/mp4';
+    const filename = uri.split('/').pop() || 'video.mp4';
+    const ext = filename.split('.').pop()?.toLowerCase() || 'mp4';
+    const mimeType = ext === 'mov' ? 'video/quicktime' : 'video/mp4';
 
+    // Method 1: Upload via FormData to VPS (works for large files, no base64)
+    try {
+        console.log('[VPS] Uploading video via FormData...');
+        const formData = new FormData();
+        formData.append('video', { uri, name: filename, type: mimeType });
+
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 300000); // 5 min
+        const response = await fetch(`${VPS_IMAGE_URL}/upload-video`, {
+            method: 'POST',
+            body: formData,
+            signal: controller.signal,
+        });
+        clearTimeout(timer);
+        const data = await response.json();
+        if (data.success && data.url) {
+            console.log('[VPS] ✅ Video uploaded:', data.url);
+            return { url: data.url };
+        }
+    } catch (e) {
+        console.log('[VPS] FormData upload failed:', e.message);
+    }
+
+    // Method 2: Fallback — Upload to DO Spaces via presigned URL
+    try {
         console.log('[SPACES] Getting presigned URL...');
         const presignRes = await fetch(`${VPS_IMAGE_URL}/media/presign`, {
             method: 'POST',
@@ -341,9 +364,7 @@ async function uploadVideoToVPS(uri) {
         const presign = await presignRes.json();
 
         if (presign.success && presign.uploadUrl) {
-            console.log('[SPACES] Uploading to Spaces:', presign.objectKey);
-
-            // Read file and PUT to Spaces
+            console.log('[SPACES] Uploading to Spaces...');
             const FileSystem = require('expo-file-system/legacy');
             const fileData = await FileSystem.readAsStringAsync(uri, { encoding: 'base64' });
             const binaryStr = atob(fileData);
@@ -351,7 +372,7 @@ async function uploadVideoToVPS(uri) {
             for (let i = 0; i < binaryStr.length; i++) bytes[i] = binaryStr.charCodeAt(i);
 
             const controller = new AbortController();
-            const timer = setTimeout(() => controller.abort(), 300000); // 5 min
+            const timer = setTimeout(() => controller.abort(), 300000);
             const uploadRes = await fetch(presign.uploadUrl, {
                 method: 'PUT',
                 headers: { 'Content-Type': mimeType },
@@ -363,39 +384,10 @@ async function uploadVideoToVPS(uri) {
             if (uploadRes.ok || uploadRes.status === 200) {
                 console.log('[SPACES] ✅ Video uploaded to CDN:', presign.publicUrl);
                 return { url: presign.publicUrl };
-            } else {
-                console.log('[SPACES] Upload status:', uploadRes.status);
             }
         }
     } catch (e) {
-        console.log('[SPACES] Upload failed, falling back to VPS:', e.message);
-    }
-
-    // Method 2: Fallback — upload directly to VPS via FormData
-    try {
-        const filename = uri.split('/').pop() || 'video.mp4';
-        const ext = filename.split('.').pop()?.toLowerCase() || 'mp4';
-        const mimeType = ext === 'mov' ? 'video/quicktime' : 'video/mp4';
-
-        const formData = new FormData();
-        formData.append('video', { uri, name: filename, type: mimeType });
-
-        const controller = new AbortController();
-        const timer = setTimeout(() => controller.abort(), 300000);
-        const response = await fetch(`${VPS_IMAGE_URL}/upload-video`, {
-            method: 'POST',
-            body: formData,
-            headers: { 'Content-Type': 'multipart/form-data' },
-            signal: controller.signal,
-        });
-        clearTimeout(timer);
-        const data = await response.json();
-        if (data.success && data.url) {
-            console.log('[VPS] Video uploaded via FormData:', data.url);
-            return { url: data.url };
-        }
-    } catch (e) {
-        console.log('[VPS] FormData video upload also failed:', e.message);
+        console.log('[SPACES] Upload also failed:', e.message);
     }
 
     return null;

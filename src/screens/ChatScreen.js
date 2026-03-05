@@ -359,7 +359,7 @@ const s = StyleSheet.create({
     msgText: { fontSize: 15, color: COLORS.textDark, lineHeight: 22 },
     msgTextMe: { color: '#fff' },
     timeText: { fontSize: 10, color: COLORS.textMuted, marginTop: 4 },
-    inputWrap: { flexDirection: 'row', alignItems: 'flex-end', paddingHorizontal: 12, paddingTop: 10, paddingBottom: 24, backgroundColor: COLORS.cardWhite, borderTopWidth: 1, borderTopColor: COLORS.borderLight },
+    inputWrap: { flexDirection: 'row', alignItems: 'flex-end', paddingHorizontal: 12, paddingTop: 10, paddingBottom: 14, backgroundColor: COLORS.cardWhite, borderTopWidth: 1, borderTopColor: COLORS.borderLight },
     input: { flex: 1, backgroundColor: COLORS.primaryPinkSoft, borderRadius: 24, paddingHorizontal: 18, paddingVertical: 12, color: COLORS.textDark, fontSize: 15, maxHeight: 100, borderWidth: 1, borderColor: COLORS.borderPink, marginRight: 8 },
     sendBtn: { borderRadius: 22, overflow: 'hidden' },
     sendGrad: { width: 44, height: 44, alignItems: 'center', justifyContent: 'center', borderRadius: 22 },
