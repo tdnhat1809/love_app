@@ -93,7 +93,7 @@ export default function ChatScreen({ navigation }) {
                 setUploadProgress('🎬 Đang tải video lên...');
                 const uri = result.assets[0].uri;
                 try {
-                    await sendChatMessage('[🎬 Video]', null, uri);
+                    await sendChatMessage('', null, uri);
                 } catch (err) {
                     alert('Lỗi gửi video: ' + (err.message || ''));
                 } finally {

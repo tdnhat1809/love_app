@@ -309,12 +309,19 @@ export async function sendChatMessage(text, imageBase64, videoUri) {
         } catch (e) { console.log('Chat image upload error:', e); }
     }
 
-    // If video URI provided, upload via FormData
+    // If video URI provided, upload via native uploader
     if (videoUri) {
         try {
             const vidResult = await uploadVideoToVPS(videoUri);
-            if (vidResult) msgData.videoUrl = vidResult.url;
-        } catch (e) { console.log('Chat video upload error:', e); }
+            if (vidResult) {
+                msgData.videoUrl = vidResult.url;
+            } else {
+                throw new Error('Upload thất bại. Thử lại hoặc dùng WiFi.');
+            }
+        } catch (e) {
+            console.log('Chat video upload error:', e);
+            throw e;
+        }
     }
 
     await addDoc(collection(db, 'couples', code, 'messages'), msgData);
@@ -324,36 +331,59 @@ export async function sendChatMessage(text, imageBase64, videoUri) {
     await pushToPartner(`💌 ${senderName} ❤️ Nhi`, `💬 ${preview}`);
 }
 
-// Upload video file — try FormData to VPS first (no memory issues), then Spaces
+// Upload video file — uses native upload for large file support
 async function uploadVideoToVPS(uri) {
     const filename = uri.split('/').pop() || 'video.mp4';
     const ext = filename.split('.').pop()?.toLowerCase() || 'mp4';
     const mimeType = ext === 'mov' ? 'video/quicktime' : 'video/mp4';
+    const FileSystem = require('expo-file-system/legacy');
 
-    // Method 1: Upload via FormData to VPS (works for large files, no base64)
+    // Method 1: FileSystem.uploadAsync — native multipart (best for large files)
     try {
-        console.log('[VPS] Uploading video via FormData...');
+        console.log('[UPLOAD] Using FileSystem.uploadAsync...');
+        const uploadResult = await FileSystem.uploadAsync(
+            `${VPS_IMAGE_URL}/upload-video`,
+            uri,
+            {
+                uploadType: FileSystem.FileSystemUploadType.MULTIPART,
+                fieldName: 'video',
+                mimeType: mimeType,
+                parameters: {},
+                headers: {},
+            }
+        );
+        console.log('[UPLOAD] Response status:', uploadResult.status);
+        if (uploadResult.status === 200) {
+            const data = JSON.parse(uploadResult.body);
+            if (data.success && data.url) {
+                console.log('[UPLOAD] ✅ Video uploaded:', data.url);
+                return { url: data.url };
+            }
+        }
+        console.log('[UPLOAD] Response body:', uploadResult.body?.substring(0, 200));
+    } catch (e) {
+        console.log('[UPLOAD] FileSystem.uploadAsync failed:', e.message);
+    }
+
+    // Method 2: Fallback — fetch FormData (works for smaller files)
+    try {
+        console.log('[UPLOAD] Trying fetch FormData...');
         const formData = new FormData();
         formData.append('video', { uri, name: filename, type: mimeType });
-
-        const controller = new AbortController();
-        const timer = setTimeout(() => controller.abort(), 300000); // 5 min
         const response = await fetch(`${VPS_IMAGE_URL}/upload-video`, {
             method: 'POST',
             body: formData,
-            signal: controller.signal,
         });
-        clearTimeout(timer);
         const data = await response.json();
         if (data.success && data.url) {
-            console.log('[VPS] ✅ Video uploaded:', data.url);
+            console.log('[UPLOAD] ✅ Video uploaded via FormData:', data.url);
             return { url: data.url };
         }
     } catch (e) {
-        console.log('[VPS] FormData upload failed:', e.message);
+        console.log('[UPLOAD] FormData also failed:', e.message);
     }
 
-    // Method 2: Fallback — Upload to DO Spaces via presigned URL
+    // Method 3: Fallback — DO Spaces presigned URL
     try {
         console.log('[SPACES] Getting presigned URL...');
         const presignRes = await fetch(`${VPS_IMAGE_URL}/media/presign`, {
@@ -364,24 +394,17 @@ async function uploadVideoToVPS(uri) {
         const presign = await presignRes.json();
 
         if (presign.success && presign.uploadUrl) {
-            console.log('[SPACES] Uploading to Spaces...');
-            const FileSystem = require('expo-file-system/legacy');
-            const fileData = await FileSystem.readAsStringAsync(uri, { encoding: 'base64' });
-            const binaryStr = atob(fileData);
-            const bytes = new Uint8Array(binaryStr.length);
-            for (let i = 0; i < binaryStr.length; i++) bytes[i] = binaryStr.charCodeAt(i);
-
-            const controller = new AbortController();
-            const timer = setTimeout(() => controller.abort(), 300000);
-            const uploadRes = await fetch(presign.uploadUrl, {
-                method: 'PUT',
-                headers: { 'Content-Type': mimeType },
-                body: bytes,
-                signal: controller.signal,
-            });
-            clearTimeout(timer);
-
-            if (uploadRes.ok || uploadRes.status === 200) {
+            console.log('[SPACES] Uploading via FileSystem.uploadAsync...');
+            const spacesResult = await FileSystem.uploadAsync(
+                presign.uploadUrl,
+                uri,
+                {
+                    httpMethod: 'PUT',
+                    uploadType: FileSystem.FileSystemUploadType.BINARY_CONTENT,
+                    headers: { 'Content-Type': mimeType },
+                }
+            );
+            if (spacesResult.status === 200 || spacesResult.status === 201) {
                 console.log('[SPACES] ✅ Video uploaded to CDN:', presign.publicUrl);
                 return { url: presign.publicUrl };
             }
