@@ -245,6 +245,39 @@ export async function isPaired() {
     return !!(data.device1 && data.device2);
 }
 
+// Restore couple code on a new device — re-associates deviceId
+export async function restoreCoupleCode(code) {
+    const upperCode = code.toUpperCase().trim();
+    const coupleRef = doc(db, 'couples', upperCode);
+    const coupleDoc = await getDoc(coupleRef);
+
+    if (!coupleDoc.exists()) {
+        throw new Error('Mã không tồn tại! Kiểm tra lại nhé 💔');
+    }
+
+    const data = coupleDoc.data();
+    const deviceId = await getDeviceId();
+
+    // Already connected
+    if (data.device1 === deviceId || data.device2 === deviceId) {
+        await AsyncStorage.setItem(COUPLE_CODE_KEY, upperCode);
+        await registerPushToken();
+        return upperCode;
+    }
+
+    // Replace device1 or device2 slot (user picks role, so we update matching slot)
+    const role = await getUserRole();
+    if (role === 'nhat' || !data.device2) {
+        await updateDoc(coupleRef, { device1: deviceId });
+    } else {
+        await updateDoc(coupleRef, { device2: deviceId });
+    }
+
+    await AsyncStorage.setItem(COUPLE_CODE_KEY, upperCode);
+    await registerPushToken();
+    return upperCode;
+}
+
 // ==========================================
 // CHAT MESSAGES
 // ==========================================

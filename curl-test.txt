@@ -1,0 +1,98 @@
+﻿ssh : Note: 
+Unnecessary use of -X 
+or --request, POST is 
+already inferred.
+At line:1 char:1
++ ssh -o StrictHostKey
+Checking=no 
+root@129.212.226.229 
+"curl -v http:// ...
++ ~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~
+    + CategoryInfo    
+          : NotSpeci  
+  fied: (Note: Unne   
+ cessa...ready inf    
+erred.:String) []    
+, RemoteException
+    + FullyQualifiedE 
+   rrorId : NativeCo  
+  mmandError
+ 
+* Host localhost:3001 
+was resolved.
+* IPv6: ::1
+* IPv4: 127.0.0.1
+  % Total    % 
+Received % Xferd  
+Average Speed   Time  
+  Time     Time  
+Current
+                      
+           Dload  
+Upload   Total   
+Spent    Left  Speed
+
+  0     0    0     0  
+  0     0      0      
+0 --:--:-- --:--:-- 
+--:--:--     0*   
+Trying [::1]:3001...
+* Connected to 
+localhost (::1) port 
+3001
+> POST /media/presign 
+HTTP/1.1
+> Host: localhost:3001
+> User-Agent: 
+curl/8.5.0
+> Accept: */*
+> Content-Type: 
+application/json
+> Content-Length: 68
+> 
+} [68 bytes data]
+< HTTP/1.1 400 Bad 
+Request
+< X-Powered-By: 
+Express
+< Access-Control-Allow
+-Origin: *
+< Content-Security-Pol
+icy: default-src 
+'none'
+< X-Content-Type-Optio
+ns: nosniff
+< Content-Type: 
+text/html; 
+charset=utf-8
+< Content-Length: 1029
+< Date: Thu, 05 Mar 
+2026 10:11:41 GMT
+< Connection: 
+keep-alive
+< Keep-Alive: 
+timeout=5
+< 
+{ [1029 bytes data]
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Error</title>
+</head>
+<body>
+<pre>SyntaxError: Bad escaped character in JSON at position 12 (line 1 column 13)<br> &nbsp; &nbsp;at JSON.parse (&lt;anonymous&gt;)<br> &nbsp; &nbsp;at parse (/var/www/love-images/node_modules/body-parser/lib/types/json.js:92:19)<br> &nbsp; &nbsp;at /var/www/love-images/node_modules/body-parser/lib/read.js:128:18<br> &nbsp; &nbsp;at AsyncResource.runInAsyncScope (node:async_hooks:214:14)<br> &nbsp; &nbsp;at invokeCallback (/var/www/love-images/node_modules/raw-body/index.js:238:16)<br> &nbsp; &nbsp;at done (/var/www/love-images/node_modules/raw-body/index.js:227:7)<br> &nbsp; &nbsp;at IncomingMessage.onEnd (/var/www/love-images/node_modules/raw-body/index.js:287:7)<br> &nbsp; &nbsp;at IncomingMessage.emit (node:events:519:28)<br> &nbsp; &nbsp;at endReadableNT (node:internal/streams/readable:1698:12)<br> &nbsp; &nbsp;at process.processTicksAndRejections (node:internal/process/task_queues:90:21)</pre>
+</body>
+</html>
+100  1097  100  1029  
+100    68   279k  
+18883 --:--:-- 
+--:--:-- --:--:--  
+357k
+* Connection #0 to 
+host localhost left 
+intact

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput, Alert, ActivityInd
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, GRADIENTS, SHADOWS, BORDER_RADIUS } from '../theme';
-import { createCoupleCode, joinCoupleCode, getCoupleCode, isPaired, getUserRole, setUserRole } from '../firebase/firebaseService';
+import { createCoupleCode, joinCoupleCode, restoreCoupleCode, getCoupleCode, isPaired, getUserRole, setUserRole } from '../firebase/firebaseService';
 
 const showMsg = (title, msg) => {
     if (Platform.OS === 'web') { window.alert(`${title}\n${msg}`); }
@@ -13,6 +13,8 @@ const showMsg = (title, msg) => {
 export default function PairingScreen({ onPaired }) {
     const [coupleCode, setCoupleCode] = useState('');
     const [inputCode, setInputCode] = useState('');
+    const [restoreCode, setRestoreCode] = useState('');
+    const [showRestore, setShowRestore] = useState(false);
     const [paired, setPaired] = useState(false);
     const [loading, setLoading] = useState(false);
     const [role, setRole] = useState(null);
@@ -79,6 +81,23 @@ export default function PairingScreen({ onPaired }) {
             if (onPaired) onPaired();
         } catch (e) {
             console.error('Join code error:', e);
+            setError(`❌ ${e.message}`);
+        }
+        setLoading(false);
+    };
+
+    const handleRestore = async () => {
+        setError(''); setSuccess('');
+        if (!role) { setError('⚠️ Chọn bạn là ai trước!'); return; }
+        if (!restoreCode.trim()) { setError('⚠️ Nhập mã ghép đôi cũ!'); return; }
+        setLoading(true);
+        try {
+            const code = await restoreCoupleCode(restoreCode.trim());
+            setCoupleCode(code);
+            setPaired(true);
+            setSuccess('✅ Đã khôi phục mã ghép đôi! Tất cả dữ liệu đã đồng bộ 💕');
+            if (onPaired) onPaired();
+        } catch (e) {
             setError(`❌ ${e.message}`);
         }
         setLoading(false);
@@ -153,6 +172,29 @@ export default function PairingScreen({ onPaired }) {
                                 </TouchableOpacity>
                             </View>
                         </View>
+
+                        {/* Restore section */}
+                        <TouchableOpacity onPress={() => setShowRestore(!showRestore)} style={s.restoreToggle}>
+                            <Ionicons name="refresh-outline" size={16} color={COLORS.textMuted} />
+                            <Text style={s.restoreToggleText}>{showRestore ? 'Ẩn' : 'Đã có mã ghép cũ? Khôi phục'}</Text>
+                        </TouchableOpacity>
+
+                        {showRestore && (
+                            <View style={[s.section, SHADOWS.soft]}>
+                                <View style={s.sectionHead}>
+                                    <View style={[s.sectionIcon, { backgroundColor: '#e8f5e9' }]}><Text style={{ fontSize: 16 }}>🔄</Text></View>
+                                    <View><Text style={s.sectionTitle}>Khôi phục mã cũ</Text><Text style={s.sectionSub}>Nhập mã ghép đôi cũ để lấy lại dữ liệu</Text></View>
+                                </View>
+                                <View style={s.joinRow}>
+                                    <TextInput style={s.joinInput} placeholder="Nhập mã cũ..." placeholderTextColor={COLORS.textMuted} value={restoreCode} onChangeText={setRestoreCode} autoCapitalize="characters" maxLength={6} />
+                                    <TouchableOpacity onPress={handleRestore} disabled={loading} style={{ borderRadius: 14, overflow: 'hidden', opacity: loading ? 0.5 : 1 }}>
+                                        <LinearGradient colors={['#43a047', '#66bb6a']} style={s.joinGrad}>
+                                            <Text style={{ color: '#fff', fontWeight: '700' }}>{loading ? '...' : '🔄'}</Text>
+                                        </LinearGradient>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        )}
                     </>)}
                 </Animated.View>
             </LinearGradient>
@@ -196,4 +238,6 @@ const s = StyleSheet.create({
     pairedText: { fontSize: 18, fontWeight: '700', color: COLORS.online, marginTop: 12 },
     pairedCode: { fontSize: 13, color: COLORS.textMuted, marginTop: 6 },
     pairedHint: { fontSize: 13, color: COLORS.textMuted, marginTop: 10 },
+    restoreToggle: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingVertical: 14, gap: 6 },
+    restoreToggleText: { fontSize: 13, color: COLORS.textMuted, fontWeight: '600' },
 });
