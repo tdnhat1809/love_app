@@ -288,33 +288,34 @@ export default function ChatScreen({ navigation }) {
                 </Modal>
 
                 {/* Video Player Modal */}
-                <Modal visible={!!videoModal} transparent animationType="fade" onRequestClose={() => { setVideoModal(null); setVideoPlaying(false); }} statusBarTranslucent>
+                <Modal visible={!!videoModal} transparent animationType="fade" onRequestClose={async () => {
+                    try { if (videoRef.current) { await videoRef.current.stopAsync(); await videoRef.current.unloadAsync(); } } catch (e) {}
+                    setVideoPlaying(false); setVideoModal(null);
+                }} statusBarTranslucent>
                     <StatusBar hidden={!!videoModal} />
                     <View style={s.videoModalBg}>
-                        <TouchableOpacity style={s.videoCloseBtn} onPress={() => { setVideoModal(null); setVideoPlaying(false); }}>
+                        <TouchableOpacity style={s.videoCloseBtn} onPress={async () => {
+                            try { if (videoRef.current) { await videoRef.current.stopAsync(); await videoRef.current.unloadAsync(); } } catch (e) {}
+                            setVideoPlaying(false); setVideoModal(null);
+                        }}>
                             <LinearGradient colors={['rgba(233,30,99,0.9)', 'rgba(233,30,99,0.7)']} style={s.videoCloseBtnGrad}>
                                 <Ionicons name="close" size={22} color="#fff" />
                             </LinearGradient>
                         </TouchableOpacity>
                         {videoModal && (
-                            <TouchableOpacity activeOpacity={1} style={s.videoPlayerWrap} onPress={async () => {
-                                if (videoRef.current) {
-                                    const status = await videoRef.current.getStatusAsync();
-                                    if (status.isPlaying) { await videoRef.current.pauseAsync(); setVideoPlaying(false); }
-                                    else { await videoRef.current.playAsync(); setVideoPlaying(true); }
-                                }
-                            }}>
+                            <View style={s.videoPlayerWrap}>
                                 <Video
                                     ref={videoRef}
                                     source={{ uri: videoModal }}
                                     style={s.videoPlayer}
                                     resizeMode={ResizeMode.CONTAIN}
                                     shouldPlay
+                                    useNativeControls
                                     isLooping={false}
                                     onPlaybackStatusUpdate={(status) => {
-                                        if (status.isLoaded) setVideoLoading(false);
-                                        if (status.isLoaded) setVideoPlaying(status.isPlaying);
+                                        if (status.isLoaded) { setVideoLoading(false); setVideoPlaying(status.isPlaying); }
                                     }}
+                                    onError={(e) => { console.log('Video error:', e); setVideoLoading(false); }}
                                 />
                                 {videoLoading && (
                                     <View style={s.videoLoadingOverlay}>
@@ -322,14 +323,7 @@ export default function ChatScreen({ navigation }) {
                                         <Text style={{ color: '#fff', marginTop: 12, fontSize: 13 }}>Đang tải video...</Text>
                                     </View>
                                 )}
-                                {!videoPlaying && !videoLoading && (
-                                    <View style={s.videoLoadingOverlay}>
-                                        <View style={s.videoBigPlayBtn}>
-                                            <Ionicons name="play" size={40} color="#fff" />
-                                        </View>
-                                    </View>
-                                )}
-                            </TouchableOpacity>
+                            </View>
                         )}
                     </View>
                 </Modal>
