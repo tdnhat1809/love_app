@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, FlatList, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Animated, Dimensions, Image, Modal, StatusBar, ActivityIndicator } from 'react-native';
-import { Video, ResizeMode } from 'expo-av';
+import { WebView } from 'react-native-webview';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, GRADIENTS, SHADOWS, BORDER_RADIUS } from '../theme';
@@ -77,9 +77,6 @@ export default function ChatScreen({ navigation }) {
     };
 
     const [videoModal, setVideoModal] = useState(null);
-    const [videoPlaying, setVideoPlaying] = useState(false);
-    const [videoLoading, setVideoLoading] = useState(true);
-    const videoRef = useRef(null);
 
     const pickVideo = async () => {
         try {
@@ -168,16 +165,11 @@ export default function ChatScreen({ navigation }) {
                         </View>}
                         <View style={[s.bubble, isMe ? s.bubbleMe : s.bubblePartner]}>
                             {item.videoUrl ? (
-                                <TouchableOpacity activeOpacity={0.9} onPress={() => { setVideoModal(item.videoUrl); setVideoPlaying(true); setVideoLoading(true); }}>
+                                <TouchableOpacity activeOpacity={0.9} onPress={() => setVideoModal(item.videoUrl)}>
                                     <View style={s.videoWrap}>
-                                        <Video
-                                            source={{ uri: item.videoUrl }}
-                                            style={s.chatVideo}
-                                            resizeMode={ResizeMode.COVER}
-                                            shouldPlay={false}
-                                            isMuted
-                                            positionMillis={500}
-                                        />
+                                        <LinearGradient colors={['#1a1a2e', '#2d1b4e']} style={s.chatVideo}>
+                                            <Ionicons name="videocam" size={32} color="rgba(255,255,255,0.7)" />
+                                        </LinearGradient>
                                         <View style={s.videoOverlay}>
                                             <View style={s.videoPlayBtn}>
                                                 <Ionicons name="play" size={24} color="#fff" />
@@ -287,48 +279,25 @@ export default function ChatScreen({ navigation }) {
                     </View>
                 </Modal>
 
-                {/* Video Player Modal */}
-                <Modal visible={!!videoModal} transparent animationType="fade" onRequestClose={async () => {
-                    try { if (videoRef.current) { await videoRef.current.stopAsync(); await videoRef.current.unloadAsync(); } } catch (e) {}
-                    setVideoPlaying(false); setVideoLoading(true); setVideoModal(null);
-                }} statusBarTranslucent>
+                {/* Video Player Modal — WebView for stable large video playback */}
+                <Modal visible={!!videoModal} transparent animationType="fade" onRequestClose={() => setVideoModal(null)} statusBarTranslucent>
                     <StatusBar hidden={!!videoModal} />
                     <View style={s.videoModalBg}>
-                        <TouchableOpacity style={s.videoCloseBtn} onPress={async () => {
-                            try { if (videoRef.current) { await videoRef.current.stopAsync(); await videoRef.current.unloadAsync(); } } catch (e) {}
-                            setVideoPlaying(false); setVideoLoading(true); setVideoModal(null);
-                        }}>
+                        <TouchableOpacity style={s.videoCloseBtn} onPress={() => setVideoModal(null)}>
                             <LinearGradient colors={['rgba(233,30,99,0.9)', 'rgba(233,30,99,0.7)']} style={s.videoCloseBtnGrad}>
                                 <Ionicons name="close" size={22} color="#fff" />
                             </LinearGradient>
                         </TouchableOpacity>
                         {videoModal && (
                             <View style={s.videoPlayerWrap}>
-                                <Video
-                                    ref={videoRef}
-                                    source={{ uri: videoModal }}
+                                <WebView
+                                    source={{ html: `<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><style>*{margin:0;padding:0}html,body{width:100%;height:100%;background:#000;display:flex;align-items:center;justify-content:center}video{max-width:100%;max-height:100%;background:#000}</style></head><body><video src="${videoModal}" controls autoplay playsinline></video></body></html>` }}
                                     style={s.videoPlayer}
-                                    resizeMode={ResizeMode.CONTAIN}
-                                    shouldPlay
-                                    useNativeControls
-                                    isLooping={false}
-                                    progressUpdateIntervalMillis={5000}
-                                    onPlaybackStatusUpdate={(status) => {
-                                        if (status.isLoaded && videoLoading) setVideoLoading(false);
-                                    }}
-                                    onError={(e) => {
-                                        console.log('Video playback error:', e);
-                                        setVideoLoading(false);
-                                        alert('Lỗi phát video. Thử lại sau.');
-                                        setVideoModal(null);
-                                    }}
+                                    allowsInlineMediaPlayback
+                                    mediaPlaybackRequiresUserAction={false}
+                                    javaScriptEnabled
+                                    allowsFullscreenVideo
                                 />
-                                {videoLoading && (
-                                    <View style={s.videoLoadingOverlay}>
-                                        <ActivityIndicator size="large" color={COLORS.primaryPink} />
-                                        <Text style={{ color: '#fff', marginTop: 12, fontSize: 13 }}>Đang tải video...</Text>
-                                    </View>
-                                )}
                             </View>
                         )}
                     </View>
