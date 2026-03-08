@@ -85,7 +85,7 @@ export default function ChatScreen({ navigation }) {
         try {
             const result = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes: ['videos'],
-                quality: 0.6,
+                videoQuality: 0,
                 videoMaxDuration: 300,
             });
             if (!result.canceled && result.assets[0]) {
