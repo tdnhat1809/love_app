@@ -290,13 +290,13 @@ export default function ChatScreen({ navigation }) {
                 {/* Video Player Modal */}
                 <Modal visible={!!videoModal} transparent animationType="fade" onRequestClose={async () => {
                     try { if (videoRef.current) { await videoRef.current.stopAsync(); await videoRef.current.unloadAsync(); } } catch (e) {}
-                    setVideoPlaying(false); setVideoModal(null);
+                    setVideoPlaying(false); setVideoLoading(true); setVideoModal(null);
                 }} statusBarTranslucent>
                     <StatusBar hidden={!!videoModal} />
                     <View style={s.videoModalBg}>
                         <TouchableOpacity style={s.videoCloseBtn} onPress={async () => {
                             try { if (videoRef.current) { await videoRef.current.stopAsync(); await videoRef.current.unloadAsync(); } } catch (e) {}
-                            setVideoPlaying(false); setVideoModal(null);
+                            setVideoPlaying(false); setVideoLoading(true); setVideoModal(null);
                         }}>
                             <LinearGradient colors={['rgba(233,30,99,0.9)', 'rgba(233,30,99,0.7)']} style={s.videoCloseBtnGrad}>
                                 <Ionicons name="close" size={22} color="#fff" />
@@ -312,10 +312,16 @@ export default function ChatScreen({ navigation }) {
                                     shouldPlay
                                     useNativeControls
                                     isLooping={false}
+                                    progressUpdateIntervalMillis={5000}
                                     onPlaybackStatusUpdate={(status) => {
-                                        if (status.isLoaded) { setVideoLoading(false); setVideoPlaying(status.isPlaying); }
+                                        if (status.isLoaded && videoLoading) setVideoLoading(false);
                                     }}
-                                    onError={(e) => { console.log('Video error:', e); setVideoLoading(false); }}
+                                    onError={(e) => {
+                                        console.log('Video playback error:', e);
+                                        setVideoLoading(false);
+                                        alert('Lỗi phát video. Thử lại sau.');
+                                        setVideoModal(null);
+                                    }}
                                 />
                                 {videoLoading && (
                                     <View style={s.videoLoadingOverlay}>
